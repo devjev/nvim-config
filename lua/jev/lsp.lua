@@ -52,8 +52,8 @@ cmp.setup({
 			'markdown',
 			'bash',
 			'lua',
+			'ocaml'
 		}
-
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
 	end,
 })
@@ -72,3 +72,5 @@ lspconfig.rust_analyzer.setup({
 		['rust-analyzer'] = {},
 	}
 })
+-- TODO lua LSP
+lspconfig.ocamllsp.setup({})

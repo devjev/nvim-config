@@ -38,7 +38,8 @@ require('lazy').setup({
 					'elixir', 
 					'erlang',
 					'python',
-					'typescript'
+					'typescript',
+					'ocaml',
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -72,5 +73,13 @@ require('lazy').setup({
 	{
 		'SmiteshP/nvim-navic',
 		dependencies = { 'neovim/nvim-lspconfig' },
+	},
+
+	-- Renaming
+	{
+		'smjonas/inc-rename.nvim',
+		config = function()
+			require('inc_rename').setup()
+		end
 	}
 })
