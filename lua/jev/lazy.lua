@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+
 require('lazy').setup({
 	-- Icons
 	{'nvim-tree/nvim-web-devicons'},
@@ -26,6 +28,7 @@ require('lazy').setup({
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate',
+		cond = function() return not is_windows end,
 		config = function()
 			local configs = require('nvim-treesitter.configs')
 			configs.setup({
