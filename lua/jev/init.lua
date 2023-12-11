@@ -1,5 +1,8 @@
 require('jev.lazy')
 
+-- Enforce English
+vim.cmd('language en_US')
+
 -- Default colorscheme
 vim.cmd([[colorscheme everforest]])
 
