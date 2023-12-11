@@ -65,7 +65,7 @@ lspconfig.elixirls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
-lspconfig.pyright.setup({})
+lspconfig.jedi_language_server.setup({})
 lspconfig.tsserver.setup({})
 lspconfig.rust_analyzer.setup({
 	settings = {
