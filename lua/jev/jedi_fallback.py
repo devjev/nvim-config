@@ -1,8 +1,8 @@
-"""
-Fallback launch for some legacy machines
-"""
-from jedi_language_server.server import SERVER
-
+# -*- coding: utf-8 -*-
+import re
+import sys
+from jedi_language_server.cli import cli
 if __name__ == '__main__':
-    SERVER.start_io()
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(cli())
 
