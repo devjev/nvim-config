@@ -64,17 +64,30 @@ local lspconfig = require('lspconfig')
 
 -- Elixir
 local elixir_ls_path = os.getenv('ELIXIR_LS') or 'opt/homebrew/Cellar/elixir-ls/0.17.10/bin/elixir-ls'
-lspconfig.elixirls.setup {
+lspconfig.elixirls.setup({
   cmd = { elixir_ls_path },
   on_attach = on_attach,
   capabilities = capabilities,
-}
+})
 
 -- Zig
 lspconfig.zls.setup({ capabilities = capabilities })
 
 -- Python
-lspconfig.jedi_language_server.setup({})
+local python_path = os.getenv('NVIM_PYTHON_EXECUTABLE')
+if python_path ~= nil then
+    local function get_config_dir()
+        local str = debug.getinfo(2, "S").source:sub(2)
+        local path = str:match("(.*/)")
+        return path
+    end
+
+	local custom_jedi_script = get_config_dir() .. 'jedi_fallback.py'
+
+    lspconfig.jedi_language_server.setup({
+    	cmd = { python_path .. ' ' .. custom_jedi_script }
+    })
+end
 
 -- Typescript
 lspconfig.tsserver.setup({})
