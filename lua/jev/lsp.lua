@@ -52,7 +52,8 @@ cmp.setup({
 			'markdown',
 			'bash',
 			'lua',
-			'ocaml'
+			'ocaml',
+			'zig',
 		}
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
 	end,
@@ -60,17 +61,32 @@ cmp.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
+
+-- Elixir
+local elixir_ls_path = os.getenv('ELIXIR_LS') or 'opt/homebrew/Cellar/elixir-ls/0.17.10/bin/elixir-ls'
 lspconfig.elixirls.setup {
-  cmd = { "/opt/homebrew/Cellar/elixir-ls/0.17.10/bin/elixir-ls" },
+  cmd = { elixir_ls_path },
   on_attach = on_attach,
   capabilities = capabilities,
 }
+
+-- Zig
+lspconfig.zls.setup({ capabilities = capabilities })
+
+-- Python
 lspconfig.jedi_language_server.setup({})
+
+-- Typescript
 lspconfig.tsserver.setup({})
+
+-- Rust 
 lspconfig.rust_analyzer.setup({
 	settings = {
 		['rust-analyzer'] = {},
 	}
 })
--- TODO lua LSP
+
+-- Ocaml
 lspconfig.ocamllsp.setup({})
+
+-- TODO set up Lua LSP

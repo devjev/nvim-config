@@ -24,6 +24,9 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
+	-- Zig
+	{ 'ziglang/zig.vim' },
+
 	-- Tree sitter
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -50,7 +53,12 @@ require('lazy').setup({
 			})
 		end
 	},
+
+	-- Colorschemes
 	{'neanias/everforest-nvim'},
+	{'embark-theme/vim'},
+	{'rose-pine/neovim'},
+	{'relastle/bluewery.vim'},
 
 	-- LSP
 	{'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
