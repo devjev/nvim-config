@@ -74,18 +74,24 @@ lspconfig.elixirls.setup({
 lspconfig.zls.setup({ capabilities = capabilities })
 
 -- Python
-local function get_config_dir()
-    local str = debug.getinfo(2, "S").source:sub(2)
-    local path = str:match("(.*/)")
-    return path
+local python_fallback = os.getenv('NVIM_PYTHON_FALLBACK')
+if python_fallback ~= nil then
+    local function get_config_dir()
+        local str = debug.getinfo(2, "S").source:sub(2)
+        local path = str:match("(.*/)")
+        return path
+    end
+    
+    local custom_jedi_script = get_config_dir() .. 'jedi_fallback.py'
+    
+    lspconfig.jedi_language_server.setup({
+    	cmd = { 'python', custom_jedi_script },
+    	on_attach = on_attach,
+    })
+else
+	lspconfig.jedi_language_server.setup({})
 end
 
-local custom_jedi_script = get_config_dir() .. 'jedi_fallback.py'
-
-lspconfig.jedi_language_server.setup({
-	cmd = { 'python', custom_jedi_script },
-	on_attach = on_attach,
-})
 
 -- Typescript
 lspconfig.tsserver.setup({})
