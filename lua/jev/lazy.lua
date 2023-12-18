@@ -24,6 +24,10 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
+	-- Dadbod ...
+	{'tpope/vim-dadbod'},
+	{'kristijanhusak/vim-dadbod-ui'},
+
 	-- Zig
 	{ 'ziglang/zig.vim' },
 
