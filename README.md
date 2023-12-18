@@ -2,7 +2,10 @@
 
 ## TODOs
 
-- [ ] Make it like DataGrip (2023-12-18)
+- ~~[ ] Make it like DataGrip (2023-12-18)~~
+  Will not do for now. Most viable plugin for now is dadbod.vim, but I can't
+  seem to get it to work with ODBC (odbc adapter not found) and I can't figure
+  out what's going on from the docs.
 - [ ] Map more Telescope/LSP commands (2023-12-18)
 
 ## Environment variables
