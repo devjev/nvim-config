@@ -3,7 +3,7 @@
 ## TODOs
 
 - [ ] Make it like DataGrip (2023-12-18)
-- [ ] Map more Telescope/LSP commands
+- [ ] Map more Telescope/LSP commands (2023-12-18)
 
 ## Environment variables
 
