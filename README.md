@@ -1,8 +1,11 @@
 # Jevgeni's Neovim configuration
 
-## Assumptions
+## TODOs
 
-### Environment variables
+- [ ] Make it like DataGrip (2023-12-18)
+- [ ] Map more Telescope/LSP commands
+
+## Environment variables
 
 - For the Elixir language server to work, make sure to set `ELIXIR_LS`
   to the executable of the Elixir language server (full path).
