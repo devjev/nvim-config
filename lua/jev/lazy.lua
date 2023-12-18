@@ -25,8 +25,8 @@ require('lazy').setup({
 	},
 
 	-- Dadbod (NOTE can't get it to work with ODBC on windows)
-	{'tpope/vim-dadbod'},
-	{'kristijanhusak/vim-dadbod-ui'},
+	--{'tpope/vim-dadbod'},
+	--{'kristijanhusak/vim-dadbod-ui'},
 
 	-- Zig
 	{ 'ziglang/zig.vim' },
