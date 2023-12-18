@@ -24,7 +24,7 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
-	-- Dadbod ...
+	-- Dadbod (NOTE can't get it to work with ODBC on windows)
 	{'tpope/vim-dadbod'},
 	{'kristijanhusak/vim-dadbod-ui'},
 
