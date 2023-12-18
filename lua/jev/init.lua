@@ -11,6 +11,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.wo.wrap = false
 vim.opt.scrolloff = 999
+vim.opt.colorcolumn = '80'
 
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd('FileType', {
