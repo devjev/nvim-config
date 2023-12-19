@@ -4,12 +4,12 @@ require('jev.lazy')
 vim.cmd('language en_US')
 
 -- Default colorscheme
-vim.cmd([[colorscheme rose-pine]])
+vim.cmd([[colorscheme solarized-osaka]])
 
 -- Basics
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.wo.wrap = false
+vim.o.wrap = false
 vim.opt.scrolloff = 999
 vim.opt.colorcolumn = '80'
 
@@ -19,6 +19,12 @@ vim.api.nvim_create_autocmd('FileType', {
 	callback = function()
 		vim.bo.textwidth = 80
 	end
+})
+
+-- Treat PostCSS files like CSS files
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+	pattern = {'*.pcss'},
+	command = 'setfiletype css'
 })
 
 -- LSP 
@@ -38,3 +44,7 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 -- vim.keymap.set('n', '<leader>rn', function() return ':IncRename' .. vim.fn.expand('<cword>') end, {expr = true}) 
+
+-- Git
+vim.keymap.set("n", "<leader>gc", function() require("tinygit").smartCommit() end)
+vim.keymap.set("n", "<leader>gp", function() require("tinygit").push() end)

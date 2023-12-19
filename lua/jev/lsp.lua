@@ -1,7 +1,4 @@
-local navic = require('nvim-navic') -- Bottom bar
-
 local on_attach = function(client, bufnr)
-	navic.attach(client, bufnr)
 	local opts = { noremap=true, silent=true }
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)

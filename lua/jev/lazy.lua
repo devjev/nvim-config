@@ -14,6 +14,13 @@ vim.opt.rtp:prepend(lazypath)
 local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 require('lazy').setup({
+	--
+	-- Colorschemes {'rose-pine/neovim'},
+	{'yorickpeterse/vim-paper'},
+	{'ok-ryoko/blue-screen'},
+	{'https://gitlab.com/protesilaos/tempus-themes-vim.git'},
+	{'craftzdog/solarized-osaka.nvim'},
+
 	-- Icons
 	{'nvim-tree/nvim-web-devicons'},
 
@@ -45,6 +52,7 @@ require('lazy').setup({
 					'c', 
 					'rust', 
 					'html', 
+					'css',
 					'elixir', 
 					'erlang',
 					'python',
@@ -57,12 +65,6 @@ require('lazy').setup({
 			})
 		end
 	},
-
-	-- Colorschemes
-	{'neanias/everforest-nvim'},
-	{'embark-theme/vim'},
-	{'rose-pine/neovim'},
-	{'relastle/bluewery.vim'},
 
 	-- LSP
 	{'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
@@ -84,17 +86,21 @@ require('lazy').setup({
 		},
 	},
 
-	-- Bottom bar
-	{
-		'SmiteshP/nvim-navic',
-		dependencies = { 'neovim/nvim-lspconfig' },
-	},
-
 	-- Renaming
 	{
 		'smjonas/inc-rename.nvim',
 		config = function()
 			require('inc_rename').setup()
 		end
-	}
+	},
+
+	-- Git integration / tools
+	{
+		"chrisgrieser/nvim-tinygit",
+		ft = { "gitrebase", "gitcommit" }, -- so ftplugins are loaded
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"rcarriga/nvim-notify", -- optional, but recommended
+		},
+	},
 })
