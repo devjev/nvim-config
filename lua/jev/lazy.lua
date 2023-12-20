@@ -14,12 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 require('lazy').setup({
-	--
+
 	-- Colorschemes {'rose-pine/neovim'},
 	{'yorickpeterse/vim-paper'},
 	{'ok-ryoko/blue-screen'},
-	{'https://gitlab.com/protesilaos/tempus-themes-vim.git'},
 	{'craftzdog/solarized-osaka.nvim'},
+	{'ntk148v/komau.vim'},
 
 	-- Icons
 	{'nvim-tree/nvim-web-devicons'},

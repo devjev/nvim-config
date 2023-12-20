@@ -47,4 +47,4 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- Git
 vim.keymap.set("n", "<leader>gc", function() require("tinygit").smartCommit() end)
-vim.keymap.set("n", "<leader>gp", function() require("tinygit").push() end)
+vim.keymap.set("n", "<leader>gg", function() require("tinygit").push() end)
