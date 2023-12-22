@@ -18,6 +18,7 @@ require('lazy').setup({
 	-- Colorschemes
 	{'yorickpeterse/vim-paper'},
 	{'craftzdog/solarized-osaka.nvim'},
+	{'miikanissi/modus-themes.nvim'},
 
 	-- Icons
 	{'nvim-tree/nvim-web-devicons'},
