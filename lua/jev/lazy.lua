@@ -30,6 +30,13 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
+	-- Comment.nvim
+	{ 
+		'numToStr/Comment.nvim',
+		opts = {},
+		lazy = false,
+	},
+
 	-- Dadbod (NOTE can't get it to work with ODBC on windows)
 	--{'tpope/vim-dadbod'},
 	--{'kristijanhusak/vim-dadbod-ui'},
@@ -91,15 +98,5 @@ require('lazy').setup({
 		config = function()
 			require('inc_rename').setup()
 		end
-	},
-
-	-- Git integration / tools
-	{
-		"chrisgrieser/nvim-tinygit",
-		ft = { "gitrebase", "gitcommit" }, -- so ftplugins are loaded
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"rcarriga/nvim-notify", -- optional, but recommended
-		},
 	},
 })

@@ -43,10 +43,9 @@ vim.keymap.set('n', '<leader>fd', function() vim.cmd([[Telescope lsp_document_sy
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>rn', function() 
+vim.keymap.set('n', '<leader>qq', function() 
 	return ':IncRename ' .. vim.fn.expand('<cword><CR>') 
 end, {expr = true}) 
 
--- Git
-vim.keymap.set("n", "<leader>gc", function() require("tinygit").smartCommit() end)
-vim.keymap.set("n", "<leader>gg", function() require("tinygit").push() end)
+-- Commenting stuff
+require('Comment').setup()
