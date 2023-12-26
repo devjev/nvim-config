@@ -1,11 +1,11 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		'git',
+		'clone',
+		'--filter=blob:none',
+		'https://github.com/folke/lazy.nvim.git',
+		'--branch=stable', -- latest stable release
 		lazypath,
 	})
 end
@@ -19,6 +19,7 @@ require('lazy').setup({
 	{'yorickpeterse/vim-paper'},
 	{'craftzdog/solarized-osaka.nvim'},
 	{'miikanissi/modus-themes.nvim'},
+	{'rose-pine/neovim', name = 'rose-pine'},
 
 	-- Icons
 	{'nvim-tree/nvim-web-devicons'},
@@ -33,7 +34,14 @@ require('lazy').setup({
 	-- Lualine
 	{
     	'nvim-lualine/lualine.nvim',
-	    dependencies = { 'nvim-tree/nvim-web-devicons' }
+	    dependencies = { 'nvim-tree/nvim-web-devicons' },
+			config = function()
+				require('lualine').setup({
+					options = {
+						theme = 'palenight'
+					}
+				})
+			end
 	},
 
 	-- Comment.nvim
@@ -41,11 +49,28 @@ require('lazy').setup({
 		'numToStr/Comment.nvim',
 		opts = {},
 		lazy = false,
+		config = function()
+		    require('Comment').setup()
+		end
 	},
 
 	-- Zen-like writting of free flowing text
 	{
 		'junegunn/goyo.vim'
+	},
+
+	-- ChatGPT integration
+	{
+		'robitx/gp.nvim',
+		config = function()
+			-- We need CURL for this to function, so should initalize only if
+			-- curl is installed on the system.
+			if vim.fn.executable('curl') == 1 then
+				require('gp').setup({
+					style_popup_border = 'rounded'
+				})
+			end
+		end,
 	},
 
 	-- Dadbod (NOTE can't get it to work with ODBC on windows)

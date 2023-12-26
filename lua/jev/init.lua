@@ -4,7 +4,7 @@ require('jev.lazy')
 vim.cmd('language en_US')
 
 -- Default colorscheme
-vim.cmd([[colorscheme lunaperche]])
+vim.cmd([[colorscheme rose-pine]])
 
 -- Basics
 vim.opt.tabstop = 4
@@ -36,19 +36,38 @@ local builtin = require('telescope.builtin')
 
 -- Tab-based keys
 vim.keymap.set('n', '<Tab>', builtin.buffers, { noremap = True, silent = true })
-vim.keymap.set('n', '<S-Tab>', function() vim.cmd([[Neotree toggle]]) end, {noremap = true, silent = true})
-vim.keymap.set('n', '<leader>fd', function() vim.cmd([[Telescope lsp_document_symbols]]) end, {noremap = true, silent = true})
+vim.keymap.set('n', '<S-Tab>', 
+	function() 
+		vim.cmd([[Neotree toggle]]) 
+	end, {noremap = true, silent = true}
+)
+vim.keymap.set('n', '<leader>fd', 
+	function() 
+		vim.cmd([[Telescope lsp_document_symbols]]) 
+	end, {noremap = true, silent = true}
+)
 
 -- Finding stuff
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+-- Renaming stuff
 vim.keymap.set('n', '<leader>qq', function() 
 	return ':IncRename ' .. vim.fn.expand('<cword><CR>') 
 end, {expr = true}) 
 
--- Commenting stuff
-require('Comment').setup()
+-- Chatting with Chad Gippity
+vim.keymap.set('n', '<leader>cc', 
+	function()
+		vim.cmd([[GpChatToggle popup]])
+	end, 
+	{noremap = true, silent= true}
+)
 
--- Status line
-require('lualine').setup()
+vim.keymap.set('n', '<leader>ct', 
+	function()
+		vim.cmd([[GpChatToggle tabnew]])
+	end, 
+	{noremap = true, silent= true}
+)
