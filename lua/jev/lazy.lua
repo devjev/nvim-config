@@ -30,11 +30,22 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 
+	-- Lualine
+	{
+    	'nvim-lualine/lualine.nvim',
+	    dependencies = { 'nvim-tree/nvim-web-devicons' }
+	},
+
 	-- Comment.nvim
 	{ 
 		'numToStr/Comment.nvim',
 		opts = {},
 		lazy = false,
+	},
+
+	-- Zen-like writting of free flowing text
+	{
+		'junegunn/goyo.vim'
 	},
 
 	-- Dadbod (NOTE can't get it to work with ODBC on windows)
@@ -43,6 +54,8 @@ require('lazy').setup({
 
 	-- Zig
 	{ 'ziglang/zig.vim' },
+
+	{ 'petobens/poet-v' },
 
 	-- Tree sitter
 	{
