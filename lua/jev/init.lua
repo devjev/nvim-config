@@ -11,13 +11,13 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.o.wrap = false
 vim.opt.scrolloff = 8
-vim.opt.colorcolumn = '80'
 
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = {'markdown', 'text'},
 	callback = function()
 		vim.bo.textwidth = 80
+		vim.opt.colorcolumn = '80'
 	end
 })
 
@@ -71,3 +71,27 @@ vim.keymap.set('n', '<leader>ct',
 	end, 
 	{noremap = true, silent= true}
 )
+
+-- Own commands
+
+--> Switch to certain colorschemes
+local function LightsOn()
+	vim.cmd([[colorscheme paper]])
+	require('lualine').setup({ 
+		options = {
+			theme = 'auto'
+		}
+	})
+end
+
+local function LightsOff()
+	vim.cmd([[colorscheme rose-pine]])
+	require('lualine').setup({
+		options = {
+			theme = 'palenight'
+		}
+	})
+end
+
+vim.api.nvim_create_user_command('LightsOn', LightsOn, {})
+vim.api.nvim_create_user_command('LightsOff', LightsOff, {})
