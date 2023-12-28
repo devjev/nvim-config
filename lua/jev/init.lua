@@ -51,6 +51,13 @@ vim.keymap.set('n', '<leader>fd',
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>gd', 
+	function()
+		vim.cmd([[Lspsaga peek_definition]])
+	end, 
+	{}
+)
 
 -- Renaming stuff
 vim.keymap.set('n', '<leader>qq', function() 
@@ -65,12 +72,6 @@ vim.keymap.set('n', '<leader>cc',
 	{noremap = true, silent= true}
 )
 
-vim.keymap.set('n', '<leader>ct', 
-	function()
-		vim.cmd([[GpChatToggle tabnew]])
-	end, 
-	{noremap = true, silent= true}
-)
 
 -- Own commands
 
@@ -86,6 +87,7 @@ end
 
 local function LightsOff()
 	vim.cmd([[colorscheme rose-pine]])
+	vim.cmd([[set background=dark]])
 	require('lualine').setup({
 		options = {
 			theme = 'palenight'

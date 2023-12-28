@@ -54,6 +54,29 @@ require('lazy').setup({
 		end
 	},
 
+	-- Lspsaga
+	-- See this: https://nvimdev.github.io/lspsaga/
+	{
+		'nvimdev/lspsaga.nvim',
+		event = 'LspAttach',
+		-- config = function()
+		-- 	require('lspsaga').setup({
+		-- 		lightbulb = {
+		-- 			enable = false
+		-- 		},
+		-- 	})
+		-- end,
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+			'nvim-tree/nvim-web-devicons',
+		},
+		opts = {
+			lightbulb = {
+				enable = false
+			},
+		},
+	},
+
 	-- Zen-like writting of free flowing text
 	{
 		'junegunn/goyo.vim'
