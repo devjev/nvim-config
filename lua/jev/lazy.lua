@@ -84,7 +84,8 @@ require('lazy').setup({
 			-- NOTE: Turn off support for Windows temporarily
 			if vim.fn.executable('curl') == 1 and not is_windows then
 				require('gp').setup({
-					style_popup_border = 'rounded'
+					style_popup_border = 'rounded',
+					style_popup_max_width = 90,
 				})
 			end
 		end,

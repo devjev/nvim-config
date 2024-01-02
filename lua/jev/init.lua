@@ -59,6 +59,12 @@ vim.keymap.set('n', '<leader>gd',
 	end, 
 	{}
 )
+vim.keymap.set('n', '<leader>gh', 
+	function()
+		vim.cmd([[Lspsaga hover_doc]])
+	end, 
+	{}
+)
 
 -- Renaming stuff
 vim.keymap.set('n', '<leader>qq', function() 
