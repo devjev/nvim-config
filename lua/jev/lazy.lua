@@ -59,13 +59,6 @@ require('lazy').setup({
 	{
 		'nvimdev/lspsaga.nvim',
 		event = 'LspAttach',
-		-- config = function()
-		-- 	require('lspsaga').setup({
-		-- 		lightbulb = {
-		-- 			enable = false
-		-- 		},
-		-- 	})
-		-- end,
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
@@ -88,7 +81,8 @@ require('lazy').setup({
 		config = function()
 			-- We need CURL for this to function, so should initalize only if
 			-- curl is installed on the system.
-			if vim.fn.executable('curl') == 1 then
+			-- NOTE: Turn off support for Windows temporarily
+			if vim.fn.executable('curl') == 1 and not is_windows then
 				require('gp').setup({
 					style_popup_border = 'rounded'
 				})
@@ -102,8 +96,6 @@ require('lazy').setup({
 
 	-- Zig
 	{ 'ziglang/zig.vim' },
-
-	{ 'petobens/poet-v' },
 
 	-- Tree sitter
 	{
