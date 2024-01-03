@@ -54,6 +54,9 @@ require('lazy').setup({
 		end
 	},
 
+	-- Follow Markdown links
+	{ 'jghauser/follow-md-links.nvim' },
+
 	-- Lspsaga
 	-- See this: https://nvimdev.github.io/lspsaga/
 	{
