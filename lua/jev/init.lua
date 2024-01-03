@@ -66,6 +66,14 @@ vim.keymap.set('n', '<leader>gh',
 	{}
 )
 
+-- Quick save
+vim.keymap.set('n', '<esc><esc>', 
+	function()
+		vim.cmd([[wa]])
+	end, 
+	{}
+)
+
 -- Renaming stuff
 vim.keymap.set('n', '<leader>qq', function() 
 	return ':IncRename ' .. vim.fn.expand('<cword><CR>') 
