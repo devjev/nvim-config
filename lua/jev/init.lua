@@ -52,27 +52,12 @@ vim.keymap.set('n', '<leader>fd',
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>gd', 
-	function()
-		vim.cmd([[Lspsaga peek_definition]])
-	end, 
-	{}
-)
-vim.keymap.set('n', '<leader>gh', 
-	function()
-		vim.cmd([[Lspsaga hover_doc]])
-	end, 
-	{}
-)
 
--- Quick save
-vim.keymap.set('n', '<esc><esc>', 
-	function()
-		vim.cmd([[wa]])
-	end, 
-	{}
-)
+-- Lsp keybindings
+vim.keymap.set('n', '<leader>gd', builtin.lsp_definitions, {})
+vim.keymap.set('n', '<leader>gr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>gt', builtin.treesitter, {})
+
 
 -- Renaming stuff
 vim.keymap.set('n', '<leader>qq', function() 

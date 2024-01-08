@@ -54,27 +54,6 @@ require('lazy').setup({
 		end
 	},
 	
-	-- Lspsaga
-	-- See this: https://nvimdev.github.io/lspsaga/
-	{
-		'nvimdev/lspsaga.nvim',
-		event = 'LspAttach',
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter',
-			'nvim-tree/nvim-web-devicons',
-		},
-		opts = {
-			lightbulb = {
-				enable = false
-			},
-		},
-	},
-
-	-- Zen-like writting of free flowing text
-	{
-		'junegunn/goyo.vim'
-	},
-
 	-- ChatGPT integration
 	{
 		'robitx/gp.nvim',
