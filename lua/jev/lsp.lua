@@ -35,6 +35,7 @@ cmp.setup({
 			'lua',
 			'ocaml',
 			'zig',
+			'go',
 		}
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
 	end,
@@ -86,5 +87,9 @@ lspconfig.rust_analyzer.setup({
 
 -- Ocaml
 lspconfig.ocamllsp.setup({})
+
+
+-- Golang
+lspconfig.gopls.setup({})
 
 -- TODO set up Lua LSP

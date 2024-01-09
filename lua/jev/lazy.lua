@@ -97,6 +97,7 @@ require('lazy').setup({
 					'python',
 					'typescript',
 					'ocaml',
+					'go',
 				},
 				sync_install = false,
 				highlight = { enable = true },
