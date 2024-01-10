@@ -36,6 +36,7 @@ cmp.setup({
 			'ocaml',
 			'zig',
 			'go',
+			'gopls',
 		}
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
 	end,
