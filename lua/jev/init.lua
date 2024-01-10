@@ -77,7 +77,8 @@ vim.keymap.set('n', '<leader>cc',
 
 --> Switch to certain colorschemes
 local function LightsOn()
-	vim.cmd([[colorscheme paper]])
+	vim.cmd([[colorscheme modus]])
+	vim.cmd([[set background=light]])
 	require('lualine').setup({ 
 		options = {
 			theme = 'auto'
@@ -86,11 +87,11 @@ local function LightsOn()
 end
 
 local function LightsOff()
-	vim.cmd([[colorscheme rose-pine]])
+	vim.cmd([[colorscheme modus]])
 	vim.cmd([[set background=dark]])
 	require('lualine').setup({
 		options = {
-			theme = 'palenight'
+			theme = 'auto'
 		}
 	})
 end
