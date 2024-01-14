@@ -35,13 +35,9 @@ require('lazy').setup({
 	{
     	'nvim-lualine/lualine.nvim',
 	    dependencies = { 'nvim-tree/nvim-web-devicons' },
-			config = function()
-				-- require('lualine').setup({
-				-- 	options = {
-				-- 		theme = 'palenight'
-				-- 	}
-				-- })
-			end
+		config = function()
+			require('lualine').setup({})
+		end
 	},
 
 	-- Comment.nvim
