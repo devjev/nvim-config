@@ -93,4 +93,7 @@ lspconfig.ocamllsp.setup({})
 -- Golang
 lspconfig.gopls.setup({})
 
+-- Erlang
+lspconfig.erlangls.setup({})
+
 -- TODO set up Lua LSP

@@ -98,3 +98,20 @@ end
 
 vim.api.nvim_create_user_command('LightsOn', LightsOn, {})
 vim.api.nvim_create_user_command('LightsOff', LightsOff, {})
+
+-- Settings
+
+-- Rust autoformat
+vim.g.rustfmt_autosave = 1
+
+
+-- For Erlang, ensure spaces are used instead of tabs
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+	pattern = '*.erl',
+	callback = function()
+		vim.bo.expandtab = true
+		vim.bo.shiftwidth = 4
+		vim.bo.softtabstop = 4
+		vim.bo.tabstop = 4
+	end,
+})

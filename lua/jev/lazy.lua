@@ -70,9 +70,6 @@ require('lazy').setup({
 	--{'tpope/vim-dadbod'},
 	--{'kristijanhusak/vim-dadbod-ui'},
 
-	-- Zig
-	{ 'ziglang/zig.vim' },
-
 	-- Tree sitter
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -94,6 +91,7 @@ require('lazy').setup({
 					'typescript',
 					'ocaml',
 					'go',
+					'proto',
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -111,6 +109,15 @@ require('lazy').setup({
 	{'hrsh7th/cmp-path'},
 	{'hrsh7th/cmp-cmdline'},
 	{'L3MON4D3/LuaSnip'},
+
+	-- Rust
+	{ 'rust-lang/rust.vim' },
+
+	-- Zig
+	{ 'ziglang/zig.vim' },
+
+	-- Erlang
+	{ 'neovim/nvim-lspconfig' },
 
 	-- Tree view
 	{
