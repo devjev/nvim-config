@@ -4,7 +4,7 @@ require('jev.lazy')
 vim.cmd('language en_US')
 
 -- Default colorscheme
-vim.cmd([[colorscheme modus]])
+vim.cmd([[colorscheme default]])
 
 -- Basics
 vim.opt.tabstop = 4
