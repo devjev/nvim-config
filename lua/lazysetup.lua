@@ -18,6 +18,8 @@ require("lazy").setup {
 	{"rose-pine/neovim", name = "rose-pine"},
     {"slugbyte/lackluster.nvim"},
 
+    {"xiyaowong/transparent.nvim"},  -- make the background transparent
+
     -- Icons (TODO probably won"t work on my Windows setups)
 	{"nvim-tree/nvim-web-devicons"},
 
