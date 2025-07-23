@@ -155,13 +155,16 @@ require("lazy").setup {
 
     -- !MARKDOWN
     {
-        'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-        opts = {
-            heading = {
-                background = {}
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        opts = {},
+        config = function()
+            require("render-markdown").setup {
+                heading = {
+                    backgrounds = {}
+                }
             }
-        },
+        end
     }
 }
 
