@@ -20,6 +20,13 @@ wk.add {
     { "<leader>gt", builtin.treesitter, desc="Go to treesitter", mode="n" }
 }
 
+wk.add {
+    { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
+    { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
+    { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
+    { "<leader>wt", "<CMD>WikiTags<CR>", desc="Wiki tags", mode="n" }
+}
+
 -- Debugging
 -- TODO
 

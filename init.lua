@@ -6,7 +6,7 @@ require("keybindings")
 vim.cmd("language en_US.UTF-8")
 
 -- Default colorscheme
-vim.cmd([[colorscheme lackluster]])
+vim.cmd([[colorscheme lunaperche]])
 
 -- Basics
 vim.opt.tabstop = 4
