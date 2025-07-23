@@ -19,7 +19,7 @@ require("lazy").setup {
     {"andreasvc/vim-256noir"},
 
     {
-        "xiyaowong/transparent.nvim"
+        "xiyaowong/transparent.nvim",
         config = function()
             vim.cmd([[TransparentEnable]])            
         end
