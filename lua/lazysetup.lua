@@ -14,11 +14,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup {
 	-- Colorschemes
-	{"yorickpeterse/vim-paper"},
-	{"rose-pine/neovim", name = "rose-pine"},
     {"slugbyte/lackluster.nvim"},
 
-    {"xiyaowong/transparent.nvim"},  -- make the background transparent
+    {"andreasvc/vim-256noir"},
+
+    {
+        "xiyaowong/transparent.nvim"
+        config = function()
+            vim.cmd([[TransparentEnable]])            
+        end
+    },  -- make the background transparent
 
     -- Icons (TODO probably won"t work on my Windows setups)
 	{"nvim-tree/nvim-web-devicons"},
