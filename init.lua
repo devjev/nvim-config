@@ -8,6 +8,11 @@ vim.cmd("language en_US.UTF-8")
 -- Default colorscheme
 vim.cmd([[colorscheme lackluster]])
 
+-- Remove background to allow default terminal background
+-- to pass through
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+
 -- Basics
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
