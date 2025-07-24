@@ -159,8 +159,7 @@ require("lazy").setup {
                     backgrounds = {}
                 },
                 code = {
-                    border = "thick",
-                    disable_background = { "full" }
+                    language_border = " ",
                 }
             }
         end
