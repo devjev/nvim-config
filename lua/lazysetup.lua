@@ -20,13 +20,6 @@ require("lazy").setup {
 
     { "miikanissi/modus-themes.nvim", priority = 1000 },
 
-    {
-        "xiyaowong/transparent.nvim",
-        config = function()
-            vim.cmd([[TransparentEnable]])            
-        end
-    },  -- make the background transparent
-
     -- Icons (TODO probably won"t work on my Windows setups)
 	{"nvim-tree/nvim-web-devicons"},
 
