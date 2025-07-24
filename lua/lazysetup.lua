@@ -157,6 +157,10 @@ require("lazy").setup {
             require("render-markdown").setup {
                 heading = {
                     backgrounds = {}
+                },
+                code = {
+                    border = "thick",
+                    disable_background = { "full" }
                 }
             }
         end
