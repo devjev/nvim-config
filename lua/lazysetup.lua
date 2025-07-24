@@ -18,6 +18,8 @@ require("lazy").setup {
 
     {"andreasvc/vim-256noir"},
 
+    { "miikanissi/modus-themes.nvim", priority = 1000 },
+
     {
         "xiyaowong/transparent.nvim",
         config = function()
