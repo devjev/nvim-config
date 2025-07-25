@@ -129,7 +129,7 @@ require("lazy").setup {
             }
         },
         config = function()
-            require("lspconfig").lua_ls.setup()
+            require("lspconfig").lua_ls.setup {}
         end
     },
 	{"hrsh7th/cmp-nvim-lsp"},
