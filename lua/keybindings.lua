@@ -2,6 +2,12 @@ vim.g.mapleader = " "
 local builtin = require("telescope.builtin")
 local wk = require("which-key")
 
+-- Tab shortcuts
+wk.add {
+    { "<Tab>", builtin.lsp_document_symbols, desc="Show all symbols in buffer", mode="n" },
+    { "S-<Tab>", builtin.buffers, desc="Show buffer", mode="n", noremap=true, silent=true }
+}
+
 -- Finding stuff
 wk.add {
     { "<leader>f", group = "Find..." },
@@ -28,6 +34,19 @@ wk.add {
     { "<leader>wt", "<CMD>WikiTags<CR>", desc="Wiki tags", mode="n" }
 }
 
+local wiki_dir = vim.fn.expand("~/Wiki")
+
+-- A function to search for text within all wiki files
+local function search_wiki_content()
+  require("telescope.builtin").live_grep({
+    prompt_title = "< Grep Wiki >",
+    search_dirs = { wiki_dir },
+  })
+end
+
+wk.add {
+    { "<leader>fw", search_wiki_content, desc="Find wiki content", mode="n" },
+}
 
 -- Debugging
 wk.add {
@@ -43,19 +62,11 @@ wk.add {
 
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
     { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
+    { "<F11>", builtin.diagnostics, desc="Show diagnostics", mode="n" },
+    { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" }
 }
 
--- Additional wiki key bindings
-local wiki_dir = vim.fn.expand("~/Wiki")
-
--- A function to search for text within all wiki files
-local function search_wiki_content()
-  require("telescope.builtin").live_grep({
-    prompt_title = "< Grep Wiki >",
-    search_dirs = { wiki_dir },
-  })
-end
-
+-- Changing code
 wk.add {
-    { "<leader>fw", search_wiki_content, desc="Find wiki content", mode="n" },
+    { "<leader>qq", vim.lsp.buf.rename, desc="Rename symbol", mode="n" }
 }
