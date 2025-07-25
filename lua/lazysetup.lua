@@ -90,7 +90,6 @@ require("lazy").setup {
 					"proto",
 					"terraform",
 					"hcl",
-                    "zsh",
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -100,7 +99,42 @@ require("lazy").setup {
 	},
 
     -- Setup LSP
-	{"neovim/nvim-lspconfig"},
+	{
+        "neovim/nvim-lspconfig",
+        opts = {
+            servers = {
+                -- Bash / Zsh LS
+                bashls = {
+                    filetypes = { "sh", "zsh" },
+                },
+
+                -- Python LS
+                anakinls = {
+                    filetypes = { "python" },
+                },
+
+                -- Web stuff
+                superhtml = {},
+                css = {
+                  validate = true
+                },
+                less = {
+                  validate = true
+                },
+                scss = {
+                  validate = true
+                },
+
+                -- Low level stuff
+                zls = {},       -- Zig
+                rust_analyzer = {},
+                sourcekit = {}  -- Swift, C, C++, Objective C
+            }
+        },
+        config = function()
+            require("lspconfig").setup()
+        end
+    },
 	{"hrsh7th/cmp-nvim-lsp"},
 	{"hrsh7th/nvim-cmp"},
 	{"hrsh7th/cmp-buffer"},
