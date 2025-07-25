@@ -1,5 +1,5 @@
-vim.g.mapleader = ' '
-local builtin = require('telescope.builtin')
+vim.g.mapleader = " "
+local builtin = require("telescope.builtin")
 local wk = require("which-key")
 
 -- Finding stuff
@@ -20,6 +20,7 @@ wk.add {
     { "<leader>gt", builtin.treesitter, desc="Go to treesitter", mode="n" }
 }
 
+-- Wiki
 wk.add {
     { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
@@ -27,17 +28,22 @@ wk.add {
     { "<leader>wt", "<CMD>WikiTags<CR>", desc="Wiki tags", mode="n" }
 }
 
+
 -- Debugging
--- TODO
+-- local _dap = require("dap")
+-- local _dapui = require("dapui")
+wk.add {
+    { "<leader>b", require("dap").toggle_breakpoint, desc="Set breakpoint", mode="n" },
+    { "<F1>", require("dapui").toggle, desc="Show debugger UI", mode="n" }
+}
 
 -- Additional wiki key bindings
-local wiki_dir = vim.fn.expand('~/Wiki')
+local wiki_dir = vim.fn.expand("~/Wiki")
 
 -- A function to search for text within all wiki files
 local function search_wiki_content()
-  require('telescope.builtin').live_grep({
-    prompt_title = '< Grep Wiki >',
-    -- Limit the grep to your wiki directory
+  require("telescope.builtin").live_grep({
+    prompt_title = "< Grep Wiki >",
     search_dirs = { wiki_dir },
   })
 end
