@@ -20,7 +20,7 @@ require("lazy").setup {
 
     { "miikanissi/modus-themes.nvim", priority = 1000 },
 
-    -- Icons (TODO probably won"t work on my Windows setups)
+    -- Icons (TODO probably won't work on my Windows setups)
 	{"nvim-tree/nvim-web-devicons"},
 
 	-- Telescope
@@ -48,8 +48,27 @@ require("lazy").setup {
 		    require("Comment").setup()
 		end
 	},
+
+    -- !DEBUGGER
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "theHamsta/nvim-dap-virtual-text",
+            "nvim-neotest/nvim-nio",
+            "williamboman/mason.nvim",
+        },
+        config = function()
+            local dap = require "dap"
+            local ui = require "dapui"
+            local vt = require("nvim-dap-virtual-text")
+            dap.setup()
+            ui.setup()
+            vt.setup()
+        end
+    },
     
-	-- Tree sitter
+	-- !TREE SITTER
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -60,19 +79,18 @@ require("lazy").setup {
 				ensure_installed = { 
 					"lua", 
 					"javascript", 
+					"typescript",
 					"c", 
 					"rust", 
 					"html", 
 					"css",
-					"elixir", 
-					"erlang",
 					"python",
-					"typescript",
 					"ocaml",
 					"go",
 					"proto",
 					"terraform",
 					"hcl",
+                    "zsh",
 				},
 				sync_install = false,
 				highlight = { enable = true },
