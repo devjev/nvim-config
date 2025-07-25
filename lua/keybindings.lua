@@ -5,7 +5,7 @@ local wk = require("which-key")
 -- Tab shortcuts
 wk.add {
     { "<Tab>", builtin.lsp_document_symbols, desc="Show all symbols in buffer", mode="n" },
-    { "<S-Tab>", builtin.buffers, desc="Show buffer", mode="n" }
+    { "<S-Tab>", function() builtin.buffers(noremap=true, silent=true) end, desc="Show buffers", mode="n" }
 }
 
 -- Finding stuff
@@ -63,6 +63,7 @@ wk.add {
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
     { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
     { "<F11>", builtin.diagnostics, desc="Show diagnostics", mode="n" },
+    { "<leader>qd", builtin.diagnostics, desc="Show diagnostics", mode="n" },
     { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" }
 }
 
