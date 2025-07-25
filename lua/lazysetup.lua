@@ -59,10 +59,9 @@ require("lazy").setup {
             "williamboman/mason.nvim",
         },
         config = function()
-            local dap = require "dap"
-            local ui = require "dapui"
+            -- local dap = require "dap"
+            local ui = require("dapui")
             local vt = require("nvim-dap-virtual-text")
-            dap.setup()
             ui.setup()
             vt.setup()
         end
@@ -128,11 +127,26 @@ require("lazy").setup {
                 -- Low level stuff
                 zls = {},       -- Zig
                 rust_analyzer = {},
-                sourcekit = {}  -- Swift, C, C++, Objective C
+                sourcekit = {},  -- Swift, C, C++, Objective C
+
+                -- Data, configs, scripting 
+                jsonnet_ls = {},
+
+                lua_ls = {
+                  Lua = {
+                    workspace = { checkThirdParty = false },
+                    telemetry = { enable = false },
+                  },
+                },
+
+                sqlls = {},
+                terraformls = {},
+                tsserver = {},
+                yamlls = {}
             }
         },
         config = function()
-            require("lspconfig").setup()
+            -- require("lspconfig").setup()
         end
     },
 	{"hrsh7th/cmp-nvim-lsp"},
