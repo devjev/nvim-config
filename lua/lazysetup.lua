@@ -103,26 +103,16 @@ require("lazy").setup {
         opts = {
             servers = {
                 -- Bash / Zsh LS
-                bashls = {
-                    filetypes = { "sh", "zsh" },
-                },
+                bashls = { filetypes = { "sh", "zsh" } },
 
                 -- Python LS
-                anakinls = {
-                    filetypes = { "python" },
-                },
+                anakinls = { filetypes = { "python" } },
 
                 -- Web stuff
                 superhtml = {},
-                css = {
-                  validate = true
-                },
-                less = {
-                  validate = true
-                },
-                scss = {
-                  validate = true
-                },
+                css = { validate = true },
+                less = { validate = true },
+                scss = { validate = true },
 
                 -- Low level stuff
                 zls = {},       -- Zig
@@ -130,15 +120,8 @@ require("lazy").setup {
                 sourcekit = {},  -- Swift, C, C++, Objective C
 
                 -- Data, configs, scripting 
-                jsonnet_ls = {},
-
-                lua_ls = {
-                  Lua = {
-                    workspace = { checkThirdParty = false },
-                    telemetry = { enable = false },
-                  },
-                },
-
+                json_ls = {},
+                lua_ls = {},
                 sqlls = {},
                 terraformls = {},
                 tsserver = {},
@@ -146,7 +129,7 @@ require("lazy").setup {
             }
         },
         config = function()
-            -- require("lspconfig").setup()
+            require("lspconfig").lua_ls.setup()
         end
     },
 	{"hrsh7th/cmp-nvim-lsp"},

@@ -30,11 +30,19 @@ wk.add {
 
 
 -- Debugging
--- local _dap = require("dap")
--- local _dapui = require("dapui")
 wk.add {
-    { "<leader>b", require("dap").toggle_breakpoint, desc="Set breakpoint", mode="n" },
-    { "<F1>", require("dapui").toggle, desc="Show debugger UI", mode="n" }
+    { "<F1>", require("dapui").toggle, desc="Show debugger UI", mode="n" },
+    { "<F2>", function() require("dapui").float_element("scopes") end, desc="Show scopes", mode="n" },
+    { "<F3>", function() require("dapui").float_element("watches") end, desc="Show watches", mode="n" },
+    { "<F4>", function() require("dapui").float_element("stacks") end, desc="Show stacks", mode="n" },
+
+    { "<F5>", require("dap").continue, desc="Run debugger to breakpoint", mode="n" },
+    { "<F6>", require("dap").stop, desc="Stop debugger", mode="n" },
+    { "<F7>", require("dap").step_into, desc="Step into", mode="n" },
+    { "<F8>", require("dap").step_over, desc="Step over", mode="n" },
+
+    { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
+    { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
 }
 
 -- Additional wiki key bindings
