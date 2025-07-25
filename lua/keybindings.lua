@@ -5,7 +5,7 @@ local wk = require("which-key")
 -- Tab shortcuts
 wk.add {
     { "<Tab>", builtin.lsp_document_symbols, desc="Show all symbols in buffer", mode="n" },
-    { "S-<Tab>", builtin.buffers, desc="Show buffer", mode="n", noremap=true, silent=true }
+    { "S-<Tab>", builtin.buffers, desc="Show buffer", mode="n" }
 }
 
 -- Finding stuff
