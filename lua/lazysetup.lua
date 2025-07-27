@@ -24,12 +24,12 @@ require("lazy").setup {
 	{"nvim-tree/nvim-web-devicons"},
 
 	-- Telescope
-	{ 
-		"nvim-telescope/telescope.nvim", 
+	{
+		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim" }
 	},
-    
+
 	-- Lualine (TODO need to customize this)
 	{
     	"nvim-lualine/lualine.nvim",
@@ -40,7 +40,7 @@ require("lazy").setup {
 	},
 
 	-- Comment.nvim
-	{ 
+	{
 		"numToStr/Comment.nvim",
 		opts = {},
 		lazy = false,
@@ -68,8 +68,11 @@ require("lazy").setup {
     },
 
     {
-       "julianolf/nvim-dap-lldb",
-       dependencies = { "mfussenegger/nvim-dap" },
+        "julianolf/nvim-dap-lldb",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("dap-lldb").setup()
+        end
     },
 
 	-- !TREE SITTER
@@ -80,13 +83,13 @@ require("lazy").setup {
 		config = function()
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
-				ensure_installed = { 
-					"lua", 
-					"javascript", 
+				ensure_installed = {
+					"lua",
+					"javascript",
 					"typescript",
-					"c", 
-					"rust", 
-					"html", 
+					"c",
+					"rust",
+					"html",
 					"css",
 					"python",
 					"ocaml",
