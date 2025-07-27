@@ -56,7 +56,7 @@ wk.add {
     { "<F4>", function() require("dapui").float_element("stacks") end, desc="Show stacks", mode="n" },
 
     { "<F5>", require("dap").continue, desc="Run debugger to breakpoint", mode="n" },
-    { "<F6>", require("dap").stop, desc="Stop debugger", mode="n" },
+    { "<F6>", require("dap").close, desc="Stop debugger", mode="n" },
     { "<F7>", require("dap").step_into, desc="Step into", mode="n" },
     { "<F8>", require("dap").step_over, desc="Step over", mode="n" },
 
