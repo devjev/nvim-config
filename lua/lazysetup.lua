@@ -78,7 +78,8 @@ require("lazy").setup {
     {
         "mfussenegger/nvim-dap-python",
         config = function()
-            require("dap-python").setup({})
+            -- Assume a global installation
+            require("dap-python").setup("python")
         end
     },
 
