@@ -62,3 +62,6 @@ lspconfig.rust_analyzer.setup({
 -- Golang
 lspconfig.gopls.setup({})
 
+-- Python
+lspconfig.pylsp.setup({})
+

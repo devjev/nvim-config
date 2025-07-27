@@ -114,7 +114,14 @@ require("lazy").setup {
                 bashls = { filetypes = { "sh", "zsh" } },
 
                 -- Python LS
-                anakinls = { filetypes = { "python" } },
+                pylsp = {
+                  plugins = {
+                    pycodestyle = {
+                      ignore = {'W391'},
+                      maxLineLength = 100
+                    }
+                  }
+                },
 
                 -- Web stuff
                 superhtml = {},
