@@ -4,7 +4,7 @@ local wk = require("which-key")
 
 -- Tab shortcuts
 wk.add {
-    { "<Tab>", builtin.lsp_document_symbols, desc="Show all symbols in buffer", mode="n" },
+    { "<C-Esc>", builtin.lsp_document_symbols, desc="Show all symbols in buffer", mode="n" },
     { "<S-Tab>", function() builtin.buffers() end, desc="Show buffers", mode="n" }
 }
 
@@ -63,11 +63,15 @@ wk.add {
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
     { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
     { "<F11>", builtin.diagnostics, desc="Show diagnostics", mode="n" },
-    { "<leader>qd", builtin.diagnostics, desc="Show diagnostics", mode="n" },
-    { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" }
+    { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" },
+    { "<C-F12>", vim.lsp.buf.hover, desc="Hover documentation", mode="n" }
 }
 
--- Changing code
-wk.add {
-    { "<leader>qq", vim.lsp.buf.rename, desc="Rename symbol", mode="n" }
-}
+-- LSP & Code Actions
+wk.add({
+	{ "<leader>q", group = "Code Actions" },
+	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename Symbol", mode = "n" },
+	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
+	{ "<leader>qd", builtin.diagnostics, desc = "Workspace Diagnostics", mode = "n" },
+	{ "<leader>qe", vim.diagnostic.open_float, desc = "Line Diagnostics", mode = "n" },
+})
