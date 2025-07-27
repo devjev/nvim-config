@@ -66,12 +66,17 @@ require("lazy").setup {
             vt.setup()
         end
     },
-    
+
+    {
+       "julianolf/nvim-dap-lldb",
+       dependencies = { "mfussenegger/nvim-dap" },
+    },
+
 	-- !TREE SITTER
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		cond = function() return not is_windows end,
+		-- cond = function() return not is_windows end,
 		config = function()
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
