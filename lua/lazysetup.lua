@@ -28,16 +28,7 @@ require("lazy").setup {
 		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("telescope").setup({
-                defaults = {
-                    layout_strategy = "flex",
-                    layout_config = {
-                        flex = {
-                            prompt_position = "top"
-                        }
-                    }
-                }
-            })
+            require("telescope").setup({})
         end
 	},
 
@@ -301,6 +292,13 @@ require("lazy").setup {
                     language_border = " ",
                 }
             }
+        end
+    },
+
+    {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup({})
         end
     }
 }
