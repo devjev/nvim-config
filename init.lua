@@ -15,6 +15,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.o.wrap = false
 vim.opt.scrolloff = 8
+vim.opt.relativenumber = true
 
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd("FileType", {
