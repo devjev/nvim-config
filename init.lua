@@ -6,7 +6,7 @@ require("keybindings")
 vim.cmd("language en_US.UTF-8")
 
 -- Default colorscheme
-vim.cmd([[colorscheme modus]])
+vim.cmd([[colorscheme oxocarbon]])
 
 -- Basics
 vim.opt.tabstop = 4
