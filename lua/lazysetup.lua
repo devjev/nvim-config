@@ -15,10 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup {
 	-- Colorschemes
     {"slugbyte/lackluster.nvim"},
-
     {"andreasvc/vim-256noir"},
-
-    { "miikanissi/modus-themes.nvim", priority = 1000 },
+    { "miikanissi/modus-themes.nvim" },
+    { "nyoom-engineering/oxocarbon.nvim" },
 
     -- Icons (TODO probably won't work on my Windows setups)
 	{"nvim-tree/nvim-web-devicons"},
