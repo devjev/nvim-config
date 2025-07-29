@@ -30,14 +30,7 @@ require("lazy").setup {
         config = function()
             require("telescope").setup({
                 defaults = {
-                    layout_strategy = 'vertical',
-                    layout_config = {
-                        vertical = {
-                            prompt_position = 'top',
-                            preview_cutoff = 120,
-                            preview_height = 0.4,
-                        }
-                    }
+                    layout_strategy = "flex",
                 }
             })
         end
