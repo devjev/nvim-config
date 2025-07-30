@@ -31,7 +31,7 @@ require("lazy").setup {
             require("telescope").setup({
                 defaults = {
                     layout_strategy = "center",
-                    layout_config = { height = 0.36 },
+                    layout_config = { height = 0.36, width = 0.8 },
                 }
             })
         end
