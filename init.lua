@@ -5,7 +5,14 @@ require("keybindings")
 -- Enforce English
 vim.cmd("language en_US.UTF-8")
 
--- Default colorscheme
+-- Default colorscheme = oxocarbon, but tweaked 
+-- to have lualine darker
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function()
+    vim.api.nvim_set_hl(0, 'LualineNormal', { bg = '#121212', fg = '#bbbbbb' })
+    vim.api.nvim_set_hl(0, 'LualineInactive', { bg = '#121212', fg = '#666666' })
+  end,
+})
 vim.cmd([[colorscheme oxocarbon]])
 
 -- Basics
