@@ -34,10 +34,7 @@ require("lazy").setup {
                     layout_config = {
                         horizontal = {
                             prompt_position = "top",
-                            mirror = false
                         },
-                        height = 0.8,
-                        width  = 0.8
                     },
                 }
             })
