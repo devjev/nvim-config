@@ -28,7 +28,11 @@ require("lazy").setup {
 		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("telescope").setup({})
+            require("telescope").setup({
+                defaults = {
+                    layout_strategy = "center"
+                }
+            })
         end
 	},
 
