@@ -30,8 +30,8 @@ require("lazy").setup {
         config = function()
             require("telescope").setup({
                 defaults = {
-                    layout_strategy = "center",
-                    layout_config = { height = 0.36, width = 0.8 },
+                    layout_strategy = "vertical",
+                    layout_config = { height = 0.65 },
                 }
             })
         end
@@ -300,12 +300,15 @@ require("lazy").setup {
         end
     },
 
+    -- !GIT
     {
-        'lewis6991/gitsigns.nvim',
+        "lewis6991/gitsigns.nvim",
         config = function()
-            require('gitsigns').setup({})
+            require("gitsigns").setup({})
         end
-    }
+    },
+
+    { "vim/fugitive" }
 }
 
 
