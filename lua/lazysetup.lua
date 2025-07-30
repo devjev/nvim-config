@@ -31,7 +31,7 @@ require("lazy").setup {
             require("telescope").setup({
                 defaults = {
                     layout_strategy = "vertical",
-                    layout_config = { 
+                    layout_config = {
                         vertical = {
                             prompt_position = "top",
                             mirror = false
