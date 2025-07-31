@@ -296,7 +296,7 @@ require("lazy").setup {
             local home = is_windows
                 and vim.fn.expand("$USERPROFILE")
                 or  vim.fn.expand("~")
-            vim.g.wiki_root = home .. (is_windows and "\\Wiki" or "~/Wiki")
+            vim.g.wiki_root = home .. (is_windows and "\\Wiki" or "/Wiki")
       end
     },
 
