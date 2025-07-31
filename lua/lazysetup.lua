@@ -322,7 +322,7 @@ require("lazy").setup {
         "lewis6991/gitsigns.nvim",
         config = function()
             if is_windows then
-                require("gitsings").setup({
+                require("gitsigns").setup({
                     signs = {
                         add          = { text = "+" },
                         change       = { text = "~" },
