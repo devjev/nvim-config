@@ -57,6 +57,7 @@ require("lazy").setup {
                 options = {
                     icons_enabled = not is_windows,
                     theme = 'auto',
+                    -- Remove decorations, because we are not 14
                     -- component_separators = { left = '', right = ''},
                     -- section_separators = { left = '', right = ''},
                     component_separators = { left = '', right = ''},
@@ -292,10 +293,11 @@ require("lazy").setup {
     -- !WIKI
     {
       "lervag/wiki.vim",
-      -- tag = "v0.10", -- uncomment to pin to a specific release
       init = function()
-            vim.g.wiki_root = "~/Wiki"
-        -- wiki.vim configuration goes here, e.g.
+            local home = is_windows
+                and vim.fn.expand("$USERPROFILE")
+                or  vim.fn.expand("~")
+            vim.g.wiki_root = home .. (is_windows and "\\Wiki" or "~/Wiki")
       end
     },
 
