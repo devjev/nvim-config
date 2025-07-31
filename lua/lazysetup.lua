@@ -20,10 +20,9 @@ require("lazy").setup {
 	-- Colorschemes
     {"slugbyte/lackluster.nvim"},
     {"andreasvc/vim-256noir"},
-    { "miikanissi/modus-themes.nvim" },
-    { "nyoom-engineering/oxocarbon.nvim" },
+    {"miikanissi/modus-themes.nvim"},
+    {"nyoom-engineering/oxocarbon.nvim"},
 
-    -- Icons (TODO probably won't work on my Windows setups)
 	{
         "nvim-tree/nvim-web-devicons",
         cond = function() return is_windows end
