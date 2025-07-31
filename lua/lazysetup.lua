@@ -332,7 +332,7 @@ require("lazy").setup {
                         untracked    = { text = "?" },
                     }
                 })
-            else 
+            else
                 require("gitsigns").setup({})
             end
         end
