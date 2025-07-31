@@ -12,6 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Identify if we are on a Windows machine, since then some things 
+-- will not work. For example treesitter needs a C/C++ compiler to install.
+local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+
 require("lazy").setup {
 	-- Colorschemes
     {"slugbyte/lackluster.nvim"},
@@ -20,7 +24,10 @@ require("lazy").setup {
     { "nyoom-engineering/oxocarbon.nvim" },
 
     -- Icons (TODO probably won't work on my Windows setups)
-	{"nvim-tree/nvim-web-devicons"},
+	{
+        "nvim-tree/nvim-web-devicons",
+        cond = function() return is_windows end
+    },
 
 	-- Telescope
 	{
@@ -48,7 +55,7 @@ require("lazy").setup {
 		config = function()
 			require("lualine").setup({
                 options = {
-                    icons_enabled = true,
+                    icons_enabled = not is_windows,
                     theme = 'auto',
                     -- component_separators = { left = '', right = ''},
                     -- section_separators = { left = '', right = ''},
@@ -154,7 +161,7 @@ require("lazy").setup {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		-- cond = function() return not is_windows end,
+		cond = function() return not is_windows end,
 		config = function()
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
@@ -247,7 +254,12 @@ require("lazy").setup {
         opts = {},
         -- Optional dependencies
         -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-        dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+        dependencies = {
+            {
+                "nvim-tree/nvim-web-devicons",
+                cond = function() return not is_windows end,
+            }
+        },
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
         lazy = false,
         config = function()
