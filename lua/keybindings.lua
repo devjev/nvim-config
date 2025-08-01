@@ -70,8 +70,7 @@ wk.add {
 
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
     { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
-    -- F11 should be set to something else
-    { "<F11>", builtin.diagnostics, desc="Show diagnostics", mode="n" },
+    { "<F11>", "<CMD>DiffviewOpen", desc="Show git diff", mode="n" },
     -- { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" },
 }
 
