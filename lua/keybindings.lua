@@ -121,6 +121,6 @@ wk.add({
 
 -- Git integration
 wk.add({
-    { "<leader>gs", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
-    { "<F11>", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
+    { "<leader>gS", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
+    { "<leader>gs", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
 })
