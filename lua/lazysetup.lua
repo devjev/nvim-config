@@ -338,18 +338,16 @@ require("lazy").setup {
         end
     },
     { "tpope/vim-fugitive" },
-    {"sindrets/diffview.nvim"}
-    --
-    -- {
-    --     "NeogitOrg/neogit",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --         "sindrets/diffview.nvim",
-    --     },
-    --     config = function()
-    --         require("neogit").setup {}
-    --     end
-    -- }
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+        },
+        config = function()
+            require("neogit").setup {}
+        end
+    }
 
 }
 
