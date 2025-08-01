@@ -105,12 +105,8 @@ wk.add({
     end, desc = "Previous Hunk", mode = "n", expr = true },
 
     -- Actions
-    { "<leader>hs", function()
-        require("gitsigns").stage_hunk()
-    end, desc = "Stage Hunk", mode = { "n", "v" } },
-    { "<leader>hr", function()
-        require("gitsigns").reset_hunk()
-    end, desc = "Reset Hunk", mode = { "n", "v" } },
+    { "<leader>hs", function() require("gitsigns").stage_hunk() end, desc = "Stage Hunk", mode = { "n", "v" } },
+    { "<leader>hr", function() require("gitsigns").reset_hunk() end, desc = "Reset Hunk", mode = { "n", "v" } },
     { "<leader>hS", require("gitsigns").stage_buffer, desc = "Stage Buffer", mode = "n" },
     { "<leader>hu", require("gitsigns").undo_stage_hunk, desc = "Undo Stage Hunk", mode = "n" },
     { "<leader>hR", require("gitsigns").reset_buffer, desc = "Reset Buffer", mode = "n" },
