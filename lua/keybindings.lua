@@ -69,9 +69,7 @@ wk.add {
     { "<F8>", require("dap").step_over, desc="Step over", mode="n" },
 
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
-    { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
-    { "<F11>", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
-    { "<S-F11>", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
+    { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" }
 }
 
 -- LSP & Code Actions
@@ -127,4 +125,10 @@ wk.add({
     { "<leader>ht", group = "Toggle" },
     { "<leader>htb", require("gitsigns").toggle_current_line_blame, desc = "Toggle Blame Line", mode = "n" },
     { "<leader>htd", require("gitsigns").toggle_deleted, desc = "Toggle Deleted", mode = "n" },
+})
+
+-- Git integration
+wk.add({
+    { "<F11>", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
+    { "<S-F11>", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
 })
