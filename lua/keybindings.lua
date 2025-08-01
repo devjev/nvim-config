@@ -115,13 +115,9 @@ wk.add({
     { "<leader>hu", require("gitsigns").undo_stage_hunk, desc = "Undo Stage Hunk", mode = "n" },
     { "<leader>hR", require("gitsigns").reset_buffer, desc = "Reset Buffer", mode = "n" },
     { "<leader>hp", require("gitsigns").preview_hunk, desc = "Preview Hunk", mode = "n" },
-    { "<leader>hb", function()
-        require("gitsigns").blame_line({ full = true })
-    end, desc = "Blame Line", mode = "n" },
+    { "<leader>hb", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame Line", mode = "n" },
     { "<leader>hd", require("gitsigns").diffthis, desc = "Diff This", mode = "n" },
-    { "<leader>hD", function()
-        require("gitsigns").diffthis("~")
-    end, desc = "Diff This ~", mode = "n" },
+    { "<leader>hD", function() require("gitsigns").diffthis("~") end, desc = "Diff This ~", mode = "n" },
     { "<leader>ht", group = "Toggle" },
     { "<leader>htb", require("gitsigns").toggle_current_line_blame, desc = "Toggle Blame Line", mode = "n" },
     { "<leader>htd", require("gitsigns").toggle_deleted, desc = "Toggle Deleted", mode = "n" },
