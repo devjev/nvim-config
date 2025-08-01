@@ -70,7 +70,8 @@ wk.add {
 
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
     { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
-    { "<F11>", "<CMD>DiffviewOpen", desc="Show git diff", mode="n" },
+    { "<F11>", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
+    { "<S-F11>", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
     -- { "<F12>", builtin.lsp_definitions, desc="Show definitions", mode="n" },
 }
 
