@@ -18,6 +18,7 @@ vim.o.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
+vim.opt.showtabline = true
 
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd("FileType", {

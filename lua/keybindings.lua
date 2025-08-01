@@ -31,7 +31,7 @@ wk.add {
     { "<leader>gw", "<CMD>WikiIndex<CR>", desc="Go to wiki", mode="n" },
     { "<leader>gd", builtin.lsp_definitions, desc="Go to definitions", mode="n" },
     { "<leader>gr", builtin.lsp_references, desc="Go to references", mode="n" },
-    { "<leader>gt", builtin.treesitter, desc="Go to treesitter", mode="n" }
+    { "<leader>gs", builtin.treesitter, desc="Go to treesitter", mode="n" }
 }
 
 -- Wiki
