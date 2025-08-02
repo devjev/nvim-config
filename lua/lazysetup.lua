@@ -323,14 +323,15 @@ require("lazy").setup {
         config = function()
             if is_windows then
                 require("gitsigns").setup({
-                    signs = {
-                        add          = { text = "+" },
-                        change       = { text = "~" },
-                        delete       = { text = "-" },
-                        topdelete    = { text = "-" },
-                        changedelete = { text = "~" },
-                        untracked    = { text = "?" },
-                    }
+                    -- ??? Signs do seem to work on Windows...
+                    -- signs = {
+                    --     add          = { text = "+" },
+                    --     change       = { text = "~" },
+                    --     delete       = { text = "-" },
+                    --     topdelete    = { text = "-" },
+                    --     changedelete = { text = "~" },
+                    --     untracked    = { text = "?" },
+                    -- }
                 })
             else
                 require("gitsigns").setup({})
