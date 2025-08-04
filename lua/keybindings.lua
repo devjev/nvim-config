@@ -4,15 +4,6 @@ local wk = require("which-key")
 
 -- Tab shortcuts
 wk.add {
-    {
-        "<F12>",
-        function()
-            -- clangd/tsserver usually default to "utf-16" unless overridden, apparently
-            builtin.lsp_document_symbols { position_encoding = "utf-16" }
-        end,
-        desc="Show all symbols in buffer",
-        mode="n"
-    },
     { "<S-Tab>", function() builtin.buffers() end, desc="Show buffers", mode="n" }
 }
 
@@ -21,7 +12,16 @@ wk.add {
     { "<leader>f", group = "Find..." },
     { "<leader>ff", builtin.find_files, desc="Find file", mode="n" },
     { "<leader>fg", builtin.live_grep, desc="Grep files", mode="n" },
-    { "<leader>fh", builtin.help_tags, desc="Find help", mode="n" }
+    { "<leader>fh", builtin.help_tags, desc="Find help", mode="n" },
+    {
+        "<leader>fs",
+        function()
+            -- clangd/tsserver usually default to "utf-16" unless overridden, apparently
+            builtin.lsp_document_symbols { position_encoding = "utf-16" }
+        end,
+        desc="Find all LSP symbols in buffer",
+        mode="n"
+    },
 }
 
 -- Going places
