@@ -25,7 +25,7 @@ require("lazy").setup {
 
 	{
         "nvim-tree/nvim-web-devicons",
-        cond = function() return is_windows end
+        -- cond = function() return is_windows end
     },
 
 	-- Telescope
@@ -54,7 +54,8 @@ require("lazy").setup {
 		config = function()
 			require("lualine").setup({
                 options = {
-                    icons_enabled = not is_windows,
+                    -- icons_enabled = not is_windows,
+                    icons_enabled = true,
                     theme = 'auto',
                     -- Remove decorations, because we are not 14
                     -- component_separators = { left = '', right = ''},
@@ -257,7 +258,7 @@ require("lazy").setup {
         dependencies = {
             {
                 "nvim-tree/nvim-web-devicons",
-                cond = function() return not is_windows end,
+                -- cond = function() return not is_windows end,
             }
         },
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
