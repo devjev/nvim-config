@@ -35,10 +35,25 @@ wk.add {
     { "<leader>gd", builtin.lsp_definitions, desc="Go to symbol definition", mode="n" },
 }
 
--- Wiki
+-- !WIKI
+-- wiki.vim is great, but it's keybinding descriptions are not that good. 
+-- I am going to do my own keybindings using whichkey and provide my own 
+-- description. I don't actually know how to do that properly for buffer-local
+-- commands, so I am going to leave the default keybindings for now.
+vim.g.wiki_mappings_use_defaults = "local"
+
+-- Also, we are going to use the Telescope version of wiki default commands.
+local wiki_telescope = require("wiki.telescope")
+vim.g.wiki_select_method = {
+    pages = wiki_telescope.pages,
+    tags = wiki_telescope.tags,
+    toc = wiki_telescope.toc,
+    links = wiki_telescope.links,
+}
+
 wk.add {
     { "<leader>w", group = "Wiki...", icon = "Ⓦ " },
-    { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
+    { "<leader>ww", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
     { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
     { "<leader>wt", "<CMD>WikiTags<CR>", desc="Wiki tags", mode="n" }
