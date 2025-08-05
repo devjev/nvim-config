@@ -36,6 +36,7 @@ wk.add {
 
 -- Wiki
 wk.add {
+    { "<leader>w", group = "Wiki..." },
     { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
     { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
