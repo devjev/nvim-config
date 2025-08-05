@@ -43,17 +43,15 @@ wk.add {
 -- One extra problem here are buffer local bindings, i.e. bindings which 
 -- are valid only for a particular buffer. The condition if a file is valid 
 -- or not is defined in the plugin and I don't know that condition. I also 
--- don't want to try to fudge it by myself. So the solution here is that I 
--- leave the default mappings and add a description for these using  
--- whichkey's proxy property.
+-- don't want to try to fudge it by myself.
 vim.g.wiki_mappings_use_defaults = "local"
 
 -- Also, we are going to use the Telescope version of wiki default commands.
 local wiki_telescope = require("wiki.telescope")
 vim.g.wiki_select_method = {
     pages = wiki_telescope.pages,
-    tags = wiki_telescope.tags,
-    toc = wiki_telescope.toc,
+    tags  = wiki_telescope.tags,
+    toc   = wiki_telescope.toc,
     links = wiki_telescope.links,
 }
 
@@ -92,6 +90,26 @@ wk.add {
     { "<leader>wfj", wiki_search("Find in journal", journal_dir), desc="Find in journal", mode="n" },
     { "<leader>wft", search_todos, desc="Find todos", mode="n" },
 }
+
+-- Remapping buffer-local defaults when a wiki buffer is opened...
+local wiki_filetypes = vim.g.wiki_filetypes
+if type(wiki_filetypes) == "string" then
+    wiki_filetypes = { wiki_filetypes }
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = wiki_filetypes,             -- table of filetypes from g:wiki_filetypes :contentReference[oaicite:2]{index=2}
+  callback = function(args)
+    local bufnr = args.buf
+    -- Register buffer-local Which-Key descriptions
+    wk.add({
+      a = { "<Plug>(wiki-link-add)", "Add link to existing page" },
+    }, {
+      prefix = "<Space>w",
+      buffer = bufnr,
+    })
+  end,
+})
 
 -- Debugging
 wk.add {
