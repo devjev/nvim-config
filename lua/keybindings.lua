@@ -44,7 +44,7 @@ wk.add {
 -- are valid only for a particular buffer. The condition if a file is valid 
 -- or not is defined in the plugin and I don't know that condition. I also 
 -- don't want to try to fudge it by myself.
-vim.g.wiki_mappings_use_defaults = "local"
+vim.g.wiki_mappings_use_defaults = "none"
 
 -- Also, we are going to use the Telescope version of wiki default commands.
 local wiki_telescope = require("wiki.telescope")
