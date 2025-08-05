@@ -61,16 +61,9 @@ local function search_todos()
     builtin.live_grep({
         prompt_title = "Find TODOs",
         search_dirs = { wiki_dir },
-        default_text = "- \\[(\\w|x|X)",
+        default_text = "- \\[ \\]",
     })
 end
-
--- local function search_wiki_content()
---   require("telescope.builtin").live_grep({
---     prompt_title = "< Grep Wiki >",
---     search_dirs = { wiki_dir },
---   })
--- end
 
 wk.add {
 	{ "<leader>wf", group = "Find in wiki..." },
