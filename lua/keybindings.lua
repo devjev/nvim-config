@@ -61,7 +61,7 @@ local function search_todos()
     builtin.live_grep({
         prompt_title = "Find TODOs",
         search_dirs = { wiki_dir },
-        default_text = "- [",
+        default_text = "- \\[(\\w|x|X)",
     })
 end
 
@@ -74,8 +74,8 @@ end
 
 wk.add {
 	{ "<leader>wf", group = "Find in wiki..." },
-    { "<leader>wff", wiki_search("Find in wiki", wiki_dir), desc="Find wiki content", mode="n" },
-    { "<leader>wfj", wiki_search("Find in journal", journal_dir), desc="Find wiki content", mode="n" },
+    { "<leader>wff", wiki_search("Find in wiki", wiki_dir), desc="Find in wiki", mode="n" },
+    { "<leader>wfj", wiki_search("Find in journal", journal_dir), desc="Find in journal", mode="n" },
     { "<leader>wft", search_todos, desc="Find todos", mode="n" },
 }
 
