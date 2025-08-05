@@ -134,9 +134,10 @@ wk.add({
     },
 
     { "<leader>v", group = "Git..." },
-    { "<leader>vv", "<CMD>Neogit<CR>", desc="Show git status", mode="n" },
+    { "<leader>vv", "<CMD>Neogit<CR>", desc="Show neogit", mode="n" },
     { "<leader>vc", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
-    { "<leader>vp", "<CMD>G push<CR>", desc="Git push (default branch)", mode="n" },
+    { "<leader>vh", builtin.git_commits, desc="Show git commits", mode="n" },
+    { "<leader>vy", "<CMD>G push<CR>", desc="Git push", mode="n" },  -- y for yolo
     { "<leader>vs", function() require("gitsigns").stage_hunk() end, desc = "Stage change", mode = { "n", "v" } },
     { "<leader>vr", function() require("gitsigns").reset_hunk() end, desc = "Reset change", mode = { "n", "v" } },
     { "<leader>vS", require("gitsigns").stage_buffer, desc = "Stage entire buffer", mode = "n" },
