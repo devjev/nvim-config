@@ -63,9 +63,6 @@ wk.add {
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc = "Wiki journal", mode = "n" },
     { "<leader>wp", "<CMD>WikiPages<CR>", desc = "Wiki pages", mode = "n" },
     { "<leader>wt", "<CMD>WikiTags<CR>", desc = "Wiki tags", mode = "n" },
-
-    -- Adding description to buffer local using the proxy property
-    { "<leader>wa", proxy = "wa", desc = "Add link to existing page" },
 }
 
 local wiki_dir = vim.fn.expand("~/Wiki")
