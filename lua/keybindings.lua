@@ -14,7 +14,7 @@ wk.add {
     { "<leader>fg", builtin.live_grep, desc="Grep files", mode="n" },
     { "<leader>fh", builtin.help_tags, desc="Find help", mode="n" },
     {
-        "<leader>fs",
+        "<leader>fss",
         function()
             -- clangd/tsserver usually default to "utf-16" unless overridden, apparently
             builtin.lsp_document_symbols { position_encoding = "utf-16" }
@@ -22,16 +22,14 @@ wk.add {
         desc="Find all LSP symbols in buffer",
         mode="n"
     },
+    { "<leader>fsu", builtin.lsp_references, desc="Find symbol use", mode="n" },
 }
 
 -- Going places
 wk.add {
     { "<leader>g", group = "Go to..." },
-    { "<leader>ge", "<CMD>Oil<CR>", desc="Go to directory", mode="n" },
-    { "<leader>gw", "<CMD>WikiIndex<CR>", desc="Go to wiki", mode="n" },
-    { "<leader>gd", builtin.lsp_definitions, desc="Go to definitions", mode="n" },
-    { "<leader>gr", builtin.lsp_references, desc="Go to references", mode="n" },
-    { "<leader>gs", builtin.treesitter, desc="Go to treesitter", mode="n" }
+    { "<leader>go", "<CMD>Oil<CR>", desc="Go to file manager", mode="n" },
+    { "<leader>gs", builtin.lsp_definitions, desc="Go to symbol definition", mode="n" },
 }
 
 -- Wiki
@@ -75,11 +73,13 @@ wk.add {
 
 -- LSP & Code Actions
 wk.add({
-	{ "<leader>q", group = "Code Actions" },
-	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename Symbol", mode = "n" },
-	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
-	{ "<leader>qd", builtin.diagnostics, desc = "Workspace Diagnostics", mode = "n" },
-	{ "<leader>qe", vim.diagnostic.open_float, desc = "Line Diagnostics", mode = "n" },
+	{ "<leader>q", group = "Quick actions..." },
+	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename symbol", mode = "n" },
+	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" } },
+	{ "<leader>qd", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
+	{ "<leader>qe", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
+    { "<leader>qvd", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
+    { "<leader>qvc", "<CMD>Neogit<CR>", desc="Show git status", mode="n" },
 })
 
 -- Gitsigns
@@ -120,8 +120,7 @@ wk.add({
     { "<leader>htd", require("gitsigns").toggle_deleted, desc = "Toggle Deleted", mode = "n" },
 })
 
--- Git integration
 wk.add({
-    { "<leader>gS", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
-    { "<leader>gs", "<CMD>Neogit<CR>", desc="Show neogit status", mode="n" },
+    { "<leader>v", group = "Git" },
+    { "<leader>vc", "<CMD>Neogit<CR>", desc="Show git status", mode="n" },
 })
