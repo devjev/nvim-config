@@ -38,8 +38,14 @@ wk.add {
 -- !WIKI
 -- wiki.vim is great, but it's keybinding descriptions are not that good. 
 -- I am going to do my own keybindings using whichkey and provide my own 
--- description. I don't actually know how to do that properly for buffer-local
--- commands, so I am going to leave the default keybindings for now.
+-- description.
+--
+-- One extra problem here are buffer local bindings, i.e. bindings which 
+-- are valid only for a particular buffer. The condition if a file is valid 
+-- or not is defined in the plugin and I don't know that condition. I also 
+-- don't want to try to fudge it by myself. So the solution here is that I 
+-- leave the default mappings and add a description for these using  
+-- whichkey's proxy property.
 vim.g.wiki_mappings_use_defaults = "local"
 
 -- Also, we are going to use the Telescope version of wiki default commands.
@@ -53,10 +59,13 @@ vim.g.wiki_select_method = {
 
 wk.add {
     { "<leader>w", group = "Wiki...", icon = "Ⓦ " },
-    { "<leader>ww", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
-    { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
-    { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
-    { "<leader>wt", "<CMD>WikiTags<CR>", desc="Wiki tags", mode="n" }
+    { "<leader>ww", "<CMD>WikiIndex<CR>", desc = "Wiki home", mode = "n" },
+    { "<leader>wj", "<CMD>WikiJournal<CR>", desc = "Wiki journal", mode = "n" },
+    { "<leader>wp", "<CMD>WikiPages<CR>", desc = "Wiki pages", mode = "n" },
+    { "<leader>wt", "<CMD>WikiTags<CR>", desc = "Wiki tags", mode = "n" },
+
+    -- Adding description to buffer local using the proxy property
+    { "<leader>wa", proxy = "<leader>wa", desc = "Add link to existing page" },
 }
 
 local wiki_dir = vim.fn.expand("~/Wiki")
