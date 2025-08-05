@@ -10,10 +10,10 @@ wk.add {
 -- Finding stuff
 wk.add {
     { "<leader>f", group = "Find..." },
-    { "<leader>ff", builtin.find_files, desc="Find file", mode="n" },
+    { "<leader>ff", builtin.find_files, desc="Find files", mode="n" },
     { "<leader>fg", builtin.live_grep, desc="Grep files", mode="n" },
     { "<leader>fh", builtin.help_tags, desc="Find help", mode="n" },
-    { "<leader>fs", group = "Find LSP symbols..." },
+    { "<leader>fs", group = "Find objects..." },
     {
         "<leader>fss",
         function()
@@ -23,9 +23,9 @@ wk.add {
         desc="Find all LSP symbols in buffer",
         mode="n"
     },
-    { "<leader>fsu", builtin.lsp_references, desc="Find symbol use", mode="n" },
+    { "<leader>fsu", builtin.lsp_references, desc="Find object use", mode="n" },
     { "<leader>fc", builtin.commands, desc="Find (and execute) commands", mode={ "n", "v"}, },
-    { "<leader>fo", builtin.commands, desc="Find vim options", mode="n", },
+    { "<leader>fo", builtin.vim_options, desc="Find vim options", mode="n", },
 }
 
 -- Going places
@@ -37,7 +37,7 @@ wk.add {
 
 -- Wiki
 wk.add {
-    { "<leader>w", group = "Wiki..." },
+    { "<leader>w", group = "Wiki...", icon = "fa-wikipedia-w" },
     { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
     { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
