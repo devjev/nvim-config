@@ -98,17 +98,19 @@ if type(wiki_filetypes) == "string" then
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = wiki_filetypes,             -- table of filetypes from g:wiki_filetypes :contentReference[oaicite:2]{index=2}
-  callback = function(args)
-    local bufnr = args.buf
-    -- Register buffer-local Which-Key descriptions
-    wk.add({
-      a = { "<Plug>(wiki-link-add)", "Add link to existing page" },
-    }, {
-      prefix = "<Space>w",
-      buffer = bufnr,
-    })
-  end,
+    pattern = wiki_filetypes,             -- table of filetypes from g:wiki_filetypes :contentReference[oaicite:2]{index=2}
+    callback = function(args)
+        local bufnr = args.buf
+        wk.register(
+            {
+                a = { "<Plug>(wiki-link-add)", "Add link to existing page" },
+            },
+            {
+                prefix = "<Space>w",
+                buffer = bufnr,
+            }
+        )
+    end,
 })
 
 -- Debugging
