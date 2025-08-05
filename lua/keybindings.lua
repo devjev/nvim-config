@@ -30,14 +30,14 @@ wk.add {
 
 -- Going places
 wk.add {
-    { "<leader>g", group = "Go to..." },
+    { "<leader>g", group = "Go to...", icon = "➤" },
     { "<leader>go", "<CMD>Oil<CR>", desc="Go to file manager", mode="n" },
     { "<leader>gd", builtin.lsp_definitions, desc="Go to symbol definition", mode="n" },
 }
 
 -- Wiki
 wk.add {
-    { "<leader>w", group = "Wiki...", icon = "fa-wikipedia-w" },
+    { "<leader>w", group = "Wiki...", icon = "Ⓦ " },
     { "<leader>wh", "<CMD>WikiIndex<CR>", desc="Wiki home", mode="n" },
     { "<leader>wj", "<CMD>WikiJournal<CR>", desc="Wiki journal", mode="n" },
     { "<leader>wp", "<CMD>WikiPages<CR>", desc="Wiki pages", mode="n" },
