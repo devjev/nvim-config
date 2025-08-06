@@ -24,6 +24,15 @@ require("lazy").setup {
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
 
+    -- Tabby
+    {
+        "nanozuki/tabby.nvim",
+        ---@type TabbyConfig
+        opts = {
+            -- configs...
+        },
+    },
+
 	-- Telescope
 	{
 		"nvim-telescope/telescope.nvim",
