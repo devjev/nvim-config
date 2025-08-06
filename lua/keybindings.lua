@@ -66,21 +66,18 @@ local function mk_wiki_switch(wiki_cmd, tab_title)
     local result = function()
         -- look through all tabs for one with our marker var
         for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-        local ok = pcall(vim.api.nvim_tabpage_get_var, tab, "is_wiki_tab")
-        if ok then
-          -- switch to that tab
-          vim.api.nvim_set_current_tabpage(tab)
-          return
-        end
+            local ok = pcall(vim.api.nvim_tabpage_get_var, tab, "is_wiki_tab")
+            if ok then
+                -- switch to that tab
+                vim.api.nvim_set_current_tabpage(tab)
+                vim.cmd(wiki_cmd)
+                return
+            end
         end
 
-        -- not found → create it
         vim.cmd("tabnew")
-        -- mark this tab so next time we’ll find it
         vim.api.nvim_tabpage_set_var(0, "is_wiki_tab", true)
-        -- open the index
         vim.cmd(wiki_cmd)
-        -- give it a pretty name (requires tabby.nvim)
         pcall(vim.cmd, "Tabby rename_tab " .. tab_title)
     end
     return result
