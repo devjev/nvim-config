@@ -7,7 +7,7 @@ wk.add {
     { "<S-Tab>", function() builtin.buffers() end, desc="Show buffers", mode="n" }
 }
 
--- Finding stuff
+-- !FIND
 wk.add {
     { "<leader>f", group = "Find..." },
     { "<leader>ff", builtin.find_files, desc="Find files", mode="n" },
@@ -28,7 +28,7 @@ wk.add {
     { "<leader>fo", builtin.vim_options, desc="Find vim options", mode="n", },
 }
 
--- Going places
+-- !GO
 wk.add {
     { "<leader>g", group = "Go to...", icon = "➤" },
     { "<leader>go", "<CMD>Oil<CR>", desc="Go to file manager", mode="n" },
