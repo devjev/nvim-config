@@ -21,6 +21,7 @@ require("lazy").setup {
     {"slugbyte/lackluster.nvim"},
     {"miikanissi/modus-themes.nvim"},
     {"nyoom-engineering/oxocarbon.nvim"},
+    {"rakr/vim-two-firewatch"},
 
 	{
         "nvim-tree/nvim-web-devicons",
