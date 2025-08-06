@@ -13,20 +13,20 @@ wk.add {
     { "<leader>ff", builtin.find_files, desc="Find files", mode="n" },
     { "<leader>fg", builtin.live_grep, desc="Grep files", mode="n" },
     { "<leader>fh", builtin.help_tags, desc="Find help", mode="n" },
-    { "<leader>fs", group = "Find objects..." },
+    { "<leader>fs", group = "Find LSP symbols..." },
     {
         "<leader>fss",
         function()
             -- clangd/tsserver usually default to "utf-16" unless overridden, apparently
             builtin.lsp_document_symbols { position_encoding = "utf-16" }
         end,
-        desc="Find all LSP symbols in buffer",
+        desc="Find all symbols in buffer",
         mode="n"
     },
-    { "<leader>fsu", builtin.lsp_references, desc="Find object use", mode="n" },
-    { "<leader>fC", builtin.commands, desc="Find (and execute) commands", mode={ "n", "v"}, },
-    { "<leader>fc", builtin.colorscheme, desc="Find (and change) the colorscheme", mode={ "n", "v"}, },
-    { "<leader>fo", builtin.vim_options, desc="Find vim options", mode="n", },
+    { "<leader>fsu", builtin.lsp_references, desc="Find all symbol uses", mode="n" },
+    { "<leader>fC", builtin.commands, desc="Find Vim commands", mode={ "n", "v"}, },
+    { "<leader>fc", builtin.colorscheme, desc="Find a Vim color scheme", mode={ "n", "v"}, },
+    { "<leader>fo", builtin.vim_options, desc="Find Vim options", mode="n", },
 }
 
 -- !GO
