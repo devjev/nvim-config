@@ -21,7 +21,19 @@ require("lazy").setup {
     {"slugbyte/lackluster.nvim"},
     {"miikanissi/modus-themes.nvim"},
     {"nyoom-engineering/oxocarbon.nvim"},
-    {"jdsimcoe/abstract.vim"},
+    {"mellow-theme/mellow.nvim"},
+    {"p00f/alabaster.nvim"},
+    {
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+        priority = 1000,
+        -- you can set set configuration options here
+        -- config = function()
+        --     vim.g.zenbones_darken_comments = 45
+        --     vim.cmd.colorscheme('zenbones')
+        -- end
+    },
 
 	{
         "nvim-tree/nvim-web-devicons",
