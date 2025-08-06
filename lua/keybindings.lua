@@ -61,12 +61,40 @@ vim.g.wiki_select_method = {
     links = wiki_telescope.links,
 }
 
+-- Custom functions to switch over into wiki index in a separate tab
+local function mk_wiki_switch(wiki_cmd, tab_title)
+    local result = function()
+        -- look through all tabs for one with our marker var
+        for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+        local ok = pcall(vim.api.nvim_tabpage_get_var, tab, "is_wiki_tab")
+        if ok then
+          -- switch to that tab
+          vim.api.nvim_set_current_tabpage(tab)
+          return
+        end
+        end
+
+        -- not found → create it
+        vim.cmd("tabnew")
+        -- mark this tab so next time we’ll find it
+        vim.api.nvim_tabpage_set_var(0, "is_wiki_tab", true)
+        -- open the index
+        vim.cmd(wiki_cmd)
+        -- give it a pretty name (requires tabby.nvim)
+        pcall(vim.cmd, "Tabby rename_tab " .. tab_title)
+    end
+end
+
 wk.add {
     { "<leader>w", group = "Wiki...", icon = "Ⓦ " },
-    { "<leader>ww", "<CMD>WikiIndex<CR>", desc = "Wiki home", mode = "n" },
-    { "<leader>wj", "<CMD>WikiJournal<CR>", desc = "Wiki journal", mode = "n" },
-    { "<leader>wp", "<CMD>WikiPages<CR>", desc = "Wiki pages", mode = "n" },
-    { "<leader>wt", "<CMD>WikiTags<CR>", desc = "Wiki tags", mode = "n" },
+    { "<leader>ww", mk_wiki_switch("WikiIndex", "Wiki"), desc = "Index", mode = "n" },
+    { "<leader>wj", mk_wiki_switch("WikiJournal", "Wiki"), desc = "Journal", mode = "n" },
+    { "<leader>wp", "<CMD>WikiPages<CR>", desc = "Pages", mode = "n" },
+    { "<leader>wt", "<CMD>WikiTags<CR>", desc = "Tags", mode = "n" },
+
+    { "<leader>wg", group = "Wiki go to (inside current window)..." },
+    { "<leader>wgi", "<CMD>WikiIndex<CR>", desc = "Index", mode = "n" },
+    { "<leader>wgj", "<CMD>WikiJournal<CR>", desc = "Journal", mode = "n" },
 }
 
 local wiki_dir = vim.fn.expand("~/Wiki")
