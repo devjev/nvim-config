@@ -7,7 +7,7 @@ vim.cmd("language en_US.UTF-8")
 
 -- Default colorscheme = oxocarbon, but tweaked 
 -- to have lualine darker
-vim.cmd([[colorscheme oxocarbon]])
+vim.cmd([[colorscheme carbonfox]])
 
 -- Basics
 vim.opt.tabstop = 4
