@@ -44,7 +44,7 @@ wk.add {
 -- are valid only for a particular buffer. The condition if a file is valid 
 -- or not is defined in the plugin and I don't know that condition. I also 
 -- don't want to try to fudge it by myself.
-vim.g.wiki_mappings_use_defaults = "none"
+vim.g.wiki_mappings_use_defaults = "local"
 
 -- Also, we are going to use the Telescope version of wiki default commands.
 local wiki_telescope = require("wiki.telescope")
@@ -90,28 +90,6 @@ wk.add {
     { "<leader>wfj", wiki_search("Find in journal", journal_dir), desc="Find in journal", mode="n" },
     { "<leader>wft", search_todos, desc="Find todos", mode="n" },
 }
-
--- Remapping buffer-local defaults when a wiki buffer is opened...
-local wiki_filetypes = vim.g.wiki_filetypes
-if type(wiki_filetypes) == "string" then
-    wiki_filetypes = { wiki_filetypes }
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = wiki_filetypes,             -- table of filetypes from g:wiki_filetypes :contentReference[oaicite:2]{index=2}
-    callback = function(args)
-        local bufnr = args.buf
-        wk.register(
-            {
-                a = { "<Plug>(wiki-link-add)", "Add link to existing page" },
-            },
-            {
-                prefix = "<Space>w",
-                buffer = bufnr,
-            }
-        )
-    end,
-})
 
 -- Debugging
 wk.add {
