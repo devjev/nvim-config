@@ -40,14 +40,13 @@ require("lazy").setup {
 		dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("telescope").setup({
-                defaults = {
-                    layout_strategy = "horizontal",
-                    layout_config = {
-                        horizontal = {
-                            prompt_position = "top",
-                        },
-                    },
-                }
+                -- defaults = {
+                --     layout_strategy = "horizontal",
+                --     layout_config = {
+                --         horizontal = {
+                --             prompt_position = "top",
+                --         },
+                --     },
             })
         end
 	},
@@ -205,7 +204,6 @@ require("lazy").setup {
                 pylsp = {
                   plugins = {
                     pycodestyle = {
-                      ignore = {'W391'},
                       maxLineLength = 100
                     }
                   }
@@ -260,12 +258,7 @@ require("lazy").setup {
         opts = {},
         -- Optional dependencies
         -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-        dependencies = {
-            {
-                "nvim-tree/nvim-web-devicons",
-                -- cond = function() return not is_windows end,
-            }
-        },
+        dependencies = { {"nvim-tree/nvim-web-devicons", opts = {}} },
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
         lazy = false,
         config = function()
