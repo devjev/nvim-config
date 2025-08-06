@@ -35,6 +35,12 @@ wk.add {
     { "<leader>gd", builtin.lsp_definitions, desc="Go to symbol definition", mode="n" },
 }
 
+-- !TABS
+wk.add {
+    { "<leader>tn", "<CMD>$tabnew<CR>", desc = "Create new tab", mode = "n" },
+    { "<leader>tc", "<CMD>tabclose<CR>", desc = "Close tab", mode = "n" },
+}
+
 -- !WIKI
 -- wiki.vim is great, but it's keybinding descriptions are not that good. 
 -- I am going to do my own keybindings using whichkey and provide my own 
