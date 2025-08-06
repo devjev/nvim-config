@@ -24,7 +24,8 @@ wk.add {
         mode="n"
     },
     { "<leader>fsu", builtin.lsp_references, desc="Find object use", mode="n" },
-    { "<leader>fc", builtin.commands, desc="Find (and execute) commands", mode={ "n", "v"}, },
+    { "<leader>fC", builtin.commands, desc="Find (and execute) commands", mode={ "n", "v"}, },
+    { "<leader>fc", builtin.colorscheme, desc="Find (and change) the colorscheme", mode={ "n", "v"}, },
     { "<leader>fo", builtin.vim_options, desc="Find vim options", mode="n", },
 }
 
