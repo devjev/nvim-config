@@ -18,9 +18,6 @@ local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 require("lazy").setup {
 	-- Colorschemes
-    {"slugbyte/lackluster.nvim"},
-    {"miikanissi/modus-themes.nvim"},
-    {"nyoom-engineering/oxocarbon.nvim"}, -- should be removed
     {"yorickpeterse/vim-paper"},
     {"EdenEast/nightfox.nvim"},
 
