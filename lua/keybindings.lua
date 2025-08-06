@@ -83,6 +83,7 @@ local function mk_wiki_switch(wiki_cmd, tab_title)
         -- give it a pretty name (requires tabby.nvim)
         pcall(vim.cmd, "Tabby rename_tab " .. tab_title)
     end
+    return result
 end
 
 wk.add {
