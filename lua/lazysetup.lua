@@ -21,8 +21,8 @@ require("lazy").setup {
     {"slugbyte/lackluster.nvim"},
     {"miikanissi/modus-themes.nvim"},
     {"nyoom-engineering/oxocarbon.nvim"}, -- should be removed
-    {"seandewar/paragon.vim"},
     {"yorickpeterse/vim-paper"},
+    {"EdenEast/nightfox.nvim"},
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
