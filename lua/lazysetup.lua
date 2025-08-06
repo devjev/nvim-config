@@ -249,6 +249,9 @@ require("lazy").setup {
 	-- Jinja / Nunjucks
 	{ "lepture/vim-jinja" },
 
+    -- Yuck (LISP variant used by eww widget program)
+    {"elkowar/yuck.vim"},
+
 
     -- !FILE MANAGER
     {
