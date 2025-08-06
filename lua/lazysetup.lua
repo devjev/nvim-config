@@ -22,6 +22,7 @@ require("lazy").setup {
     {"miikanissi/modus-themes.nvim"},
     {"nyoom-engineering/oxocarbon.nvim"}, -- should be removed
     {"seandewar/paragon.vim"},
+    {"yorickpeterse/vim-paper"},
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
