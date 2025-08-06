@@ -37,6 +37,7 @@ wk.add {
 
 -- !TABS
 wk.add {
+    { "<leader>t", group = "Tabs...", icon = "➤" },
     { "<leader>tn", "<CMD>$tabnew<CR>", desc = "Create new tab", mode = "n" },
     { "<leader>tc", "<CMD>tabclose<CR>", desc = "Close tab", mode = "n" },
 }
