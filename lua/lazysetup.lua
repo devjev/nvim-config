@@ -20,25 +20,11 @@ require("lazy").setup {
 	-- Colorschemes
     {"slugbyte/lackluster.nvim"},
     {"miikanissi/modus-themes.nvim"},
-    {"nyoom-engineering/oxocarbon.nvim"},
-    {"mellow-theme/mellow.nvim"},
-    {"p00f/alabaster.nvim"},
-    {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-        priority = 1000,
-        -- you can set set configuration options here
-        -- config = function()
-        --     vim.g.zenbones_darken_comments = 45
-        --     vim.cmd.colorscheme('zenbones')
-        -- end
-    },
+    {"nyoom-engineering/oxocarbon.nvim"}, -- should be removed
+    {"seandewar/paragon.vim"},
 
-	{
-        "nvim-tree/nvim-web-devicons",
-        -- cond = function() return is_windows end
-    },
+    -- Icons
+	{"nvim-tree/nvim-web-devicons"},
 
 	-- Telescope
 	{
