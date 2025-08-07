@@ -39,19 +39,11 @@ require("lazy").setup {
 		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("telescope").setup({
-                -- defaults = {
-                --     layout_strategy = "horizontal",
-                --     layout_config = {
-                --         horizontal = {
-                --             prompt_position = "top",
-                --         },
-                --     },
-            })
+            require("telescope").setup({})
         end
 	},
 
-	-- Lualine (TODO need to customize this)
+	-- Lualine
 	{
     	"nvim-lualine/lualine.nvim",
 	    dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -138,41 +130,18 @@ require("lazy").setup {
             "williamboman/mason.nvim",
         },
         config = function()
-            local dap = require "dap"
+            -- local dap = require "dap"
             local ui = require("dapui")
             local vt = require("nvim-dap-virtual-text")
-            dap.adapters.codelldb = {
-                type = 'server',
-                port = "${port}",
-                executable = {
-                    -- Assumes that you nix it into the path
-                    command = 'codelldb',
-                    args = {"--port", "${port}"},
-                }
-            }
-            dap.configurations.rust= {
-                {
-                    name = "Launch file",
-                    type = "codelldb",
-                    request = "launch",
-                    program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-                    end,
-                    cwd = '${workspaceFolder}',
-                    stopOnEntry = false,
-                },
-            }
             ui.setup()
             vt.setup()
         end
     },
 
     {
-        "julianolf/nvim-dap-lldb",
-        dependencies = { "mfussenegger/nvim-dap" },
-        config = function()
-            require("dap-lldb").setup()
-        end
+        'mrcjkb/rustaceanvim',
+        version = '^6',
+        lazy = false,
     },
 
     {
