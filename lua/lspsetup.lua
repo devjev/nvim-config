@@ -53,11 +53,12 @@ local lspconfig = require("lspconfig")
 lspconfig.zls.setup({ capabilities = capabilities })
 
 -- Rust 
-lspconfig.rust_analyzer.setup({
-	settings = {
-		["rust-analyzer"] = {},
-	}
-})
+-- This is not needed with a rustaceanvim
+-- lspconfig.rust_analyzer.setup({
+-- 	settings = {
+-- 		["rust-analyzer"] = {},
+-- 	}
+-- })
 
 -- Golang
 lspconfig.gopls.setup({})
