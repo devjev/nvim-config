@@ -20,10 +20,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.showtabline = 1
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "double" }
-)
 
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd("FileType", {
