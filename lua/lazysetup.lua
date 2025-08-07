@@ -138,9 +138,30 @@ require("lazy").setup {
             "williamboman/mason.nvim",
         },
         config = function()
-            -- local dap = require "dap"
+            local dap = require "dap"
             local ui = require("dapui")
             local vt = require("nvim-dap-virtual-text")
+            dap.adapters.codelldb = {
+                type = 'server',
+                port = "${port}",
+                executable = {
+                    -- Assumes that you nix it into the path
+                    command = 'codelldb',
+                    args = {"--port", "${port}"},
+                }
+            }
+            dap.configurations.rust= {
+                {
+                    name = "Launch file",
+                    type = "codelldb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                    end,
+                    cwd = '${workspaceFolder}',
+                    stopOnEntry = false,
+                },
+            }
             ui.setup()
             vt.setup()
         end
