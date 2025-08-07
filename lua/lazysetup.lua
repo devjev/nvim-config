@@ -138,11 +138,6 @@ require("lazy").setup {
         end
     },
 
-    {
-        'mrcjkb/rustaceanvim',
-        version = '^6',
-        lazy = false,
-    },
 
     {
         "mfussenegger/nvim-dap-python",
@@ -150,6 +145,13 @@ require("lazy").setup {
             -- Assume a global installation
             require("dap-python").setup("python")
         end
+    },
+
+    {
+        "julianolf/nvim-dap-lldb",
+        dependencies = { "mfussenegger/nvim-dap" },
+        -- Assume codelldb is in path
+        opts = { codelldb_path = "codelldb" },
     },
 
 	-- !TREE SITTER
@@ -232,6 +234,11 @@ require("lazy").setup {
     -- !LANGUAGE SUPPORT
 	-- Rust
 	{ "rust-lang/rust.vim" },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^6',
+        lazy = false,
+    },
 
 	-- Zig
 	{ "ziglang/zig.vim" },
