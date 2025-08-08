@@ -18,7 +18,6 @@ vim.o.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
 vim.opt.showtabline = 1
 
 -- For a few particular file types, I want to have hard wrapping
@@ -29,3 +28,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.colorcolumn = "80"
 	end
 })
+
+-- Sign column
+vim.opt.signcolumn = "yes"
+vim.fn.sign_define('DiagnosticSignError', { text = '❌', texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = '⚠️', texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = '📘', texthl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint', { text = '💡', texthl = 'DiagnosticSignHint' })
