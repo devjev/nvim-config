@@ -138,7 +138,8 @@ wk.add {
     { "<F8>", require("dap").step_over, desc="Step over", mode="n" },
 
     { "<F9>", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
-    { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" }
+    { "<F10>", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
+    { "<F11>", function() require("dapui").float_element("repl") end, desc="Show REPL", mode="n" }
 }
 
 -- LSP & Code Actions
@@ -146,8 +147,8 @@ wk.add({
 	{ "<leader>q", group = "Quick actions..." },
 	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename symbol", mode = "n" },
 	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" } },
-	{ "<leader>qE", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
-	{ "<leader>qe", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
+	{ "<leader>qw", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
+	{ "<leader>qW", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
 	{ "<leader>qf", builtin.quickfix, desc = "Show quickfix menu", mode = "n" },
 	{ "<leader>qF", builtin.quickfixhistory, desc = "Show quickfix history", mode = "n" },
 
@@ -158,6 +159,7 @@ wk.add({
     { "<leader>qds", function() require("dapui").float_element("scopes") end, desc="Show scopes", mode="n" },
     { "<leader>qdw", function() require("dapui").float_element("watches") end, desc="Show watches", mode="n" },
     { "<leader>qdS", function() require("dapui").float_element("stacks") end, desc="Show stacks", mode="n" },
+    { "<leader>qdr", function() require("dapui").float_element("repl") end, desc="Show REPL", mode="n" },
 
     { "<leader>qdD", require("dap").close, desc="Stop debugger", mode="n" },
     { "]D", require("dap").step_into, desc="Step into", mode="n" },
