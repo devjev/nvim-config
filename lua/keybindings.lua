@@ -146,7 +146,7 @@ wk.add({
 	{ "<leader>q", group = "Quick actions..." },
 	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename symbol", mode = "n" },
 	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" } },
-	{ "<leader>qd", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
+	{ "<leader>qE", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
 	{ "<leader>qe", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
 	{ "<leader>qf", builtin.quickfix, desc = "Show quickfix menu", mode = "n" },
 	{ "<leader>qF", builtin.quickfixhistory, desc = "Show quickfix history", mode = "n" },
