@@ -147,10 +147,10 @@ wk.add({
 	{ "<leader>q", group = "Quick actions..." },
 	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename symbol", mode = "n" },
 	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" } },
-	{ "<leader>qW", builtin.diagnostics, desc = "Show workspace diagnostics", mode = "n" },
-	{ "<leader>qw", vim.diagnostic.open_float, desc = "Show line diagnostics", mode = "n" },
 	{ "<leader>qf", builtin.quickfix, desc = "Show quickfix menu", mode = "n" },
 	{ "<leader>qF", builtin.quickfixhistory, desc = "Show quickfix history", mode = "n" },
+	{ "<leader>qW", builtin.diagnostics, desc = "What's wrong? (project)", mode = "n" },
+	{ "<leader>qw", vim.diagnostic.open_float, desc = "What's wrong? (cursor)", mode = "n" },
 
     -- Duplicate debugger keys to non-function keys
     { "<leader>qd", group = "Debugger" },
