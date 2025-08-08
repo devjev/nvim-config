@@ -38,20 +38,26 @@ require("lazy").setup {
                     win = 'TabLine',
                     tail = 'TabLine',
                 }
+                local sep_right = ''
+                local sep_left  = ''
+                if is_windows then
+                    sep_right = ' '
+                    sep_left =  ' '
+                end
                 return {
                     {
                         { '  ', hl = theme.head },
-                        line.sep('', theme.head, theme.fill),
+                        line.sep(sep_right, theme.head, theme.fill),
                     },
                     line.tabs().foreach(function(tab)
                         local hl = tab.is_current() and theme.current_tab or theme.tab
                         return {
-                            line.sep('', hl, theme.fill),
+                            line.sep(sep_left, hl, theme.fill),
                             tab.is_current() and '' or '󰆣',
                             tab.number(),
                             tab.name(),
                             tab.close_btn(''),
-                            line.sep('', hl, theme.fill),
+                            line.sep(sep_right, hl, theme.fill),
                             hl = hl,
                             margin = ' ',
                         }
@@ -59,16 +65,16 @@ require("lazy").setup {
                     line.spacer(),
                     line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
                         return {
-                            line.sep('', theme.win, theme.fill),
+                            line.sep(sep_left, theme.win, theme.fill),
                             win.is_current() and '' or '',
                             win.buf_name(),
-                            line.sep('', theme.win, theme.fill),
+                            line.sep(sep_right, theme.win, theme.fill),
                             hl = theme.win,
                             margin = ' ',
                         }
                     end),
                     {
-                        line.sep('', theme.tail, theme.fill),
+                        line.sep(sep_left, theme.tail, theme.fill),
                         { '  ', hl = theme.tail },
                     },
                     hl = theme.fill,
@@ -94,7 +100,6 @@ require("lazy").setup {
 		config = function()
 			require("lualine").setup({
                 options = {
-                    -- icons_enabled = not is_windows,
                     icons_enabled = true,
                     theme = 'auto',
                     -- Remove decorations, because we are not 14
