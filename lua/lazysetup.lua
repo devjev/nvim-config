@@ -282,7 +282,7 @@ require("lazy").setup {
 
     -- !LANGUAGE SUPPORT
 	-- Rust
-	{ "rust-lang/rust.vim" },
+	-- { "rust-lang/rust.vim" },
     {
         'mrcjkb/rustaceanvim',
         version = '^6',
