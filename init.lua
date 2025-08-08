@@ -31,7 +31,15 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Sign column
 vim.opt.signcolumn = "yes"
-vim.fn.sign_define('DiagnosticSignError', { text = '❌', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = '⚠️', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = '📘', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '💡', texthl = 'DiagnosticSignHint' })
+-- See this: https://github.com/AnirudhG07/dotfiles/blob/6d75616e1f059753fe27f8377a82560c6476b725/nvim/.config/nvim/lua/anirudh/plugins/lsp/lspconfig.lua#L79
+local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.diagnostic.config({
+        signs = {
+            text = icon,
+            linehl = hl,
+            numhl = "",
+        },
+    })
+end
