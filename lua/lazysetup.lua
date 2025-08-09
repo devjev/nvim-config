@@ -29,7 +29,26 @@ require("lazy").setup {
             vim.g.zenbones_darken_comments = 65
         end
     },
-    { "miikanissi/modus-themes.nvim", priority = 1000 },
+    {
+        "miikanissi/modus-themes.nvim",
+        priority = 1000,
+        config = function()
+            require("modus-themes").setup({
+                style = "modus_operandi",
+                variant = "default",
+                on_highlights = function(highlights, colors)
+                    -- For some reason, @fields are done in super low contrast in 
+                    -- modus_operandi, which needs to be corrected.
+                    highlights["@field"] = {
+                        fg = colors.cyan
+                    }
+                    highlights["@punctuation.bracket"] = {
+                        fg = "#000000"
+                    }
+                end,
+            })
+        end
+    },
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
