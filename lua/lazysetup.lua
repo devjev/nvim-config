@@ -29,6 +29,7 @@ require("lazy").setup {
             vim.g.zenbones_darken_comments = 65
         end
     },
+    { "miikanissi/modus-themes.nvim", priority = 1000 },
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
