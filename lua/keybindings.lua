@@ -193,8 +193,7 @@ wk.add({
 
 -- !COLORS
 local function toggle_colorscheme()
-    local current_colorscheme = vim.g.colors_name
-    if current_colorscheme == vim.g.dark_coloscheme then
+    if vim.g.colors_name == vim.g.dark_coloscheme then
         vim.cmd("colorscheme " .. vim.g.light_colorscheme)
     else
         vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
