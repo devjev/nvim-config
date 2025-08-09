@@ -233,7 +233,7 @@ require("lazy").setup {
 		end
 	},
 
-    -- Setup LSP
+    -- !LSP
 	{
         "neovim/nvim-lspconfig",
         opts = {
@@ -306,6 +306,19 @@ require("lazy").setup {
 
     -- Yuck (LISP variant used by eww widget program)
     {"elkowar/yuck.vim"},
+
+    -- Lua support
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
 
 
     -- !FILE MANAGER

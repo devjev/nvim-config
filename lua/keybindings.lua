@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
-local builtin = require("telescope.builtin")
 local wk = require("which-key")
+local builtin = require("telescope.builtin")
 
--- Tab shortcuts
+-- !TAB
 wk.add {
     { "<S-Tab>", function() builtin.buffers() end, desc="Show buffers", mode="n" }
 }
@@ -220,3 +220,7 @@ wk.add({
     { "<leader>vtb", require("gitsigns").toggle_current_line_blame, desc = "Toggle blame line", mode = "n" },
     { "<leader>vtd", require("gitsigns").toggle_deleted, desc = "Toggle deleted", mode = "n" },
 })
+
+
+-- !COLORS
+wk.add({})

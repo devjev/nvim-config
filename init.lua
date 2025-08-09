@@ -5,9 +5,10 @@ require("keybindings")
 -- Enforce English
 vim.cmd("language en_US.UTF-8")
 
--- Default colorscheme = oxocarbon, but tweaked 
--- to have lualine darker
-vim.cmd([[colorscheme carbonfox]])
+-- Colorschemes
+vim.g.dark_colorscheme  = "carbonfox"
+vim.g.light_colorscheme = "paper"
+vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
 
 -- Basics
 vim.opt.tabstop = 4
