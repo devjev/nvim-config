@@ -18,7 +18,7 @@ local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 require("lazy").setup {
 	-- Colorschemes
-    {"yorickpeterse/vim-paper"},
+    {"zenbones-theme/zenbones.nvim"},
     {"EdenEast/nightfox.nvim"},
 
     -- Icons
@@ -27,7 +27,6 @@ require("lazy").setup {
     -- Tabby
     {
         "nanozuki/tabby.nvim",
-        ---@type TabbyConfig
         opts = {
             line = function(line)
                 local theme = {
