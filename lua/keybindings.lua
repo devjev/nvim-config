@@ -170,57 +170,38 @@ wk.add({
 })
 
 -- !GIT
-wk.add({
-    {
-        "]c",
-        function()
-            if vim.wo.diff then
-                return "]c"
-            end
-            vim.schedule(function()
-                require("gitsigns").next_hunk()
-            end)
-            return "<Ignore>"
-        end,
-        desc = "Next change",
-        mode = "n",
-        expr = true
-    },
-    {
-        "[c",
-        function()
-            if vim.wo.diff then
-                return "[c"
-            end
-            vim.schedule(function()
-                require("gitsigns").prev_hunk()
-            end)
-            return "<Ignore>"
-        end,
-        desc = "Previous change",
-        mode = "n",
-        expr = true
-    },
+local gs = require("gitsigns")
 
+wk.add({
     { "<leader>v", group = "Git..." },
     { "<leader>vv", "<CMD>Neogit<CR>", desc="Show neogit", mode="n" },
     { "<leader>vc", "<CMD>DiffviewOpen<CR>", desc="Show git diff", mode="n" },
+    { "<leader>vn", gs.nav_hunk, desc="Navigate changes", mode="n" },
     { "<leader>vh", builtin.git_commits, desc="Show git commits", mode="n" },
     { "<leader>vy", "<CMD>G push<CR>", desc="Git push", mode="n" },  -- y for yolo
-    { "<leader>vs", function() require("gitsigns").stage_hunk() end, desc = "Stage change", mode = { "n", "v" } },
-    { "<leader>vr", function() require("gitsigns").reset_hunk() end, desc = "Reset change", mode = { "n", "v" } },
-    { "<leader>vS", require("gitsigns").stage_buffer, desc = "Stage entire buffer", mode = "n" },
-    { "<leader>vu", require("gitsigns").undo_stage_hunk, desc = "Undo stage change", mode = "n" },
-    { "<leader>vR", require("gitsigns").reset_buffer, desc = "Reset changes in buffer", mode = "n" },
-    { "<leader>vp", require("gitsigns").preview_hunk, desc = "Preview change", mode = "n" },
-    { "<leader>vb", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame line", mode = "n" },
-    { "<leader>vd", require("gitsigns").diffthis, desc = "Diff this", mode = "n" },
-    { "<leader>vD", function() require("gitsigns").diffthis("~") end, desc = "Diff this ~", mode = "n" },
+    { "<leader>vs", gs.stage_hunk, desc = "Stage change", mode = { "n", "v" } },
+    { "<leader>vr", gs.reset_hunk, desc = "Reset change", mode = { "n", "v" } },
+    { "<leader>vS", gs.stage_buffer, desc = "Stage entire buffer", mode = "n" },
+    { "<leader>vR", gs.reset_buffer, desc = "Reset changes in buffer", mode = "n" },
+    { "<leader>vp", gs.preview_hunk, desc = "Preview change", mode = "n" },
+    { "<leader>vb", function() gs.blame_line({ full = true }) end, desc = "Blame line", mode = "n" },
+    { "<leader>vd", gs.diffthis, desc = "Diff this", mode = "n" },
     { "<leader>vt", group = "Git toggle" },
-    { "<leader>vtb", require("gitsigns").toggle_current_line_blame, desc = "Toggle blame line", mode = "n" },
-    { "<leader>vtd", require("gitsigns").toggle_deleted, desc = "Toggle deleted", mode = "n" },
+    { "<leader>vtb", gs.toggle_current_line_blame, desc = "Toggle blame line", mode = "n" },
 })
 
 
 -- !COLORS
-wk.add({})
+local function toggle_colorscheme()
+    local current_colorscheme = vim.g.colors_name
+    if current_colorscheme == vim.g.dark_coloscheme then
+        vim.cmd("colorscheme " .. vim.g.light_colorscheme)
+    else
+        vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
+    end
+end
+
+wk.add({
+    { "<leader>c", group = "Color..." },
+    { "<leader>cc", toggle_colorscheme, desc="Toggle dark/light colorscheme", mode="n" },
+})
