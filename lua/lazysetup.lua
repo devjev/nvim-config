@@ -18,8 +18,18 @@ local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 require("lazy").setup {
 	-- Colorschemes
-    {"zenbones-theme/zenbones.nvim"},
     {"EdenEast/nightfox.nvim"},
+    {
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+        priority = 1000,
+        -- you can set set configuration options here
+        -- config = function()
+        --     vim.g.zenbones_darken_comments = 45
+        --     vim.cmd.colorscheme('zenbones')
+        -- end
+    },
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
