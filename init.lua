@@ -7,7 +7,7 @@ vim.cmd("language en_US.UTF-8")
 
 -- Colorschemes
 vim.g.dark_colorscheme  = "carbonfox"
-vim.g.light_colorscheme = "modus_vivendi"
+vim.g.light_colorscheme = "modus_operandi"
 vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
 
 -- Basics
