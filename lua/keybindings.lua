@@ -159,7 +159,7 @@ wk.add({
     { "<leader>qds", function() require("dapui").float_element("scopes") end, desc="Show scopes", mode="n" },
     { "<leader>qdw", function() require("dapui").float_element("watches") end, desc="Show watches", mode="n" },
     { "<leader>qdS", function() require("dapui").float_element("stacks") end, desc="Show stacks", mode="n" },
-    { "<leader>qdr", function() require("dapui").float_element("repl") end, desc="Show REPL", mode="n" },
+    { "<leader>qdr", "<CMD>DapToggleRepl<CR>", desc="Show REPL", mode="n" },
 
     { "<leader>qdD", require("dap").close, desc="Stop debugger", mode="n" },
     { "]D", require("dap").step_into, desc="Step into", mode="n" },
