@@ -34,6 +34,7 @@ wk.add {
     { "<leader>g", group = "Go to...", icon = "➤" },
     { "<leader>go", "<CMD>Oil<CR>", desc="Go to file manager", mode="n" },
     { "<leader>gd", builtin.lsp_definitions, desc="Go to symbol definition", mode="n" },
+    { "<leader>gz", "<CMD>ZenMode<CR>", desc="Go to zen mode", mode="n" },
 }
 
 -- !TABS
