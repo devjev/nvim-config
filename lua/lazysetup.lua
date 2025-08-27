@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 require("lazy").setup {
-	-- Colorschemes
+	-- !Colorschemes
     {"EdenEast/nightfox.nvim"},
     {
         "zenbones-theme/zenbones.nvim",
@@ -52,6 +52,9 @@ require("lazy").setup {
 
     -- Icons
 	{"nvim-tree/nvim-web-devicons"},
+
+    -- !ZEN MODE
+    {"Pocco81/true-zen.nvim"},
 
     -- Tabby
     {
