@@ -54,7 +54,7 @@ require("lazy").setup {
 	{"nvim-tree/nvim-web-devicons"},
 
     -- !ZEN MODE
-    {"Pocco81/true-zen.nvim"},
+    { "folke/zen-mode.nvim" },
 
     -- Tabby
     {
