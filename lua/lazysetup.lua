@@ -363,6 +363,11 @@ require("lazy").setup {
             return {
                 config = {
                     repl_open_cmd = view.bottom(40),
+                    repl_filetype = function(bufnr, ft)
+                        return ft
+                        -- or return a string name such as the following
+                        -- return "iron"
+                    end,
                     repl_definition = {
                         python = {
                             command = function()
