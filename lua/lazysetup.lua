@@ -376,7 +376,16 @@ require("lazy").setup {
                                     return {"uv", "run", "ipython", "--no-autoindent"}
                                 end
                             end
-                        }
+                        },
+                        ["*"] = {
+                            command = function()
+                               if is_windows then
+                                   return {"powershell.exe", "-NoProfile"}
+                               else 
+                                    return { "zsh" }
+                               end 
+                            end
+                        },
                     }
 
                 }

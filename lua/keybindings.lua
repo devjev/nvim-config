@@ -172,7 +172,10 @@ wk.add({
 
     -- REPL
     { "<leader>qr", "<CMD>IronRepl<CR>", desc="Show REPL", mode="n" },
-    { "<leader>qr", iron_core.visual_send, desc="Send to REPL", mode="v" }
+    { "<leader>qr", function()
+        iron_core.visual_send()
+        iron_core.focus_on()
+    end, desc="Send to REPL", mode="v" }
 })
 
 -- !GIT
