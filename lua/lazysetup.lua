@@ -358,14 +358,11 @@ require("lazy").setup {
         event = "VeryLazy",
         opts = function()
             local view   = require("iron.view")
-            local common = require("iron.fts.common")
+            -- local common = require("iron.fts.common")
 
             return {
                 config = {
-                    repl_open_cmd = {
-                        bottom_DEFAULT = view.bottom(40),                  -- default split layout
-                        right = view.split.rightbelow("40%"),              -- alternate layout
-                    },
+                    repl_open_cmd = view.bottom(40),
                     repl_definition = {
                         python = {
                             command = function()
