@@ -50,13 +50,13 @@ require("lazy").setup {
         end
     },
 
-    -- Icons
+    -- !ICONS
 	{"nvim-tree/nvim-web-devicons"},
 
     -- !ZEN MODE
     { "folke/zen-mode.nvim" },
 
-    -- Tabby
+    -- !TABS
     {
         "nanozuki/tabby.nvim",
         opts = {
@@ -114,7 +114,7 @@ require("lazy").setup {
         },
     },
 
-	-- Telescope
+	-- !TELESCOPE
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
@@ -124,7 +124,7 @@ require("lazy").setup {
         end
 	},
 
-	-- Lualine
+	-- !LUALINE
 	{
     	"nvim-lualine/lualine.nvim",
 	    dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -351,6 +351,34 @@ require("lazy").setup {
         },
     },
 
+
+    -- !REPL
+    {
+        "Vigemus/iron.nvim",
+        event = "VeryLazy",
+        opts = function()
+            local view   = require("iron.view")
+            local common = require("iron.fts.common")
+
+            return {
+                config = {
+                    repl_definition = {
+                        python = {
+                            command = function()
+
+                                if is_windows then
+                                    return {"python", "-m", "IPython", "--no-autoindent"}
+                                else
+                                    return {"uv", "run", "ipython", "--no-autoindent"}
+                                end
+                            end
+                        }
+                    }
+
+                }
+            }
+        end
+    },
 
     -- !FILE MANAGER
     {
