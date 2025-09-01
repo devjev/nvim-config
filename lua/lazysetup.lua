@@ -362,6 +362,10 @@ require("lazy").setup {
 
             return {
                 config = {
+                    repl_open_cmd = {
+                        bottom_DEFAULT = view.bottom(40),                  -- default split layout
+                        right = view.split.rightbelow("40%"),              -- alternate layout
+                    },
                     repl_definition = {
                         python = {
                             command = function()
