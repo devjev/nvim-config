@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 local wk = require("which-key")
 local builtin = require("telescope.builtin")
+local iron_core = require("iron.core")  -- REPL
 
 -- !TAB
 wk.add {
@@ -167,7 +168,11 @@ wk.add({
     { "]d", require("dap").step_over, desc="Step over", mode="n" },
 
     { "<leader>qdb", require("dap").toggle_breakpoint, desc="Toggle breakpoint", mode="n" },
-    { "<leader>qdB", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" }
+    { "<leader>qdB", function() require("dapui").float_element("breakpoints") end, desc="Show breakpoints", mode="n" },
+
+    -- REPL
+    { "<leader>qr", "<CMD>IronRepl<CR>", desc="Show REPL", mode="n" },
+    { "<leader>qr", iron_core.visual_send, desc="Send to REPL", mode="v" }
 })
 
 -- !GIT

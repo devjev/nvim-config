@@ -358,15 +358,13 @@ require("lazy").setup {
         event = "VeryLazy",
         opts = function()
             local view   = require("iron.view")
-            -- local common = require("iron.fts.common")
 
             return {
                 config = {
-                    repl_open_cmd = view.bottom(40),
+                    scratch_repl = true,
+                    repl_open_cmd = view.split.vertical.botright(40),
                     repl_filetype = function(bufnr, ft)
                         return ft
-                        -- or return a string name such as the following
-                        -- return "iron"
                     end,
                     repl_definition = {
                         python = {
