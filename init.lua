@@ -29,6 +29,11 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showtabline = 1
 
+-- Set default terminal to PowerShell 5, if on windows 
+if vim.g.windows then
+    vim.opt.shell = "powershell.exe"
+end
+
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {"markdown", "text"},
