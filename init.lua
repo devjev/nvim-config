@@ -1,3 +1,11 @@
+-- Environment setup 
+--
+-- Identify if we are on a Windows machine, since then some things 
+-- will not work. For example treesitter needs a C/C++ compiler to install.
+local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+vim.g.is_windows = is_windows
+
+-- Neovim setup
 require("lazysetup")
 require("lspsetup")
 require("keybindings")

@@ -1,4 +1,4 @@
-# Ensure Lazy is installed
+-- Ensure Lazy is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -11,10 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-
--- Identify if we are on a Windows machine, since then some things 
--- will not work. For example treesitter needs a C/C++ compiler to install.
-local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 require("lazy").setup {
 	-- !Colorschemes
@@ -71,7 +67,7 @@ require("lazy").setup {
                 }
                 local sep_right = ''
                 local sep_left  = ''
-                if is_windows then
+                if vim.g.is_windows then
                     sep_right = ' '
                     sep_left =  ' '
                 end
@@ -238,7 +234,7 @@ require("lazy").setup {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		cond = function() return not is_windows end,
+		cond = function() return not vim.g.is_windows end,
 		config = function()
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
@@ -370,7 +366,7 @@ require("lazy").setup {
                         python = {
                             command = function()
 
-                                if is_windows then
+                                if vim.g.is_windows then
                                     return {"python", "-m", "IPython", "--no-autoindent"}
                                 else
                                     return {"uv", "run", "ipython", "--no-autoindent"}
@@ -379,11 +375,11 @@ require("lazy").setup {
                         },
                         ["*"] = {
                             command = function()
-                               if is_windows then
+                               if vim.g.is_windows then
                                    return {"powershell.exe", "-NoProfile"}
-                               else 
+                               else
                                     return { "zsh" }
-                               end 
+                               end
                             end
                         },
                     }
@@ -435,10 +431,10 @@ require("lazy").setup {
     {
       "lervag/wiki.vim",
       init = function()
-            local home = is_windows
+            local home = vim.g.is_windows
                 and vim.fn.expand("$USERPROFILE")
                 or  vim.fn.expand("~")
-            vim.g.wiki_root = home .. (is_windows and "\\Wiki" or "/Wiki")
+            vim.g.wiki_root = home .. (vim.g.is_windows and "\\Wiki" or "/Wiki")
       end
     },
 
