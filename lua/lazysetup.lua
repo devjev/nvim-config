@@ -486,8 +486,10 @@ require("lazy").setup {
         config = function()
             require("neogit").setup {}
         end
-    }
+    },
 
+    -- !Writing / Zen mode
+    {"pocco81/true-zen.nvim"}
 }
 
 
