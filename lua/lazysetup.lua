@@ -16,6 +16,10 @@ require("lazy").setup {
 	-- !Colorschemes
     {"EdenEast/nightfox.nvim"},
     {
+        "metalelf0/jellybeans-nvim",
+        dependencies = "rktjmp/lush.nvim",
+    },
+    {
         "zenbones-theme/zenbones.nvim",
         dependencies = "rktjmp/lush.nvim",
         lazy = false,
