@@ -351,6 +351,9 @@ require("lazy").setup {
         },
     },
 
+    -- Clingo syntax support
+    { "rkaminsk/vim-syntax-clingo" },
+
 
     -- !REPL
     {
