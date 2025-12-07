@@ -39,27 +39,35 @@ cmp.setup({
 	end,
 })
 
+-- Capabilities (for nvim-cmp)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
+
+
+-- LSP configuration / setup
+local function setup_lsp(server_name, config)
+    config = config or {}
+
+    -- Inject cmp capabilities, if not already present
+    if not config.capabilities then
+        config.capabilities = capabilities
+    end
+
+    if vim.fn.has("nvim-0.11") == 1 then
+        if next(config) then
+            vim.lsp.config(server_name, config)
+        end
+        vim.lsp.enable(server_name)
+    else
+        require("lspconfig")[server_name].setup(config)
+    end
+end
 
 
 -- !LANGAUGES
--- Zig
-lspconfig.zls.setup({ capabilities = capabilities })
-
--- Rust 
--- This is not needed with a rustaceanvim
--- lspconfig.rust_analyzer.setup({
--- 	settings = {
--- 		["rust-analyzer"] = {},
--- 	}
--- })
-
--- Golang
-lspconfig.gopls.setup({})
-
--- Python
-lspconfig.pylsp.setup({
+-- Rust is handled with rustaceanvim
+setup_lsp("zls", {})   -- Zig 
+setup_lsp("gopls", {}) -- Golang
+setup_lsp("pylsp", {
     settings = {
         pylsp = {
             plugins = {
@@ -72,4 +80,3 @@ lspconfig.pylsp.setup({
         }
     }
 })
-
