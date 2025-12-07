@@ -203,6 +203,10 @@ require("lazy").setup {
     -- !TYPST 
     {
         "sylvanfranklin/omni-preview.nvim",
+        dependencies = {
+            { 'chomosuke/typst-preview.nvim', lazy = true },
+            { 'hat0uma/csvview.nvim',         lazy = true },
+        },
         opts = {}
     },
 

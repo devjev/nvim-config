@@ -38,6 +38,14 @@ wk.add {
     { "<leader>gz", "<CMD>ZenMode<CR>", desc="Go to zen mode", mode="n" },
 }
 
+
+-- !PREVIEW 
+wk.add {
+    { "<leader>p", group = "Preview..." },
+    { "<leader>po", "<CME>OmniPreview start<CR>", desc="Preview start", mode="n" },
+    { "<leader>pc", "<CME>OmniPreview stop<CR>", desc="Preview start", mode="n" },
+}
+
 -- !TABS
 wk.add {
     { "<leader>t", group = "Tabs...", icon = "➤" },
