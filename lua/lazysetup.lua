@@ -306,43 +306,11 @@ require("lazy").setup {
     -- !LSP
 	{
         "neovim/nvim-lspconfig",
-        opts = {
-            -- servers = {
-            --     -- Bash / Zsh LS
-            --     bashls = { filetypes = { "sh", "zsh" } },
-            --
-            --     -- Python LS
-            --     pylsp = {
-            --       plugins = {
-            --         pycodestyle = {
-            --           maxLineLength = 100
-            --         }
-            --       }
-            --     },
-            --
-            --     -- Web stuff
-            --     superhtml = {},
-            --     css = { validate = true },
-            --     less = { validate = true },
-            --     scss = { validate = true },
-            --
-            --     -- Low level stuff
-            --     zls = {},       -- Zig
-            --     rust_analyzer = {},
-            --     sourcekit = {},  -- Swift, C, C++, Objective C
-            --
-            --     -- Data, configs, scripting 
-            --     json_ls = {},
-            --     lua_ls = {},
-            --     sqlls = {},
-            --     terraformls = {},
-            --     tsserver = {},
-            --     yamlls = {}
-            -- }
-        },
-        -- config = function()
-        --     require("lspconfig").lua_ls.setup {}
-        -- end
+        config = function()
+            -- Left blank on purpose - apparently lazy.nvim is trying 
+            -- to automatically load up plugins with setup, which conflicts 
+            -- with my neovim version-dependent approach.
+        end
     },
 	{"hrsh7th/cmp-nvim-lsp"},
 	{"hrsh7th/nvim-cmp"},
