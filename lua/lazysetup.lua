@@ -207,13 +207,35 @@ require("lazy").setup {
     },
 
     -- !Colors 
+    -- {
+    --     "brenoprata10/nvim-highlight-colors",
+    --     config = function()
+    --         require("nvim-highlight-colors").setup({
+    --             render = "background", -- or 'virtual', 'foreground'
+    --             enable_tailwind = true,
+    --         })
+    --     end,
+    -- },
     {
-        "brenoprata10/nvim-highlight-colors",
+        "uga-rosa/ccc.nvim",
+        event = "VeryLazy",
         config = function()
-            require("nvim-highlight-colors").setup({
-                render = "background", -- or 'virtual', 'foreground'
-                enable_tailwind = true,
-            })
+        local ccc = require("ccc")
+
+        ccc.setup({
+            -- 1. Enable the highlighter (highlighting hex codes in text)
+            highlighter = {
+                auto_enable = true, -- Crucial: defaults to false in some versions
+                lsp = true,         -- Use LSP to identify color names if available
+            },
+
+            -- 2. Customize the picker (optional tweaks)
+            default_point = { "100%", "50%" }, -- Start picker at full saturation/brightness
+        })
+
+        --   -- 3. Set a keybind to open the picker
+        --   -- This opens the UI to modify the color under your cursor or insert a new one
+        --   vim.keymap.set("n", "<leader>cp", ":CccPick<CR>", { desc = "Pick Color" })
         end,
     },
 

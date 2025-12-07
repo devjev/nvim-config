@@ -26,7 +26,7 @@ wk.add {
     },
     { "<leader>fsu", builtin.lsp_references, desc="Find all symbol uses", mode="n" },
     { "<leader>fC", builtin.commands, desc="Find Vim commands", mode={ "n", "v"}, },
-    { "<leader>fc", builtin.colorscheme, desc="Find a Vim color scheme", mode={ "n", "v"}, },
+    { "<leader>fc", "<CMD>CccPick<CR>", desc="Find a color", mode={ "n", "v"}, },
     { "<leader>fo", builtin.vim_options, desc="Find Vim options", mode="n", },
 }
 
