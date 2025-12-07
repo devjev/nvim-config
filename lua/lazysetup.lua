@@ -200,6 +200,23 @@ require("lazy").setup {
 		end
 	},
 
+    -- !TYPST 
+    {
+        "sylvanfranklin/omni-preview.nvim",
+        opts = {}
+    },
+
+    -- !Colors 
+    {
+        "brenoprata10/nvim-highlight-colors",
+        config = function()
+            require("nvim-highlight-colors").setup({
+                render = "background", -- or 'virtual', 'foreground'
+                enable_tailwind = true,
+            })
+        end,
+    },
+
     -- !DEBUGGER
     {
         "mfussenegger/nvim-dap",
