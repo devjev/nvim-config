@@ -15,20 +15,17 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup {
 	-- !Colorschemes
     {"EdenEast/nightfox.nvim"},
-    {
-        "metalelf0/jellybeans-nvim",
-        dependencies = "rktjmp/lush.nvim",
-    },
-    {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-        priority = 1000,
-        -- you can set set configuration options here
-        config = function()
-            vim.g.zenbones_darken_comments = 65
-        end
-    },
+    {"jaredgorski/fogbell.vim"},
+    -- {
+    --     "zenbones-theme/zenbones.nvim",
+    --     dependencies = "rktjmp/lush.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     -- you can set set configuration options here
+    --     config = function()
+    --         vim.g.zenbones_darken_comments = 65
+    --     end
+    -- },
     {
         "miikanissi/modus-themes.nvim",
         priority = 1000,
