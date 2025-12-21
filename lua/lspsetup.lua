@@ -21,6 +21,8 @@ cmp.setup({
 		local buf_file_type = vim.bo.filetype
 		local enabled_filetypes = {
 			"javascript",
+            "typescript",
+            "typescriptreact",
 			"python",
 			"elixir",
 			"erlang",
@@ -81,3 +83,4 @@ setup_lsp("pylsp", {
         }
     }
 })
+setup_lsp("ts_ls", {})
