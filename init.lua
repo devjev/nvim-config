@@ -14,8 +14,8 @@ require("keybindings")
 vim.cmd("language en_US.UTF-8")
 
 -- Colorschemes
-vim.g.dark_colorscheme  = "carbonfox"
-vim.g.light_colorscheme = "modus_operandi"
+vim.g.dark_colorscheme  = "fogbell"
+vim.g.light_colorscheme = "fogbell_light"
 vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
 
 -- Basics
