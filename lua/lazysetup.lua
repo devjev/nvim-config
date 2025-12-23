@@ -13,38 +13,23 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup {
-	-- !Colorschemes
-    {"EdenEast/nightfox.nvim"},
+	-- !COLOR SCHEMES
     {"jaredgorski/fogbell.vim"},
-    -- {
-    --     "zenbones-theme/zenbones.nvim",
-    --     dependencies = "rktjmp/lush.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     -- you can set set configuration options here
-    --     config = function()
-    --         vim.g.zenbones_darken_comments = 65
-    --     end
-    -- },
+
+    -- !SYSTEM THEME DETECTION
     {
-        "miikanissi/modus-themes.nvim",
-        priority = 1000,
-        config = function()
-            require("modus-themes").setup({
-                style = "modus_operandi",
-                variant = "default",
-                on_highlights = function(highlights, colors)
-                    -- For some reason, @fields are done in super low contrast in 
-                    -- modus_operandi, which needs to be corrected.
-                    highlights["@field"] = {
-                        fg = colors.cyan
-                    }
-                    highlights["@punctuation.bracket"] = {
-                        fg = "#000000"
-                    }
-                end,
-            })
-        end
+        "f-person/auto-dark-mode.nvim",
+        opts = {
+            update_interval = 1000,
+            set_dark_mode = function()
+                vim.api.nvim_set_option_value("background", "dark", {})
+                vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
+            end,
+            set_light_mode = function()
+                vim.api.nvim_set_option_value("background", "light", {})
+                vim.cmd("colorscheme " .. vim.g.light_colorscheme)
+            end,
+        },
     },
 
     -- !ICONS
@@ -66,12 +51,14 @@ require("lazy").setup {
                     win = 'TabLine',
                     tail = 'TabLine',
                 }
-                local sep_right = ''
-                local sep_left  = ''
-                if vim.g.is_windows then
-                    sep_right = ' '
-                    sep_left =  ' '
-                end
+                local sep_right = ' '
+                local sep_left  = ' '
+                -- local sep_right = ''
+                -- local sep_left  = ''
+                -- if vim.g.is_windows then
+                --     sep_right = ' '
+                --     sep_left =  ' '
+                -- end
                 return {
                     {
                         { '  ', hl = theme.head },
