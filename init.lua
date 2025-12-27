@@ -62,10 +62,6 @@ vim.diagnostic.config({
     },
 })
 
--- Standard terminal prompt defaults for terminal mode
-vim.env.PS1 = "\\w > "
-vim.env.PROMPT = "%F{cyan}(nvim)%f %~ %# "
-
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
 if is_windows then
     vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
