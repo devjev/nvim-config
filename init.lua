@@ -71,3 +71,14 @@ if is_windows then
     vim.opt.shellquote = ""
     vim.opt.shellxquote = ""
 end
+
+-- GUI / Neovide Configuration
+if vim.g.neovide then
+    -- Set the font and size (Syntax: Font Name:hSize)
+    -- Replace 'JetBrainsMono Nerd Font' with your preferred font
+    vim.o.guifont = "JetBrainsMono Nerd Font:h12"
+    -- Optional: Scale the entire UI (useful for high-DPI screens)
+    vim.g.neovide_scale_factor = 1.0
+    -- Optional: Adjust line spacing
+    -- vim.g.neovide_linespace = 0
+end
