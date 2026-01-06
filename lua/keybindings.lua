@@ -38,7 +38,7 @@ wk.add({
 
 -- !GO
 wk.add({
-	{ "<leader>g", group = "Go to...", icon = "➤" },
+	{ "<leader>g", group = "Go to...", icon = "🚶" },
 	{ "<leader>go", "<CMD>Oil<CR>", desc = "Go to file manager", mode = "n" },
 	{ "<leader>gd", builtin.lsp_definitions, desc = "Go to symbol definition", mode = "n" },
 	{ "<leader>gz", "<CMD>ZenMode<CR>", desc = "Go to zen mode", mode = "n" },
@@ -53,7 +53,7 @@ wk.add({
 
 -- !TABS
 wk.add({
-	{ "<leader>t", group = "Tabs...", icon = "➤" },
+	{ "<leader>t", group = "Tabs...", icon = "📑" },
 	{ "<leader>tn", "<CMD>$tabnew<CR>", desc = "Create new tab", mode = "n" },
 	{ "<leader>tc", "<CMD>tabclose<CR>", desc = "Close tab", mode = "n" },
 })
@@ -70,9 +70,10 @@ wk.add({
 	{ "<leader>nla", "<CMD>ObsidianLink<CR>", icon = "🖇️", desc = "Add link", mode = { "n", "v" } },
 	{ "<leader>nla", "<CMD>ObsidianLinkNew<CR>", icon = "🆕", desc = "Link to new page", mode = { "n", "v" } },
 
-	{ "<leader>np", "<CMD>ObisidianPasteImg<CR>", icon = "🖼️", desc = "Paste image from clipboard", mode = "n" },
-	{ "<leader>nt", "<CMD>ObisidianTOC<CR>", icon = "📄", desc = "Table of contents", mode = "n" },
-	{ "<leader>nc", "<CMD>ObisidianToggleCheckbox<CR>", icon = "✅", desc = "Toggle checkbox", mode = "n" },
+	{ "<leader>np", "<CMD>ObsidianPasteImg<CR>", icon = "🖼️", desc = "Paste image from clipboard", mode = "n" },
+	{ "<leader>nt", "<CMD>ObsidianTOC<CR>", icon = "📄", desc = "Table of contents", mode = "n" },
+	{ "<leader>nc", "<CMD>ObsidianToggleCheckbox<CR>", icon = "✅", desc = "Toggle checkbox", mode = "n" },
+	{ "<leader>nb", "<CMD>ObsidianBacklinks<CR>", icon = "🌍", desc = "Backlinks", mode = "n" },
 })
 
 
