@@ -17,7 +17,7 @@ wk.add({
 
 -- !FIND
 wk.add({
-	{ "<leader>f", group = "Find..." },
+	{ "<leader>f", group = "Find...", icon = "🔎" },
 	{ "<leader>ff", builtin.find_files, desc = "Find files", mode = "n" },
 	{ "<leader>fg", builtin.live_grep, desc = "Grep files", mode = "n" },
 	{ "<leader>fh", builtin.help_tags, desc = "Find help", mode = "n" },
@@ -131,7 +131,7 @@ wk.add({
 
 -- LSP & Code Actions
 wk.add({
-	{ "<leader>q", group = "Quick actions..." },
+	{ "<leader>q", group = "Quick actions...", icon = "🧨" },
 	{ "<leader>qq", vim.lsp.buf.rename, desc = "Rename symbol", mode = "n" },
 	{ "<leader>qa", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" } },
 	{ "<leader>qf", builtin.quickfix, desc = "Show quickfix menu", mode = "n" },
@@ -140,7 +140,7 @@ wk.add({
 	{ "<leader>qw", vim.diagnostic.open_float, desc = "What's wrong? (cursor)", mode = "n" },
 
 	-- Duplicate debugger keys to non-function keys
-	{ "<leader>qd", group = "Debugger" },
+	{ "<leader>qd", group = "Debugger", icon = "🐞" },
 	{ "<leader>qdd", require("dap").continue, desc = "Run debugger to breakpoint", mode = "n" },
 	{ "<leader>qdv", require("dapui").toggle, desc = "Show debugger UI", mode = "n" },
 	{
@@ -200,7 +200,7 @@ wk.add({
 local gs = require("gitsigns")
 
 wk.add({
-	{ "<leader>v", group = "Git..." },
+	{ "<leader>v", group = "Git...", icon = "💽" },
 	{ "<leader>vv", "<CMD>Neogit<CR>", desc = "Show neogit", mode = "n" },
 	{ "<leader>vc", "<CMD>DiffviewOpen<CR>", desc = "Show git diff", mode = "n" },
 	{ "<leader>vn", gs.nav_hunk, desc = "Navigate changes", mode = "n" },
@@ -236,7 +236,7 @@ local function toggle_colorscheme()
 end
 
 wk.add({
-	{ "<leader>c", group = "Color..." },
+	{ "<leader>c", group = "Color...", icon = "🎨" },
 	{ "<leader>cc", toggle_colorscheme, desc = "Toggle dark/light colorscheme", mode = "n" },
 	{ "<leader>cp", "<CMD>CccPick<CR>", desc = "Pick a color", mode = { "n", "v" } },
 	{ "<leader>cf", builtin.colorscheme, desc = "Pick a colorscheme", mode = "n" },
