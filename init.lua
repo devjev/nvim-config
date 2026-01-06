@@ -2,8 +2,7 @@
 --
 -- Identify if we are on a Windows machine, since then some things
 -- will not work. For example treesitter needs a C/C++ compiler to install.
-local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-vim.g.is_windows = is_windows
+vim.g.is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
 -- Neovim setup
 require("lazysetup")
@@ -64,7 +63,7 @@ vim.diagnostic.config({
 })
 
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
-if is_windows then
+if vim.g.is_windows then
 	vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
 	vim.opt.shellcmdflag =
 		"-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
