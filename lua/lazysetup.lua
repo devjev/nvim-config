@@ -491,7 +491,36 @@ require("lazy").setup {
     },
 
     -- !Writing / Zen mode
-    {"pocco81/true-zen.nvim"}
-}
+    {"pocco81/true-zen.nvim"},
+    
+    -- ! NOTE TAKING
+    {
+      "epwalsh/obsidian.nvim",
+      version = "*",  -- recommended, use latest release instead of latest commit
+      lazy = true,
+      ft = "markdown",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+      },
+      config = function()
+        if vim.g.is_windows then
+            local home = vim.fn.expand("$USERPROFILE")
+            vim.g.notes_root = home .. "\\Documents\\Notes"
+        else
+            local home = vim.fn.expand("~")
+            vim.g.notes_root = home .. "/Notes"
+        end
 
+        require("obsidian").setup({
+            workspaces = {
+                {
+                    name = "technical",
+                    path = vim.fn.expand(vim.g.notes_root .. "technical")
+                },
+            },
+        })
+      end,
+    }
+}
 
