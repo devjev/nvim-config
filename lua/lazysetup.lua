@@ -427,37 +427,11 @@ require("lazy").setup({
 		},
 	},
 
-	-- !WIKI
-	{
-		"lervag/wiki.vim",
-		init = function()
-			local home = vim.g.is_windows and vim.fn.expand("$USERPROFILE") or vim.fn.expand("~")
-			vim.g.wiki_root = home .. (vim.g.is_windows and "\\Wiki" or "/Wiki")
-		end,
-	},
-
-	-- !MARKDOWN
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-		opts = {},
-		config = function()
-			require("render-markdown").setup({
-				heading = {
-					backgrounds = {},
-				},
-				code = {
-					language_border = " ",
-				},
-			})
-		end,
-	},
-
 	-- !GIT
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			if is_windows then
+			if vim.g.is_windows then
 				require("gitsigns").setup({
 					-- ??? Signs do seem to work on Windows...
 					-- signs = {
