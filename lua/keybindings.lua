@@ -61,7 +61,7 @@ wk.add({
 -- !NOTES
 wk.add({
 	{ "<leader>n", group = "Notes...", icon = "🗒️" },
-	{ "<leader>nn", "<CMD>ObsidianDailies<CR>", icon = "📆", desc = "Daily notes", mode = "n" },
+	{ "<leader>nn", "<CMD>ObsidianDailies -2 2<CR>", icon = "📆", desc = "Daily notes", mode = "n" },
 	{ "<leader>ns", "<CMD>ObsidianQuickSwitch<CR>", icon = "🚦", desc = "Quick switch between notes", mode = "n" },
 	{ "<leader>ng", "<CMD>ObsidianFollowLink<CR>", icon = "🚶", desc = "Follow link", mode = "n" },
 	{ "<leader>nf", "<CMD>ObsidianSearch<CR>", icon = "🔎", desc = "Search", mode = "n" },
@@ -71,9 +71,11 @@ wk.add({
 	{ "<leader>nla", "<CMD>ObsidianLinkNew<CR>", icon = "🆕", desc = "Link to new page", mode = { "n", "v" } },
 
 	{ "<leader>np", "<CMD>ObsidianPasteImg<CR>", icon = "🖼️", desc = "Paste image from clipboard", mode = "n" },
-	{ "<leader>nt", "<CMD>ObsidianTOC<CR>", icon = "📄", desc = "Table of contents", mode = "n" },
+	{ "<leader>nz", "<CMD>ObsidianTOC<CR>", icon = "📄", desc = "Table of contents", mode = "n" },
 	{ "<leader>nc", "<CMD>ObsidianToggleCheckbox<CR>", icon = "✅", desc = "Toggle checkbox", mode = "n" },
 	{ "<leader>nb", "<CMD>ObsidianBacklinks<CR>", icon = "🌍", desc = "Backlinks", mode = "n" },
+	{ "<leader>nb", "<CMD>ObsidianTags<CR>", icon = "🏷️", desc = "Tags", mode = "n" },
+	{ "<leader>ne", "<CMD>ObsidianNew<CR>", icon = "✍️", desc = "New note", mode = "n" },
 })
 
 
