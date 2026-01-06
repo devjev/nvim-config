@@ -58,87 +58,23 @@ wk.add({
 	{ "<leader>tc", "<CMD>tabclose<CR>", desc = "Close tab", mode = "n" },
 })
 
--- !WIKI
--- wiki.vim is great, but it's keybinding descriptions are not that good.
--- I am going to do my own keybindings using whichkey and provide my own
--- description.
---
--- One extra problem here are buffer local bindings, i.e. bindings which
--- are valid only for a particular buffer. The condition if a file is valid
--- or not is defined in the plugin and I don't know that condition. I also
--- don't want to try to fudge it by myself.
-vim.g.wiki_mappings_use_defaults = "local"
-
--- Also, we are going to use the Telescope version of wiki default commands.
-local wiki_telescope = require("wiki.telescope")
-vim.g.wiki_select_method = {
-	pages = wiki_telescope.pages,
-	tags = wiki_telescope.tags,
-	toc = wiki_telescope.toc,
-	links = wiki_telescope.links,
-}
-
--- Custom functions to switch over into wiki index in a separate tab
-local function mk_wiki_switch(wiki_cmd, tab_title)
-	local result = function()
-		-- look through all tabs for one with our marker var
-		for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-			local ok = pcall(vim.api.nvim_tabpage_get_var, tab, "is_wiki_tab")
-			if ok then
-				-- switch to that tab
-				vim.api.nvim_set_current_tabpage(tab)
-				vim.cmd(wiki_cmd)
-				return
-			end
-		end
-
-		vim.cmd("tabnew")
-		vim.api.nvim_tabpage_set_var(0, "is_wiki_tab", true)
-		vim.cmd(wiki_cmd)
-		pcall(vim.cmd, "Tabby rename_tab " .. tab_title)
-	end
-	return result
-end
-
+-- !NOTES
 wk.add({
-	{ "<leader>w", group = "Wiki...", icon = "Ⓦ " },
-	{ "<leader>ww", mk_wiki_switch("WikiIndex", "Wiki"), desc = "Index", mode = "n" },
-	{ "<leader>wj", mk_wiki_switch("WikiJournal", "Wiki"), desc = "Journal", mode = "n" },
-	{ "<leader>wp", "<CMD>WikiPages<CR>", desc = "Pages", mode = "n" },
-	{ "<leader>wt", "<CMD>WikiTags<CR>", desc = "Tags", mode = "n" },
+	{ "<leader>n", group = "Notes...", icon = "🗒️" },
+	{ "<leader>nn", "<CMD>ObsidianDailies<CR>", icon = "📆", desc = "Daily notes", mode = "n" },
+	{ "<leader>ns", "<CMD>ObsidianQuickSwitch<CR>", icon = "🚦", desc = "Quick switch between notes", mode = "n" },
+	{ "<leader>ng", "<CMD>ObsidianFollowLink<CR>", icon = "🚶", desc = "Follow link", mode = "n" },
+	{ "<leader>ng", "<CMD>ObsidianSearch<CR>", icon = "🔎", desc = "Search", mode = "n" },
 
-	{ "<leader>wg", group = "Wiki go to (inside current window)..." },
-	{ "<leader>wgi", "<CMD>WikiIndex<CR>", desc = "Index", mode = "n" },
-	{ "<leader>wgj", "<CMD>WikiJournal<CR>", desc = "Journal", mode = "n" },
+	{ "<leader>nl", group = "Link...", icon = "🔗" },
+	{ "<leader>nla", "<CMD>ObsidianLink<CR>", icon = "🖇️", desc = "Add link", mode = { "n", "v" } },
+	{ "<leader>nla", "<CMD>ObsidianLinkNew<CR>", icon = "🆕", desc = "Link to new page", mode = { "n", "v" } },
+
+	{ "<leader>np", "<CMD>ObisidianPasteImg<CR>", icon = "🖼️", desc = "Paste image from clipboard", mode = "n" },
+	{ "<leader>nt", "<CMD>ObisidianTOC<CR>", icon = "📄", desc = "Paste image from clipboard", mode = "n" },
+	{ "<leader>nc", "<CMD>ObisidianToggleCheckbox<CR>", icon = "✅", desc = "Toggle checkbox", mode = "n" },
 })
 
-local wiki_dir = vim.fn.expand("~/Wiki")
-local journal_dir = vim.fn.expand("~/Wiki/journal")
-
-local function wiki_search(title, dir)
-	local result = function()
-		builtin.live_grep({
-			prompt_title = title,
-			search_dirs = { dir },
-		})
-	end
-	return result
-end
-
-local function search_todos()
-	builtin.live_grep({
-		prompt_title = "Find TODOs",
-		search_dirs = { wiki_dir },
-		default_text = "- \\[ \\]",
-	})
-end
-
-wk.add({
-	{ "<leader>wf", group = "Find in wiki..." },
-	{ "<leader>wff", wiki_search("Find in wiki", wiki_dir), desc = "Find in wiki", mode = "n" },
-	{ "<leader>wfj", wiki_search("Find in journal", journal_dir), desc = "Find in journal", mode = "n" },
-	{ "<leader>wft", search_todos, desc = "Find todos", mode = "n" },
-})
 
 -- Debugging
 wk.add({
