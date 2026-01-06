@@ -500,6 +500,11 @@ require("lazy").setup({
 						path = vim.fn.expand(vim.g.notes_root .. "/main"),
 					},
 				},
+
+                completion = {
+                    nvim_cmp = true,
+                    min_chars = 2,
+                }
 			})
 		end,
 	},
