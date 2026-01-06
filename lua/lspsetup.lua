@@ -21,8 +21,8 @@ cmp.setup({
 		local buf_file_type = vim.bo.filetype
 		local enabled_filetypes = {
 			"javascript",
-            "typescript",
-            "typescriptreact",
+			"typescript",
+			"typescriptreact",
 			"python",
 			"elixir",
 			"erlang",
@@ -44,43 +44,41 @@ cmp.setup({
 -- Capabilities (for nvim-cmp)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-
 -- LSP configuration / setup
 local function setup_lsp(server_name, config)
-    config = config or {}
+	config = config or {}
 
-    -- Inject cmp capabilities, if not already present
-    if not config.capabilities then
-        config.capabilities = capabilities
-    end
+	-- Inject cmp capabilities, if not already present
+	if not config.capabilities then
+		config.capabilities = capabilities
+	end
 
-    if vim.fn.has("nvim-0.11") == 1 then
-        if next(config) then
-            vim.lsp.config(server_name, config)
-        end
-        vim.lsp.enable(server_name)
-    else
-        require("lspconfig")[server_name].setup(config)
-    end
+	if vim.fn.has("nvim-0.11") == 1 then
+		if next(config) then
+			vim.lsp.config(server_name, config)
+		end
+		vim.lsp.enable(server_name)
+	else
+		require("lspconfig")[server_name].setup(config)
+	end
 end
-
 
 -- !LANGAUGES
 -- Rust is handled with rustaceanvim
-setup_lsp("zls", {})    -- Zig 
-setup_lsp("gopls", {})  -- Golang
+setup_lsp("zls", {}) -- Zig
+setup_lsp("gopls", {}) -- Golang
 setup_lsp("lua_ls", {}) -- Lua
 setup_lsp("pylsp", {
-    settings = {
-        pylsp = {
-            plugins = {
-                pycodestyle = {
-                    enabled = true,
-                    ignore = { "E501", "W503", "W391", "E704" },
-                    maxLineLength = 120,
-                }
-            }
-        }
-    }
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					enabled = true,
+					ignore = { "E501", "W503", "W391", "E704" },
+					maxLineLength = 120,
+				},
+			},
+		},
+	},
 })
 setup_lsp("ts_ls", {})
