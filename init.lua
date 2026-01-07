@@ -38,7 +38,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown", "text" },
 	callback = function()
 		vim.bo.textwidth = 76
-		vim.opt.colorcolumn = "76"
+        -- Remove for now as too distracting
+		-- vim.opt.colorcolumn = "76"
         vim.opt_local.conceallevel = 2
 	end,
 })
