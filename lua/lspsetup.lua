@@ -51,6 +51,10 @@ local function setup_lsp(server_name, config)
 	-- Inject cmp capabilities, if not already present
 	if not config.capabilities then
 		config.capabilities = capabilities
+        config.capabilities.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+        }
 	end
 
 	if vim.fn.has("nvim-0.11") == 1 then
