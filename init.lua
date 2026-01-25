@@ -28,6 +28,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showtabline = 1
 
+-- Make sure that code is folded only when explicitly requested
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
 -- Set default terminal to PowerShell 5, if on windows
 if vim.g.windows then
 	vim.opt.shell = "powershell.exe"
