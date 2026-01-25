@@ -518,20 +518,28 @@ require("lazy").setup({
                     nvim_cmp = true,
                     min_chars = 2,
                 },
-
                 note_id_func = function(title)
-                    local suffix = ""
+                    -- 1. Create the base slug from the title
+                    local name = ""
                     if title ~= nil then
-                        -- Convert title to a slug (e.g., "My Task" -> "my-task")
-                        suffix = title:gsub(" ", "-"):gsub("[^%w%s-]", ""):lower()
+                        name = title:gsub(" ", "-"):gsub("[^%w%s-]", ""):lower()
                     else
-                        -- Fallback if no title is provided
-                        for _ = 1, 4 do
-                            suffix = suffix .. string.char(math.random(65, 90))
-                        end
+                        -- Fallback for empty titles
+                        name = "untitled-" .. tostring(os.time())
                     end
-                    -- Resulting URN format: 2026-01-25-my-task
-                    return tostring(os.date("%Y-%m-%d")) .. "-" .. suffix
+
+                    -- 2. Construct the potential full path to check for existence
+                    -- We use the notes_root and workspace path defined in your config
+                    local path = vim.fn.expand(vim.g.notes_root .. "/main/" .. name .. ".md")
+
+                    -- 3. Check if the file exists
+                    if vim.loop.fs_stat(path) then
+                        -- If it exists, prefix with ISO datetime (YYYY-MM-DD-HHMM)
+                        return tostring(os.date("%Y-%m-%d-%H%M")) .. "-" .. name
+                    else
+                        -- Otherwise, return just the slugged title
+                        return name
+                    end
                 end,
 			})
 		end,
