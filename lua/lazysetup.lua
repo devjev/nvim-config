@@ -517,8 +517,24 @@ require("lazy").setup({
                 completion = {
                     nvim_cmp = true,
                     min_chars = 2,
-                }
+                },
+
+                note_id_func = function(title)
+                    local suffix = ""
+                    if title ~= nil then
+                        -- Convert title to a slug (e.g., "My Task" -> "my-task")
+                        suffix = title:gsub(" ", "-"):gsub("[^%w%s-]", ""):lower()
+                    else
+                        -- Fallback if no title is provided
+                        for _ = 1, 4 do
+                            suffix = suffix .. string.char(math.random(65, 90))
+                        end
+                    end
+                    -- Resulting URN format: 2026-01-25-my-task
+                    return tostring(os.date("%Y-%m-%d")) .. "-" .. suffix
+                end,
 			})
 		end,
 	},
+
 })
