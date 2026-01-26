@@ -73,6 +73,7 @@ setup_lsp("zls", {}) -- Zig
 setup_lsp("gopls", {}) -- Golang
 setup_lsp("lua_ls", {}) -- Lua
 setup_lsp("pylsp", {
+    cmd = { "python", "-m", "pylsp" },
 	settings = {
 		pylsp = {
 			plugins = {
