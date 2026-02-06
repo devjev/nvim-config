@@ -16,6 +16,7 @@ require("lazy").setup({
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
     { "jamescherti/vim-tomorrow-night-deepblue" },
+    { "chriskempson/vim-tomorrow-theme" },
 
 	-- !SYSTEM THEME DETECTION
 	{
