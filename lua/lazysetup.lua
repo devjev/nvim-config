@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
+    { "jamescherti/vim-tomorrow-night-deepblue" },
 
 	-- !SYSTEM THEME DETECTION
 	{
