@@ -14,7 +14,7 @@ vim.cmd("language en_US.UTF-8")
 
 -- Colorschemes
 vim.g.dark_colorscheme = "Tomorrow-Night-Blue"
-vim.g.light_colorscheme = "lunarperche"
+vim.g.light_colorscheme = "lunaperche"
 vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
 
 -- Basics
