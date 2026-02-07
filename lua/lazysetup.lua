@@ -19,20 +19,23 @@ require("lazy").setup({
     { "chriskempson/vim-tomorrow-theme" },
 
 	-- !SYSTEM THEME DETECTION
-	{
-		"f-person/auto-dark-mode.nvim",
-		opts = {
-			update_interval = 1000,
-			set_dark_mode = function()
-				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
-			end,
-			set_light_mode = function()
-				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme " .. vim.g.light_colorscheme)
-			end,
-		},
-	},
+    -- TODO Removed for now as I use a blue color scheme, which is comfortable
+    --      for both dark and light environments, but necessary for white / black
+    --      color schemes.
+	-- {
+	-- 	"f-person/auto-dark-mode.nvim",
+	-- 	opts = {
+	-- 		update_interval = 1000,
+	-- 		set_dark_mode = function()
+	-- 			vim.api.nvim_set_option_value("background", "dark", {})
+	-- 			vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
+	-- 		end,
+	-- 		set_light_mode = function()
+	-- 			vim.api.nvim_set_option_value("background", "light", {})
+	-- 			vim.cmd("colorscheme " .. vim.g.light_colorscheme)
+	-- 		end,
+	-- 	},
+	-- },
 
 	-- !ICONS
 	{ "nvim-tree/nvim-web-devicons" },
