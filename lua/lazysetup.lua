@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
-    { "jamescherti/vim-tomorrow-night-deepblue" },
     { "chriskempson/vim-tomorrow-theme" },
 
 	-- !SYSTEM THEME DETECTION
@@ -105,14 +104,22 @@ require("lazy").setup({
 
     -- !FOLDING
     {
-        "chrisgrieser/nvim-origami",
-        event = "VeryLazy",
-        opts = {}, -- needed even when using default config
-
-        -- recommended: disable vim's auto-folding
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        event = "BufReadPost", -- Load nicely after the file opens
         init = function()
-            vim.opt.foldlevel = 99
-            vim.opt.foldlevelstart = 99
+            -- UFO requires these options to be set for best performance
+            vim.o.foldcolumn = "1" -- '0' is also fine if you want to hide the column
+            vim.o.foldlevel = 99   -- Using ufo provider needs a large value
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+        end,
+        config = function()
+            require("ufo").setup({
+                provider_selector = function(bufnr, filetype, buftype)
+                    return { "lsp", "treesitter", "indent" }
+                end,
+            })
         end,
     },
 
