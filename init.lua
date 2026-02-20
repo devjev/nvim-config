@@ -48,6 +48,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- For emails, though - I want soft wrapping
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "mail" },
+	callback = function()
+        vim.opt_local.textwidth = 0
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.conceallevel = 0
+	end,
+})
+
 -- Sign column
 vim.opt.signcolumn = "yes"
 vim.diagnostic.config({
