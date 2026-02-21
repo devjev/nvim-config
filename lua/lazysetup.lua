@@ -108,11 +108,6 @@ require("lazy").setup({
         dependencies = { "kevinhwang91/promise-async" },
         event = "BufReadPost", -- Load nicely after the file opens
         config = function()
-            vim.o.foldcolumn = "1"     -- '0' is also fine if you want to hide the column
-            vim.o.foldlevel = 99       -- Using ufo provider needs a large value
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
-            vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
             require("ufo").setup({
                 provider_selector = function(bufnr, filetype, buftype)
                     return { "lsp", "indent" }
