@@ -30,13 +30,10 @@ vim.opt.showtabline = 1
 
 -- Make sure that code is folded only when explicitly requested
 -- Set up in such a way to work well with UFO
-vim.o.foldcolumn = "1"
+vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
--- shamelessly vibecoded
-vim.o.statuscolumn = '%=%s%#FoldColumn#%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? " " : " ") : "  " }'
-vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep:│,foldclose:'
 
 -- Set default terminal to PowerShell 5, if on windows
 if vim.g.windows then
