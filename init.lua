@@ -34,7 +34,7 @@ vim.o.foldcolumn = "1"
 vim.o.foldlevel = 99 
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
+vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
 
 -- Set default terminal to PowerShell 5, if on windows
 if vim.g.windows then
