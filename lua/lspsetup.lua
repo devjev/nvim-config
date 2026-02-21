@@ -87,3 +87,6 @@ setup_lsp("pylsp", {
 	},
 })
 setup_lsp("ts_ls", {})
+setup_lsp("nixd", {
+    cmd = { "nixd" },
+})
