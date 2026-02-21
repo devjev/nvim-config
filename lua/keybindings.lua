@@ -251,5 +251,5 @@ wk.add({
     { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds", mode = "n" },
     { "zr", function() require("ufo").openFoldsExceptKinds() end, desc = "Open fold level", mode = "n" },
     { "zm", function() require("ufo").closeFoldsWith() end, desc = "Close fold level", mode = "n" },
-    { "zp", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Peek fold", mode = "n" },
+    { "zK", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Peek fold", mode = "n" },
 })
