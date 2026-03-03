@@ -38,6 +38,7 @@ vim.o.foldenable = true
 -- Set default terminal to PowerShell 5, if on windows
 if vim.g.windows then
 	vim.opt.shell = "powershell.exe"
+    vim.g.copilot_node_command = "C:\\Program Files\\nodejs\node.exe"
 end
 
 -- For a few particular file types, I want to have hard wrapping
