@@ -13,6 +13,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    -- !GITHUB COPILOT
+    { "github/copilot.vim" },
+
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
     { "chriskempson/vim-tomorrow-theme" },
