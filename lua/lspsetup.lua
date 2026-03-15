@@ -90,3 +90,5 @@ setup_lsp("ts_ls", {})
 setup_lsp("nixd", {
     cmd = { "nixd" },
 })
+setup_lsp("elixirls", {}) -- Elixir
+setup_lsp("erlangls", {}) -- Erlang
