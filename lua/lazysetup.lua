@@ -19,6 +19,7 @@ require("lazy").setup({
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
     { "chriskempson/vim-tomorrow-theme" },
+    { "nyoom-engineering/oxocarbon.nvim" },
 
 	-- !SYSTEM THEME DETECTION
     -- TODO Removed for now as I use a blue color scheme, which is comfortable
