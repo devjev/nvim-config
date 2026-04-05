@@ -237,9 +237,24 @@ local function toggle_colorscheme()
 	end
 end
 
+local function toggle_termguicolors()
+	if vim.opt.termguicolors:get() then
+		-- Switch to terminal colors mode with noctu
+		vim.opt.termguicolors = false
+		vim.cmd("colorscheme noctu")
+		vim.notify("Terminal colors (noctu)", vim.log.levels.INFO)
+	else
+		-- Switch back to GUI colors with default theme
+		vim.opt.termguicolors = true
+		vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
+		vim.notify("GUI colors (" .. vim.g.dark_colorscheme .. ")", vim.log.levels.INFO)
+	end
+end
+
 wk.add({
 	{ "<leader>c", group = "Color...", icon = "🎨" },
 	{ "<leader>cc", toggle_colorscheme, desc = "Toggle dark/light colorscheme", mode = "n" },
+	{ "<leader>ct", toggle_termguicolors, desc = "Toggle GUI/terminal colors", mode = "n" },
 	{ "<leader>cp", "<CMD>CccPick<CR>", desc = "Pick a color", mode = { "n", "v" } },
 	{ "<leader>cf", builtin.colorscheme, desc = "Pick a colorscheme", mode = "n" },
 })
