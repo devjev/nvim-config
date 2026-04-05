@@ -239,10 +239,10 @@ end
 
 local function toggle_termguicolors()
 	if vim.opt.termguicolors:get() then
-		-- Switch to terminal colors mode with noctu
+		-- Switch to terminal colors mode with default
 		vim.opt.termguicolors = false
-		vim.cmd("colorscheme noctu")
-		vim.notify("Terminal colors (noctu)", vim.log.levels.INFO)
+		vim.cmd("colorscheme default")
+		vim.notify("Terminal colors (default)", vim.log.levels.INFO)
 	else
 		-- Switch back to GUI colors with default theme
 		vim.opt.termguicolors = true
