@@ -15,7 +15,8 @@ vim.cmd("language en_US.UTF-8")
 -- Colorschemes
 vim.g.dark_colorscheme = "Tomorrow-Night-Blue"
 vim.g.light_colorscheme = "lunaperche"
-vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
+vim.opt.termguicolors = false
+vim.cmd("colorscheme default")
 
 -- Basics
 vim.opt.tabstop = 4
