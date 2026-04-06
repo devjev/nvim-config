@@ -25,8 +25,8 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 vim.opt.showtabline = 1
 
 -- Make sure that code is folded only when explicitly requested
