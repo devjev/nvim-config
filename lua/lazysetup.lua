@@ -283,34 +283,60 @@ require("lazy").setup({
 	},
 
 	-- !TREE SITTER
+	-- nvim-treesitter split into two incompatible branches. The legacy "master"
+	-- (configs.setup with highlight/indent modules) was archived and breaks on
+	-- Neovim 0.12: directive handlers now receive arrays of nodes, so master's
+	-- markdown injection predicate calls :range() on a table and errors out. The
+	-- "main" rewrite requires 0.12+, drops the module system, and drives
+	-- highlighting through core vim.treesitter.start(). Pick the branch by Neovim
+	-- version so this config keeps working on machines with older Neovim too.
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = vim.fn.has("nvim-0.12") == 1 and "main" or "master",
+		lazy = false,
 		build = ":TSUpdate",
 		cond = function()
 			return not vim.g.is_windows
 		end,
 		config = function()
-			local configs = require("nvim-treesitter.configs")
-			configs.setup({
-				ensure_installed = {
-					"lua",
-					"javascript",
-					"typescript",
-					"c",
-					"rust",
-					"html",
-					"css",
-					"python",
-					"ocaml",
-					"go",
-					"proto",
-					"terraform",
-					"hcl",
-				},
-				sync_install = false,
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
+			local languages = {
+				"lua",
+				"javascript",
+				"typescript",
+				"c",
+				"rust",
+				"html",
+				"css",
+				"python",
+				"ocaml",
+				"go",
+				"proto",
+				"terraform",
+				"hcl",
+				"markdown",
+				"markdown_inline",
+			}
+			if vim.fn.has("nvim-0.12") == 1 then
+				-- main branch: install parsers, then start core treesitter per
+				-- buffer (the highlight/indent modules no longer exist).
+				require("nvim-treesitter").install(languages)
+				vim.api.nvim_create_autocmd("FileType", {
+					callback = function(args)
+						local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+						if lang and pcall(vim.treesitter.start, args.buf, lang) then
+							vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+						end
+					end,
+				})
+			else
+				-- legacy master branch (Neovim < 0.12)
+				require("nvim-treesitter.configs").setup({
+					ensure_installed = languages,
+					sync_install = false,
+					highlight = { enable = true },
+					indent = { enable = true },
+				})
+			end
 		end,
 	},
 
