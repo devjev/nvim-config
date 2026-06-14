@@ -317,9 +317,18 @@ require("lazy").setup({
 				"markdown_inline",
 			}
 			if vim.fn.has("nvim-0.12") == 1 then
-				-- main branch: install parsers, then start core treesitter per
-				-- buffer (the highlight/indent modules no longer exist).
-				require("nvim-treesitter").install(languages)
+				-- main branch: compile only the parsers we don't already have, so
+				-- startup doesn't kick off an install pass every launch. Building
+				-- needs the tree-sitter CLI + a C compiler on PATH (provided by the
+				-- NixOS config). Then start core treesitter per buffer (the
+				-- highlight/indent modules no longer exist).
+				local installed = require("nvim-treesitter.config").get_installed("parsers")
+				local missing = vim.tbl_filter(function(lang)
+					return not vim.tbl_contains(installed, lang)
+				end, languages)
+				if #missing > 0 then
+					require("nvim-treesitter").install(missing)
+				end
 				vim.api.nvim_create_autocmd("FileType", {
 					callback = function(args)
 						local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
