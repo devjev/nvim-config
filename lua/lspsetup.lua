@@ -36,6 +36,8 @@ cmp.setup({
 			"go",
 			"gopls",
 			"terraform",
+			"alloy",
+			"quint",
 		}
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
 	end,
@@ -47,6 +49,13 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- LSP configuration / setup
 local function setup_lsp(server_name, config)
 	config = config or {}
+
+	-- When an explicit cmd is given, only proceed if its executable is on PATH,
+	-- so a server that isn't installed is a silent no-op instead of erroring on
+	-- every matching buffer. Servers without a cmd rely on lspconfig's default.
+	if config.cmd and vim.fn.executable(config.cmd[1]) ~= 1 then
+		return
+	end
 
 	-- Inject cmp capabilities, if not already present
 	if not config.capabilities then
@@ -92,3 +101,24 @@ setup_lsp("nixd", {
 })
 setup_lsp("elixirls", {}) -- Elixir
 setup_lsp("erlangls", {}) -- Erlang
+
+-- Alloy & Quint: neovim doesn't know these extensions, so register them first.
+-- Both servers are optional and only start if their binary is installed.
+vim.filetype.add({
+	extension = {
+		als = "alloy",
+		qnt = "quint",
+	},
+})
+
+setup_lsp("alloy", {
+	cmd = { "alloy-language-server", "--stdio" },
+	filetypes = { "alloy" },
+	root_markers = { ".git" },
+})
+
+setup_lsp("quint", {
+	cmd = { "quint-language-server", "--stdio" },
+	filetypes = { "quint" },
+	root_markers = { ".git" },
+})
