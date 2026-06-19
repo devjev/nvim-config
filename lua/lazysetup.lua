@@ -589,4 +589,15 @@ require("lazy").setup({
 		end,
 	},
 
+	-- ! MARKDOWN TABLES
+	-- Auto-align Markdown tables as you type; colons in the separator row
+	-- drive per-column alignment. Toggle the auto behaviour with :Mtm.
+	{
+		"Kicamon/markdown-table-mode.nvim",
+		ft = "markdown",
+		config = function()
+			require("markdown-table-mode").setup()
+		end,
+	},
+
 })
