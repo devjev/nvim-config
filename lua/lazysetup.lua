@@ -407,6 +407,13 @@ require("lazy").setup({
 	-- Clingo syntax support
 	{ "rkaminsk/vim-syntax-clingo" },
 
+	-- Alloy syntax support (.als). The .als -> alloy filetype is already
+	-- registered in lspsetup.lua; this adds Alloy 6 regex highlighting
+	-- (sig/pred/fun/fact, quantifiers, temporal operators). The alloy LSP
+	-- handles semantics; this gives static coloring without a treesitter
+	-- parser (Alloy isn't in the nvim-treesitter registry).
+	{ "runoshun/vim-alloy", ft = "alloy" },
+
 	-- !REPL
 	{
 		"Vigemus/iron.nvim",
