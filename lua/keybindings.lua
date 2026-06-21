@@ -47,8 +47,9 @@ wk.add({
 -- !PREVIEW
 wk.add({
 	{ "<leader>p", group = "Preview..." },
-	{ "<leader>po", "<CME>OmniPreview start<CR>", desc = "Preview start", mode = "n" },
-	{ "<leader>pc", "<CME>OmniPreview stop<CR>", desc = "Preview start", mode = "n" },
+	{ "<leader>po", "<CMD>OmniPreview start<CR>", desc = "Preview start", mode = "n" },
+	{ "<leader>pc", "<CMD>OmniPreview stop<CR>", desc = "Preview stop", mode = "n" },
+	{ "<leader>pm", "<CMD>Markview Toggle<CR>", desc = "Toggle markdown render", mode = "n" },
 })
 
 -- !TABS

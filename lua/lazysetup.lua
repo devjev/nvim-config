@@ -527,6 +527,28 @@ require("lazy").setup({
 	-- !Writing / Zen mode
 	{ "pocco81/true-zen.nvim" },
 
+	-- Prose wrapping: vim-pencil manages formatoptions so hard-wrapped prose
+	-- (textwidth=76, set per-filetype in init.lua) reflows cleanly on edit and
+	-- `gq`, while navigation still moves by display lines. Scoped to prose
+	-- filetypes; `mail` keeps its own soft-wrap handling from init.lua.
+	{
+		"preservim/vim-pencil",
+		ft = { "markdown", "text" },
+		init = function()
+			vim.g["pencil#wrapModeDefault"] = "hard"
+			vim.g["pencil#textwidth"] = 76
+			vim.g["pencil#concealcursor"] = "c"
+		end,
+		config = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "markdown", "text" },
+				callback = function()
+					vim.fn["pencil#init"]()
+				end,
+			})
+		end,
+	},
+
 	-- ! NOTE TAKING
 	{
 		"epwalsh/obsidian.nvim",
@@ -593,6 +615,24 @@ require("lazy").setup({
                     end
                 end,
 			})
+		end,
+	},
+
+	-- ! MARKDOWN RENDERING
+	-- In-buffer rendering of headings, lists, tables, callouts, code blocks,
+	-- LaTeX and inline HTML as you edit (no browser). Relies on the markdown /
+	-- markdown_inline / html treesitter parsers already installed above, and
+	-- the conceallevel=2 set for markdown in init.lua. Toggle with :Markview
+	-- (bound to <leader>pm).
+	{
+		"OXY2DEV/markview.nvim",
+		ft = { "markdown" },
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("markview").setup({})
 		end,
 	},
 
