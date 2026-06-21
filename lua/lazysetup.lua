@@ -632,7 +632,26 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			require("markview").setup({})
+			require("markview").setup({
+				markdown = {
+					headings = {
+						enable = true,
+						-- No per-level indentation of heading text, and no
+						-- Org-style section indentation.
+						shift_width = 0,
+						org_indent = false,
+						-- Plain text labels (H01..H06) instead of nerd-font
+						-- glyphs. `icon` takes any string; `sign = ""` keeps the
+						-- icon style from also dropping a glyph in the signcolumn.
+						heading_1 = { style = "icon", icon = "H01 ", sign = "" },
+						heading_2 = { style = "icon", icon = "H02 ", sign = "" },
+						heading_3 = { style = "icon", icon = "H03 ", sign = "" },
+						heading_4 = { style = "icon", icon = "H04 ", sign = "" },
+						heading_5 = { style = "icon", icon = "H05 ", sign = "" },
+						heading_6 = { style = "icon", icon = "H06 ", sign = "" },
+					},
+				},
+			})
 		end,
 	},
 
