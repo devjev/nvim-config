@@ -396,6 +396,13 @@ require("lazy").setup({
 	-- !LSP
 	{
 		"neovim/nvim-lspconfig",
+		-- On Neovim < 0.11, setup_lsp() (lspsetup.lua) uses the classic
+		-- require("lspconfig")[server].setup() framework. Current lspconfig (v2.x)
+		-- requires Neovim 0.10+ and warns that <0.11 support is deprecated and
+		-- slated for removal in v3.0.0. Pin to v1.8.0 below 0.11 — the last
+		-- release that supports Neovim 0.9 and the framework, with no deprecation
+		-- nag. On 0.11+ track latest and use vim.lsp.config/enable instead.
+		tag = vim.fn.has("nvim-0.11") == 0 and "v1.8.0" or nil,
 		config = function()
 			-- Left blank on purpose - apparently lazy.nvim is trying
 			-- to automatically load up plugins with setup, which conflicts
