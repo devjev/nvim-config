@@ -64,6 +64,10 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Sign column
 vim.opt.signcolumn = "yes"
+-- The table form of `signs` (text/linehl/numhl keyed by severity) was only
+-- added in Neovim 0.10; on 0.9 it errors, so guard it and fall back to the
+-- default diagnostic signs there.
+if vim.fn.has("nvim-0.10") == 1 then
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -80,6 +84,7 @@ vim.diagnostic.config({
 		},
 	},
 })
+end
 
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
 if vim.g.is_windows then

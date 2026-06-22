@@ -204,7 +204,6 @@ local gs = require("gitsigns")
 
 wk.add({
 	{ "<leader>v", group = "Git...", icon = "💽" },
-	{ "<leader>vv", "<CMD>Neogit<CR>", desc = "Show neogit", mode = "n" },
 	{ "<leader>vc", "<CMD>DiffviewOpen<CR>", desc = "Show git diff", mode = "n" },
 	{ "<leader>vn", gs.nav_hunk, desc = "Navigate changes", mode = "n" },
 	{ "<leader>vh", builtin.git_commits, desc = "Show git commits", mode = "n" },

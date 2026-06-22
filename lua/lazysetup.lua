@@ -12,6 +12,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Graceful degradation on older Neovim. A handful of plugins below require a
+-- newer Neovim than 0.9. Gate each with lazy.nvim's `cond` so the plugin stays
+-- installed but never loads (no setup, no error) when the running Neovim is too
+-- old. `min_nvim("0.10")` is true on 0.10+, false on 0.9. Plugins reached only
+-- via an Ex command (Markview, OmniPreview) degrade to a missing command;
+-- nothing `require`s the gated plugins at startup, so no keymap or module load
+-- breaks on 0.9.
+local function min_nvim(ver)
+	return vim.fn.has("nvim-" .. ver) == 1
+end
+
 require("lazy").setup({
     -- !GITHUB COPILOT
     { "github/copilot.vim" },
@@ -45,7 +56,36 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons" },
 
 	-- !ZEN MODE
-	{ "folke/zen-mode.nvim" },
+	-- Super-minimal: a single centered column, everything else stripped —
+	-- no numbers, signcolumn, cursorline, fold/statusline, or backdrop dim.
+	{
+		"folke/zen-mode.nvim",
+		opts = {
+			window = {
+				backdrop = 1, -- 1.0 = no dimming of the surrounding area
+				width = 80, -- centered fixed-width column
+				height = 1, -- 1.0 = full height
+				options = {
+					number = false,
+					relativenumber = false,
+					signcolumn = "no",
+					cursorline = false,
+					cursorcolumn = false,
+					foldcolumn = "0",
+					list = false,
+				},
+			},
+			plugins = {
+				options = {
+					enabled = true,
+					ruler = false,
+					showcmd = false,
+					laststatus = 0, -- hide the statusline (lualine)
+				},
+				gitsigns = { enabled = false },
+			},
+		},
+	},
 
 	-- !TABS
 	{
@@ -207,8 +247,10 @@ require("lazy").setup({
 	},
 
 	-- !TYPST
+	-- csvview requires Neovim 0.10; gate the whole preview stack off on 0.9.
 	{
 		"sylvanfranklin/omni-preview.nvim",
+		cond = min_nvim("0.10"),
 		dependencies = {
 			{ "chomosuke/typst-preview.nvim", lazy = true },
 			{ "hat0uma/csvview.nvim", lazy = true },
@@ -256,7 +298,9 @@ require("lazy").setup({
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 			"nvim-neotest/nvim-nio",
-			"williamboman/mason.nvim",
+			-- mason 2.x requires Neovim 0.10; it's only a passive dep here (never
+			-- configured), so gate it off on 0.9 to keep the dap stack loading.
+			{ "williamboman/mason.nvim", cond = min_nvim("0.10") },
 		},
 		config = function()
 			-- local dap = require "dap"
@@ -373,9 +417,12 @@ require("lazy").setup({
 			vim.g.rustfmt_autosave = 1
 		end,
 	},
+	-- rustaceanvim ^6 requires Neovim 0.11; off on older Neovim. rust.vim
+	-- (above) still provides syntax + rustfmt-on-save when this is gated out.
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^6",
+		cond = min_nvim("0.11"),
 		lazy = false,
 		["rust-analyzer"] = {
 			cargo = { allFeatures = true },
@@ -394,6 +441,7 @@ require("lazy").setup({
 	-- Lua support
 	{
 		"folke/lazydev.nvim",
+		cond = min_nvim("0.10"), -- requires Neovim 0.10; lua_ls still works without it
 		ft = "lua", -- only load on lua files
 		opts = {
 			library = {
@@ -513,19 +561,12 @@ require("lazy").setup({
 		end,
 	},
 	{ "tpope/vim-fugitive" },
+	-- Git diff view (<leader>vc). Standalone since dropping Neogit (lazygit is
+	-- used outside nvim instead); diffview only needs Neovim 0.7.
 	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"sindrets/diffview.nvim",
-		},
-		config = function()
-			require("neogit").setup({})
-		end,
+		"sindrets/diffview.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-
-	-- !Writing / Zen mode
-	{ "pocco81/true-zen.nvim" },
 
 	-- Prose wrapping: vim-pencil manages formatoptions so hard-wrapped prose
 	-- (textwidth=76, set per-filetype in init.lua) reflows cleanly on edit and
@@ -626,6 +667,7 @@ require("lazy").setup({
 	-- (bound to <leader>pm).
 	{
 		"OXY2DEV/markview.nvim",
+		cond = min_nvim("0.10.3"), -- requires Neovim 0.10.3; off on 0.9 (raw markdown source)
 		ft = { "markdown" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
@@ -635,6 +677,10 @@ require("lazy").setup({
 			-- Render tables only — everything else (headings, lists, code
 			-- blocks, quotes, links, emphasis, LaTeX, HTML, frontmatter) stays
 			-- as plain markdown source with no concealing, so nothing reflows.
+			-- NB: leave `tables` unspecified. markview's config merge treats a
+			-- user-provided sub-table as a replacement, so `tables = { enable =
+			-- true }` would wipe the default `parts` (border glyphs) and the
+			-- table would render with no borders. Tables are enabled by default.
 			require("markview").setup({
 				markdown = {
 					enable = true,
@@ -646,7 +692,6 @@ require("lazy").setup({
 					metadata_minus = { enable = false },
 					metadata_plus = { enable = false },
 					reference_definitions = { enable = false },
-					tables = { enable = true },
 				},
 				markdown_inline = { enable = false },
 				latex = { enable = false },
