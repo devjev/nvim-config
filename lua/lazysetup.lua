@@ -164,6 +164,10 @@ require("lazy").setup({
 	-- !TELESCOPE
 	{
 		"nvim-telescope/telescope.nvim",
+		-- telescope's master/0.2.x line hard-errors ("requires at least
+		-- nvim-0.11"); the 0.1.x branch supports Neovim 0.7+. Track 0.1.x below
+		-- 0.11 so it loads on 0.9.5; latest on 0.11+.
+		branch = vim.fn.has("nvim-0.11") == 0 and "0.1.x" or nil,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("telescope").setup({})
