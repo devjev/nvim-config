@@ -693,6 +693,25 @@ require("lazy").setup({
 			-- true }` would wipe the default `parts` (border glyphs) and the
 			-- table would render with no borders. Tables are enabled by default.
 			require("markview").setup({
+				-- markview's defaults force conceallevel=3 on attach/enable,
+				-- which overrides the conceallevel=2 set in init.lua and trips
+				-- obsidian.nvim's UI check (it wants 1 or 2). Pin it back to 2 so
+				-- both renderers agree; table rendering uses virtual text and is
+				-- unaffected by the 2-vs-3 distinction.
+				preview = {
+					callbacks = {
+						on_attach = function(_, wins)
+							for _, win in ipairs(wins) do
+								vim.wo[win].conceallevel = 2
+							end
+						end,
+						on_enable = function(_, wins)
+							for _, win in ipairs(wins) do
+								vim.wo[win].conceallevel = 2
+							end
+						end,
+					},
+				},
 				markdown = {
 					enable = true,
 					headings = { enable = false },
