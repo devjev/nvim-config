@@ -377,11 +377,21 @@ require("lazy").setup({
 				if #missing > 0 then
 					require("nvim-treesitter").install(missing)
 				end
+				-- Prose filetypes where list wrapping must stay with vim's own
+				-- 'autoindent' + 'formatlistpat' (driven by vim-pencil's hard wrap).
+				-- The treesitter markdown indentexpr collapses the hanging indent on
+				-- the 3rd+ wrapped line of a list item, so keep TS *highlighting* here
+				-- but not its indent.
+				local no_ts_indent = { markdown = true, text = true }
 				vim.api.nvim_create_autocmd("FileType", {
 					callback = function(args)
 						local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
 						if lang and pcall(vim.treesitter.start, args.buf, lang) then
-							vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+							if no_ts_indent[vim.bo[args.buf].filetype] then
+								vim.bo[args.buf].indentexpr = ""
+							else
+								vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+							end
 						end
 					end,
 				})
