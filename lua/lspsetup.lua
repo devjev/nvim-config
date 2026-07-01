@@ -36,7 +36,6 @@ cmp.setup({
 			"go",
 			"gopls",
 			"terraform",
-			"alloy",
 			"quint",
 		}
 		return vim.tbl_contains(enabled_filetypes, buf_file_type)
@@ -169,19 +168,12 @@ setup_lsp("nixd", {
 setup_lsp("elixirls", {}) -- Elixir
 setup_lsp("erlangls", {}) -- Erlang
 
--- Alloy & Quint: neovim doesn't know these extensions, so register them first.
--- Both servers are optional and only start if their binary is installed.
+-- Quint: neovim doesn't know this extension, so register it first.
+-- The server is optional and only starts if its binary is installed.
 vim.filetype.add({
 	extension = {
-		als = "alloy",
 		qnt = "quint",
 	},
-})
-
-setup_lsp("alloy", {
-	cmd = { "alloy-language-server", "--stdio" },
-	filetypes = { "alloy" },
-	root_markers = { ".git" },
 })
 
 setup_lsp("quint", {
