@@ -634,6 +634,10 @@ require("lazy").setup({
 				vim.g.notes_root = home .. "/Notes"
 			end
 
+			-- obsidian.nvim errors at setup if the workspace path is absent;
+			-- create it so fresh machines without the vault still load nvim.
+			vim.fn.mkdir(vim.fn.expand(vim.g.notes_root .. "/main"), "p")
+
 			require("obsidian").setup({
 				workspaces = {
 					{
