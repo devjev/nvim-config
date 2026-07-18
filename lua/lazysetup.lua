@@ -706,6 +706,14 @@ require("lazy").setup({
 				-- both renderers agree; table rendering uses virtual text and is
 				-- unaffected by the 2-vs-3 distinction.
 				preview = {
+					-- markview's default attach list also includes typst, rmd,
+					-- quarto and asciidoc (spec.lua). Its global BufEnter autocmd
+					-- then calls vim.treesitter.start(buf, ft) for those buffers;
+					-- with no typst parser installed that assert throws on every
+					-- .typ file. Restrict attachment to markdown, which is all
+					-- this config renders. (`typst = { enable = false }` below only
+					-- disables the renderer, not the attach.)
+					filetypes = { "markdown" },
 					callbacks = {
 						on_attach = function(_, wins)
 							for _, win in ipairs(wins) do
