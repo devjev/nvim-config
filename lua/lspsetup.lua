@@ -28,7 +28,6 @@ cmp.setup({
 			"erlang",
 			"rust",
 			"c",
-			"markdown",
 			"bash",
 			"lua",
 			"ocaml",
