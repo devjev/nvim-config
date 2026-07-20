@@ -167,6 +167,25 @@ setup_lsp("nixd", {
 setup_lsp("elixirls", {}) -- Elixir
 setup_lsp("erlangls", {}) -- Erlang
 
+-- YAML (also covers OpenAPI/Swagger contracts). Not installed globally:
+-- each project's flake.nix provides yaml-language-server on PATH (e.g. via a
+-- devShell); explicit cmd here makes setup_lsp() a silent no-op elsewhere.
+-- schemastore.nvim supplies the schema catalog; disable yaml-language-server's
+-- own schemastore fetch (it pulls from the network on every start) since
+-- schemastore.nvim provides the same catalog locally.
+setup_lsp("yamlls", {
+	cmd = { "yaml-language-server", "--stdio" },
+	settings = {
+		yaml = {
+			schemaStore = {
+				enable = false,
+				url = "",
+			},
+			schemas = require("schemastore").yaml.schemas(),
+		},
+	},
+})
+
 -- Quint: neovim doesn't know this extension, so register it first.
 -- The server is optional and only starts if its binary is installed.
 vim.filetype.add({
