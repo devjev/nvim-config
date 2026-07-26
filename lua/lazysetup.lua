@@ -383,13 +383,18 @@ require("lazy").setup({
 				-- the 3rd+ wrapped line of a list item, so keep TS *highlighting* here
 				-- but not its indent.
 				local no_ts_indent = { markdown = true, text = true }
+				-- Filetypes where the builtin indent script beats the treesitter
+				-- queries: nvim-treesitter's ocaml indents.scm over-indents after
+				-- an application inside try/with. Keep the ftplugin's indentexpr
+				-- (GetOCamlIndent) instead of replacing it.
+				local builtin_indent = { ocaml = true, ocaml_interface = true }
 				vim.api.nvim_create_autocmd("FileType", {
 					callback = function(args)
 						local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
 						if lang and pcall(vim.treesitter.start, args.buf, lang) then
 							if no_ts_indent[vim.bo[args.buf].filetype] then
 								vim.bo[args.buf].indentexpr = ""
-							else
+							elseif not builtin_indent[vim.bo[args.buf].filetype] then
 								vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 							end
 						end
