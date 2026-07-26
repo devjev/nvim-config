@@ -167,6 +167,12 @@ setup_lsp("nixd", {
 setup_lsp("elixirls", {}) -- Elixir
 setup_lsp("erlangls", {}) -- Erlang
 
+-- OCaml: not installed globally, each project's flake.nix provides ocamllsp
+-- on PATH; explicit cmd makes setup_lsp() a silent no-op elsewhere.
+setup_lsp("ocamllsp", {
+	cmd = { "ocamllsp" },
+})
+
 -- YAML (also covers OpenAPI/Swagger contracts). Not installed globally:
 -- each project's flake.nix provides yaml-language-server on PATH (e.g. via a
 -- devShell); explicit cmd here makes setup_lsp() a silent no-op elsewhere.
