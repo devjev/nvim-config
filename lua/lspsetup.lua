@@ -25,6 +25,8 @@ cmp.setup({
 			"typescriptreact",
 			"python",
 			"elixir",
+			"eelixir",
+			"heex",
 			"erlang",
 			"rust",
 			"c",
@@ -164,8 +166,17 @@ setup_lsp("ts_ls", {})
 setup_lsp("nixd", {
     cmd = { "nixd" },
 })
-setup_lsp("elixirls", {}) -- Elixir
-setup_lsp("erlangls", {}) -- Erlang
+-- Elixir/Erlang: not installed globally, each project's flake.nix provides the
+-- server on PATH; explicit cmd makes setup_lsp() a silent no-op elsewhere.
+-- elixir-ls also drives .heex (heex) and .eex (eelixir) templates; formatting
+-- (mix format) is exposed through the LSP, so no separate formatter is wired.
+setup_lsp("elixirls", {
+	cmd = { "elixir-ls" },
+	filetypes = { "elixir", "eelixir", "heex", "surface" },
+})
+setup_lsp("erlangls", {
+	cmd = { "erlang_ls" },
+})
 
 -- OCaml: not installed globally, each project's flake.nix provides ocamllsp
 -- on PATH; explicit cmd makes setup_lsp() a silent no-op elsewhere.
