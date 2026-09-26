@@ -44,7 +44,6 @@ require("lazy").setup({
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
     { "chriskempson/vim-tomorrow-theme" },
-    { "nyoom-engineering/oxocarbon.nvim" },
     { "noahfrederick/vim-noctu" },  -- 16-color terminal theme
 
 	-- !SYSTEM THEME DETECTION
@@ -795,9 +794,12 @@ require("lazy").setup({
 	},
 
 }, {
-	-- Nothing in this config needs luarocks; oxocarbon.nvim just happens to ship a
-	-- rockspec, which makes lazy.nvim try luarocks and then bootstrap hererocks.
-	-- That bootstrap wants a Lua 5.1 toolchain and fails on machines without one,
-	-- so the colorscheme reports "build failed" for a build it never needed.
+	-- Nothing here needs luarocks. Eleven plugins ship a rockspec, but lazy.nvim
+	-- only reaches for luarocks when the build is not "simple" (rockspec.lua,
+	-- is_simple_build): a builtin build with an explicit `modules` table, or
+	-- dependencies beyond lua and other plugins. oxocarbon.nvim was the one that
+	-- qualified, and it is gone; the rest declare copy_directories only, so lazy
+	-- uses the plain git clone. Keep this off so the next plugin that adds a
+	-- modules table does not break machines without a Lua 5.1 toolchain.
 	rocks = { enabled = false },
 })
