@@ -386,6 +386,24 @@ require("lazy").setup({
 				-- needs the tree-sitter CLI + a C compiler on PATH (provided by the
 				-- NixOS config). Then start core treesitter per buffer (the
 				-- highlight/indent modules no longer exist).
+				-- No CLI means no building, so fall back to the parsers committed under
+				-- parsers/<sysname>-<machine>/ in this repo. Pointing nvim-treesitter's
+				-- install_dir at that directory prepends it to the runtimepath, which is
+				-- how Neovim finds parser/*.so and queries/, and makes get_installed()
+				-- read its parser-info stamps. The install pass below then has nothing
+				-- missing to build. The NixOS machines have the CLI and never take this
+				-- branch, so they keep building their own into the usual site directory.
+				if not has_ts_cli then
+					local uname = vim.uv.os_uname()
+					local bundle = vim.fs.joinpath(
+						vim.fn.stdpath("config"),
+						"parsers",
+						uname.sysname:lower() .. "-" .. uname.machine
+					)
+					if vim.fn.isdirectory(bundle) == 1 then
+						require("nvim-treesitter").setup({ install_dir = bundle })
+					end
+				end
 				local installed = require("nvim-treesitter.config").get_installed("parsers")
 				local missing = vim.tbl_filter(function(lang)
 					return not vim.tbl_contains(installed, lang)
@@ -393,9 +411,8 @@ require("lazy").setup({
 				if #missing > 0 and has_ts_cli then
 					require("nvim-treesitter").install(missing)
 				elseif #missing > 0 then
-					-- No CLI, so no build. Say which parsers are absent and where a
-					-- prebuilt .so would go, since a machine that cannot compile can
-					-- still take parsers built elsewhere.
+					-- No CLI and no bundle for this platform. Say which parsers are
+					-- absent and where a prebuilt .so would go.
 					vim.notify(
 						"tree-sitter CLI not found, so these parsers are missing: "
 							.. table.concat(missing, ", ")
