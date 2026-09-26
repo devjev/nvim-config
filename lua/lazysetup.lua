@@ -12,6 +12,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Tooling on non-NixOS machines. The NixOS configs put the tree-sitter CLI and a
+-- C compiler on PATH for us; a work laptop generally does not, and hand-installed
+-- binaries land in ~/.local/bin, which a desktop-launched Neovim does not always
+-- inherit. Prepend it, then probe once: `has_ts_cli` gates both the build step and
+-- the parser install below, so a machine without the CLI degrades to the parsers it
+-- already has instead of an ENOENT out of vim.system on every launch.
+if not vim.g.is_windows then
+	local local_bin = vim.fn.expand("~/.local/bin")
+	if vim.fn.isdirectory(local_bin) == 1 and not string.find(vim.env.PATH or "", local_bin, 1, true) then
+		vim.env.PATH = local_bin .. ":" .. (vim.env.PATH or "")
+	end
+end
+local has_ts_cli = vim.fn.executable("tree-sitter") == 1
+
 -- Graceful degradation on older Neovim. A handful of plugins below require a
 -- newer Neovim than 0.9. Gate each with lazy.nvim's `cond` so the plugin stays
 -- installed but never loads (no setup, no error) when the running Neovim is too
@@ -342,7 +356,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		branch = vim.fn.has("nvim-0.12") == 1 and "main" or "master",
 		lazy = false,
-		build = ":TSUpdate",
+		build = has_ts_cli and ":TSUpdate" or false,
 		cond = function()
 			return not vim.g.is_windows
 		end,
@@ -377,8 +391,19 @@ require("lazy").setup({
 				local missing = vim.tbl_filter(function(lang)
 					return not vim.tbl_contains(installed, lang)
 				end, languages)
-				if #missing > 0 then
+				if #missing > 0 and has_ts_cli then
 					require("nvim-treesitter").install(missing)
+				elseif #missing > 0 then
+					-- No CLI, so no build. Say which parsers are absent and where a
+					-- prebuilt .so would go, since a machine that cannot compile can
+					-- still take parsers built elsewhere.
+					vim.notify(
+						"tree-sitter CLI not found, so these parsers are missing: "
+							.. table.concat(missing, ", ")
+							.. "\nInstall the CLI in ~/.local/bin, or drop prebuilt .so files in "
+							.. require("nvim-treesitter.config").get_install_dir("parser"),
+						vim.log.levels.WARN
+					)
 				end
 				-- Prose filetypes where list wrapping must stay with vim's own
 				-- 'autoindent' + 'formatlistpat' (driven by vim-pencil's hard wrap).
@@ -769,4 +794,10 @@ require("lazy").setup({
 		end,
 	},
 
+}, {
+	-- Nothing in this config needs luarocks; oxocarbon.nvim just happens to ship a
+	-- rockspec, which makes lazy.nvim try luarocks and then bootstrap hererocks.
+	-- That bootstrap wants a Lua 5.1 toolchain and fails on machines without one,
+	-- so the colorscheme reports "build failed" for a build it never needed.
+	rocks = { enabled = false },
 })
