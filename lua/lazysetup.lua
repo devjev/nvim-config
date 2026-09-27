@@ -13,11 +13,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Tooling on non-NixOS machines. The NixOS configs put the tree-sitter CLI and a
--- C compiler on PATH for us; a work laptop generally does not, and hand-installed
--- binaries land in ~/.local/bin, which a desktop-launched Neovim does not always
--- inherit. Prepend it, then probe once: `has_ts_cli` gates both the build step and
--- the parser install below, so a machine without the CLI degrades to the parsers it
--- already has instead of an ENOENT out of vim.system on every launch.
+-- C compiler on PATH for us; a Debian or Ubuntu machine has them only after
+-- `apt install build-essential tree-sitter-cli`, and hand-installed binaries land
+-- in ~/.local/bin, which a desktop-launched Neovim does not always inherit.
+-- Prepend it, then probe once. Both nvim-treesitter branches need a C compiler to
+-- build parsers (main runs `tree-sitter build`, which calls the compiler; master
+-- calls it directly), so the probes gate the build step and the install pass
+-- below. A machine without the toolchain degrades to the parsers it already has,
+-- plus one warning, instead of an error out of vim.system on every launch.
 if not vim.g.is_windows then
 	local local_bin = vim.fn.expand("~/.local/bin")
 	if vim.fn.isdirectory(local_bin) == 1 and not string.find(vim.env.PATH or "", local_bin, 1, true) then
@@ -25,6 +28,34 @@ if not vim.g.is_windows then
 	end
 end
 local has_ts_cli = vim.fn.executable("tree-sitter") == 1
+-- Same candidates and order as nvim-treesitter's own compiler lookup.
+local has_cc = false
+for _, cc in ipairs({ vim.env.CC, "cc", "gcc", "clang", "zig" }) do
+	if cc and cc ~= "" and vim.fn.executable(cc) == 1 then
+		has_cc = true
+		break
+	end
+end
+
+-- Startup warnings. A vim.notify issued while plugins load is drawn before the
+-- first redraw and can be wiped by it, so collect the messages and show them
+-- once the UI is up. A multi-line WARN goes through the hit-enter prompt, so it
+-- cannot be missed, and it stays in :messages.
+local startup_warnings = {}
+local function warn_at_startup(msg)
+	table.insert(startup_warnings, msg)
+end
+vim.api.nvim_create_autocmd("VimEnter", {
+	once = true,
+	callback = function()
+		if #startup_warnings == 0 then
+			return
+		end
+		vim.schedule(function()
+			vim.notify(table.concat(startup_warnings, "\n\n"), vim.log.levels.WARN)
+		end)
+	end,
+})
 
 -- Graceful degradation on older Neovim. A handful of plugins below require a
 -- newer Neovim than 0.9. Gate each with lazy.nvim's `cond` so the plugin stays
@@ -355,7 +386,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		branch = vim.fn.has("nvim-0.12") == 1 and "main" or "master",
 		lazy = false,
-		build = has_ts_cli and ":TSUpdate" or false,
+		build = (has_ts_cli and has_cc) and ":TSUpdate" or false,
 		cond = function()
 			return not vim.g.is_windows
 		end,
@@ -383,42 +414,60 @@ require("lazy").setup({
 			if vim.fn.has("nvim-0.12") == 1 then
 				-- main branch: compile only the parsers we don't already have, so
 				-- startup doesn't kick off an install pass every launch. Building
-				-- needs the tree-sitter CLI + a C compiler on PATH (provided by the
-				-- NixOS config). Then start core treesitter per buffer (the
-				-- highlight/indent modules no longer exist).
-				-- No CLI means no building, so fall back to the parsers committed under
-				-- parsers/<sysname>-<machine>/ in this repo. Pointing nvim-treesitter's
-				-- install_dir at that directory prepends it to the runtimepath, which is
-				-- how Neovim finds parser/*.so and queries/, and makes get_installed()
-				-- read its parser-info stamps. The install pass below then has nothing
-				-- missing to build. The NixOS machines have the CLI and never take this
-				-- branch, so they keep building their own into the usual site directory.
-				if not has_ts_cli then
+				-- needs the tree-sitter CLI (0.26+) and a C compiler on PATH (the
+				-- NixOS config provides both). Then start core treesitter per buffer
+				-- (the highlight/indent modules no longer exist).
+				-- Without the toolchain nothing can be built, so fall back to the
+				-- parsers committed under parsers/<sysname>-<machine>/ in this repo.
+				-- Pointing nvim-treesitter's install_dir at that directory prepends it
+				-- to the runtimepath, which is how Neovim finds parser/*.so and
+				-- queries/, and makes get_installed() read its parser-info stamps. The
+				-- install pass below then has nothing missing to build. The NixOS
+				-- machines never take this branch, so they keep building their own
+				-- into the usual site directory.
+				local ts_config = require("nvim-treesitter.config")
+				local can_build = has_ts_cli and has_cc
+				local bundle
+				if not can_build then
 					local uname = vim.uv.os_uname()
-					local bundle = vim.fs.joinpath(
+					local dir = vim.fs.joinpath(
 						vim.fn.stdpath("config"),
 						"parsers",
 						uname.sysname:lower() .. "-" .. uname.machine
 					)
-					if vim.fn.isdirectory(bundle) == 1 then
+					if vim.fn.isdirectory(dir) == 1 then
+						bundle = dir
 						require("nvim-treesitter").setup({ install_dir = bundle })
 					end
 				end
-				local installed = require("nvim-treesitter.config").get_installed("parsers")
+				local installed = ts_config.get_installed("parsers")
 				local missing = vim.tbl_filter(function(lang)
 					return not vim.tbl_contains(installed, lang)
 				end, languages)
-				if #missing > 0 and has_ts_cli then
+				if #missing > 0 and can_build then
 					require("nvim-treesitter").install(missing)
 				elseif #missing > 0 then
-					-- No CLI and no bundle for this platform. Say which parsers are
-					-- absent and where a prebuilt .so would go.
-					vim.notify(
-						"tree-sitter CLI not found, so these parsers are missing: "
+					-- Cannot build, and no bundle for this platform (or an incomplete
+					-- one). Say what is absent, what to install, and where a prebuilt
+					-- .so would go.
+					local lacking = {}
+					if not has_ts_cli then
+						table.insert(lacking, "the tree-sitter CLI")
+					end
+					if not has_cc then
+						table.insert(lacking, "a C compiler (cc, gcc, clang)")
+					end
+					warn_at_startup(
+						"nvim-treesitter cannot build parsers: "
+							.. table.concat(lacking, " and ")
+							.. " not found on PATH."
+							.. "\nMissing parsers: "
 							.. table.concat(missing, ", ")
-							.. "\nInstall the CLI in ~/.local/bin, or drop prebuilt .so files in "
-							.. require("nvim-treesitter.config").get_install_dir("parser"),
-						vim.log.levels.WARN
+							.. "\nDebian/Ubuntu: sudo apt install build-essential tree-sitter-cli"
+							.. " (needs tree-sitter-cli 0.26 or newer)."
+							.. "\nOr put prebuilt parsers in "
+							.. (bundle or ts_config.get_install_dir("parser"))
+							.. " (see README.md, \"Prebuilt tree-sitter parsers\")."
 					)
 				end
 				-- Prose filetypes where list wrapping must stay with vim's own
@@ -432,26 +481,69 @@ require("lazy").setup({
 				-- an application inside try/with. Keep the ftplugin's indentexpr
 				-- (GetOCamlIndent) instead of replacing it.
 				local builtin_indent = { ocaml = true, ocaml_interface = true }
+				-- A parser that get_installed() reported but that fails to start is
+				-- a broken one, typically a prebuilt .so this machine cannot load
+				-- (other architecture, older glibc, older tree-sitter ABI). Silence
+				-- here would look like a missing parser, so say so once per language
+				-- with the loader's reason. Filetypes with no parser at all are the
+				-- normal case and stay quiet.
+				local reported = {}
 				vim.api.nvim_create_autocmd("FileType", {
 					callback = function(args)
 						local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
-						if lang and pcall(vim.treesitter.start, args.buf, lang) then
+						if not lang then
+							return
+						end
+						local ok, err = pcall(vim.treesitter.start, args.buf, lang)
+						if ok then
 							if no_ts_indent[vim.bo[args.buf].filetype] then
 								vim.bo[args.buf].indentexpr = ""
 							elseif not builtin_indent[vim.bo[args.buf].filetype] then
 								vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 							end
+						elseif vim.tbl_contains(installed, lang) and not reported[lang] then
+							reported[lang] = true
+							-- start() only says "parser could not be created"; loading the
+							-- parser on its own gives the dlopen reason.
+							local loaded, why = pcall(vim.treesitter.language.add, lang)
+							if not loaded then
+								err = why
+							end
+							vim.notify(
+								"nvim-treesitter: the " .. lang .. " parser is installed but does not load:\n"
+									.. tostring(err):gsub("^.-:%d+: ", ""),
+								vim.log.levels.WARN
+							)
 						end
 					end,
 				})
 			else
-				-- legacy master branch (Neovim < 0.12)
+				-- legacy master branch (Neovim < 0.12). It fetches parser sources
+				-- with curl + tar (or git) and compiles them itself; the tree-sitter
+				-- CLI is not involved. Without a compiler, ensure_installed would
+				-- print one error per parser at every start, so install nothing and
+				-- say so once. The parsers already in the site directory keep
+				-- working. The prebuilt bundle in parsers/ is not an option here: it
+				-- is built at tree-sitter ABI 15 against main's parser revisions,
+				-- and master's queries expect its own.
 				require("nvim-treesitter.configs").setup({
-					ensure_installed = languages,
+					ensure_installed = has_cc and languages or {},
 					sync_install = false,
 					highlight = { enable = true },
 					indent = { enable = true },
 				})
+				if not has_cc then
+					local v = vim.version()
+					warn_at_startup(
+						"nvim-treesitter (master branch, for Neovim "
+							.. v.major .. "." .. v.minor
+							.. ") compiles parsers with a C compiler, and none was found on PATH (cc, gcc, clang)."
+							.. "\nDebian/Ubuntu: sudo apt install build-essential curl"
+							.. "\nParsers already in "
+							.. vim.fn.stdpath("data") .. "/site/parser"
+							.. " keep working; nothing new is built."
+					)
+				end
 			end
 		end,
 	},
