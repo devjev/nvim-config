@@ -9,8 +9,20 @@ require("lazysetup")
 require("lspsetup")
 require("keybindings")
 
--- Enforce English
-vim.cmd("language en_US.UTF-8")
+-- Enforce English. A machine without that locale generated (a minimal Debian
+-- or Ubuntu often has only C.UTF-8) raises E197 here; that must not abort the
+-- rest of this file, so catch it and say so once the UI is up.
+local lang_ok, lang_err = pcall(vim.cmd.language, "en_US.UTF-8")
+if not lang_ok then
+	vim.schedule(function()
+		vim.notify(
+			"Could not set the message language to en_US.UTF-8, using the system default.\n"
+				.. tostring(lang_err):gsub("^.-E197", "E197")
+				.. "\nDebian/Ubuntu: sudo locale-gen en_US.UTF-8",
+			vim.log.levels.WARN
+		)
+	end)
+end
 
 -- Colorschemes
 vim.g.dark_colorscheme = "Tomorrow-Night-Blue"
