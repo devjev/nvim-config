@@ -109,7 +109,6 @@ vim.diagnostic.config({
 
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
 if vim.g.is_windows then
-	vim.g.copilot_node_command = "C:\\Program Files\\nodejs\\node.exe"
 	vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
 	vim.opt.shellcmdflag =
 		"-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"

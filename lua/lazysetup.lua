@@ -58,9 +58,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 require("lazy").setup({
-    -- !GITHUB COPILOT
-    { "github/copilot.vim" },
-
 	-- !COLOR SCHEMES
 	{ "jaredgorski/fogbell.vim" },
     { "chriskempson/vim-tomorrow-theme" },
