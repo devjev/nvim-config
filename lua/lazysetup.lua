@@ -77,25 +77,6 @@ require("lazy").setup({
     { "chriskempson/vim-tomorrow-theme" },
     { "noahfrederick/vim-noctu" },  -- 16-color terminal theme
 
-	-- !SYSTEM THEME DETECTION
-    -- TODO Removed for now as I use a blue color scheme, which is comfortable
-    --      for both dark and light environments, but necessary for white / black
-    --      color schemes.
-	-- {
-	-- 	"f-person/auto-dark-mode.nvim",
-	-- 	opts = {
-	-- 		update_interval = 1000,
-	-- 		set_dark_mode = function()
-	-- 			vim.api.nvim_set_option_value("background", "dark", {})
-	-- 			vim.cmd("colorscheme " .. vim.g.dark_colorscheme)
-	-- 		end,
-	-- 		set_light_mode = function()
-	-- 			vim.api.nvim_set_option_value("background", "light", {})
-	-- 			vim.cmd("colorscheme " .. vim.g.light_colorscheme)
-	-- 		end,
-	-- 	},
-	-- },
-
 	-- !ICONS
 	{ "nvim-tree/nvim-web-devicons" },
 
@@ -146,12 +127,6 @@ require("lazy").setup({
 				}
 				local sep_right = " "
 				local sep_left = " "
-				-- local sep_right = ''
-				-- local sep_left  = ''
-				-- if vim.g.is_windows then
-				--     sep_right = ' '
-				--     sep_left =  ' '
-				-- end
 				return {
 					{
 						{ "  ", hl = theme.head },
@@ -307,15 +282,6 @@ require("lazy").setup({
 	},
 
 	-- !Colors
-	-- {
-	--     "brenoprata10/nvim-highlight-colors",
-	--     config = function()
-	--         require("nvim-highlight-colors").setup({
-	--             render = "background", -- or 'virtual', 'foreground'
-	--             enable_tailwind = true,
-	--         })
-	--     end,
-	-- },
 	{
 		"uga-rosa/ccc.nvim",
 		event = "VeryLazy",
@@ -332,10 +298,6 @@ require("lazy").setup({
 				-- 2. Customize the picker (optional tweaks)
 				default_point = { "100%", "50%" }, -- Start picker at full saturation/brightness
 			})
-
-			--   -- 3. Set a keybind to open the picker
-			--   -- This opens the UI to modify the color under your cursor or insert a new one
-			--   vim.keymap.set("n", "<leader>cp", ":CccPick<CR>", { desc = "Pick Color" })
 		end,
 	},
 
@@ -351,7 +313,6 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", cond = min_nvim("0.10") },
 		},
 		config = function()
-			-- local dap = require "dap"
 			local ui = require("dapui")
 			local vt = require("nvim-dap-virtual-text")
 			ui.setup()
@@ -674,8 +635,6 @@ require("lazy").setup({
 		---@module "oil"
 		---@type oil.SetupOpts
 		opts = {},
-		-- Optional dependencies
-		-- dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
 		-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
 		lazy = false,
