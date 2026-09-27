@@ -259,14 +259,12 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Comment.nvim
+	-- Comment.nvim, only below Neovim 0.10, which has the same gc / gcc
+	-- operator built in.
 	{
 		"numToStr/Comment.nvim",
+		cond = not min_nvim("0.10"),
 		opts = {},
-		lazy = false,
-		config = function()
-			require("Comment").setup()
-		end,
 	},
 
 	-- !TYPST
