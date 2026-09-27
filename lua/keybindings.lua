@@ -18,6 +18,13 @@ wk.add({
 	{ "<leader>ff", builtin.find_files, desc = "Find files" },
 	{ "<leader>fg", builtin.live_grep, desc = "Grep files" },
 	{ "<leader>fh", builtin.help_tags, desc = "Find help" },
+	{ "<leader>fb", builtin.buffers, desc = "Find buffers" },
+	{ "<leader>fr", builtin.oldfiles, desc = "Find recent files" },
+	{ "<leader>fw", builtin.grep_string, desc = "Grep word under cursor", mode = { "n", "v" } },
+	{ "<leader>fk", builtin.keymaps, desc = "Find keymaps" },
+	{ "<leader>fm", builtin.marks, desc = "Find marks" },
+	{ "<leader>fj", builtin.jumplist, desc = "Find jumps" },
+	{ "<leader>f.", builtin.resume, desc = "Resume last find" },
 	{ "<leader>fs", group = "Find LSP symbols..." },
 	{
 		"<leader>fss",
@@ -28,6 +35,9 @@ wk.add({
 		desc = "Find all symbols in buffer",
 	},
 	{ "<leader>fsu", builtin.lsp_references, desc = "Find all symbol uses" },
+	{ "<leader>fsw", builtin.lsp_dynamic_workspace_symbols, desc = "Find symbols in workspace" },
+	{ "<leader>fsi", builtin.lsp_implementations, desc = "Find implementations" },
+	{ "<leader>fst", builtin.lsp_type_definitions, desc = "Find type definition" },
 	{ "<leader>fC", builtin.commands, desc = "Find Vim commands", mode = { "n", "v" } },
 	{ "<leader>fo", builtin.vim_options, desc = "Find Vim options" },
 })
