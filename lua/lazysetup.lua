@@ -457,10 +457,6 @@ require("lazy").setup({
 		-- Only its lsp/*.lua server definitions are used; lspsetup.lua enables
 		-- servers through vim.lsp.config and vim.lsp.enable, so no setup call.
 	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/nvim-cmp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
 	-- Schema catalog for yamlls (see lspsetup.lua): maps filenames like
 	-- *openapi*.yml to the right JSON Schema for completion/validation.
 	{ "b0o/schemastore.nvim" },

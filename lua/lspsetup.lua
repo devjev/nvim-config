@@ -1,58 +1,48 @@
--- Completion
-local cmp = require("cmp")
-cmp.setup({
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<c-b>"] = cmp.mapping.scroll_docs(-4),
-		["<c-f>"] = cmp.mapping.scroll_docs(4),
-		["<c-space>"] = cmp.mapping.complete(),
-		["<c-e>"] = cmp.mapping.abort(),
-		["<cr>"] = cmp.mapping.confirm({ select = true }),
-	}),
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "path" },
-		{ name = "buffer" },
-	}),
-	enabled = function()
-		local buf_file_type = vim.bo.filetype
-		local enabled_filetypes = {
-			"javascript",
-			"typescript",
-			"typescriptreact",
-			"python",
-			"elixir",
-			"eelixir",
-			"heex",
-			"erlang",
-			"rust",
-			"c",
-			"bash",
-			"lua",
-			"ocaml",
-			"zig",
-			"go",
-			"terraform",
-			"quint",
-		}
-		return vim.tbl_contains(enabled_filetypes, buf_file_type)
-	end,
-})
+-- Completion: Neovim's own, driven by the attached language server. The
+-- primary target is Neovim 0.11 as shipped by Debian and Ubuntu: there,
+-- vim.lsp.completion with autotrigger opens the menu on the server's trigger
+-- characters, and the InsertCharPre hook below asks on every word character
+-- too, as the lsp-autocompletion help suggests. Neovim 0.12 has the
+-- 'autocomplete' option instead, which opens the menu as you type from the
+-- 'complete' sources: the LSP through omnifunc first, then a few buffer words.
+-- <CR> accepts the selected item, <C-Space> opens the menu, <C-e> closes it.
+vim.o.completeopt = "menu,menuone,noselect,popup,fuzzy"
+local has_autocomplete = vim.fn.exists("+autocomplete") == 1
+if has_autocomplete then
+	vim.o.autocomplete = true
+	vim.o.complete = "o,.^5,w^5,b^5"
+end
+vim.keymap.set("i", "<CR>", function()
+	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true, desc = "Accept completion" })
+vim.keymap.set("i", "<C-Space>", function()
+	if vim.bo.omnifunc ~= "" then
+		return "<C-x><C-o>"
+	end
+	return "<C-n>"
+end, { expr = true, desc = "Open completion menu" })
 
--- Capabilities: nvim-cmp's, on top of Neovim's defaults (which already
--- advertise textDocument.foldingRange, used by the LSP foldexpr below).
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- Per attached buffer: prefer the server's folding ranges over the syntax tree
--- (init.lua sets the treesitter foldexpr as the default) when it has them.
+-- Per attached buffer: completion from the server, and its folding ranges in
+-- place of the syntax tree (init.lua sets the treesitter foldexpr as the
+-- default) when it has them.
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		if not client then
 			return
+		end
+		if client:supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+			if not has_autocomplete then
+				vim.api.nvim_create_autocmd("InsertCharPre", {
+					buffer = ev.buf,
+					callback = function()
+						if vim.fn.pumvisible() == 0 and vim.v.char:match("[%w_]") then
+							vim.lsp.completion.get()
+						end
+					end,
+				})
+			end
 		end
 		if client:supports_method("textDocument/foldingRange") then
 			local win = vim.api.nvim_get_current_win()
@@ -70,11 +60,6 @@ local function setup_lsp(server_name, config)
 	-- every matching buffer. Servers without a cmd rely on lspconfig's default.
 	if config.cmd and vim.fn.executable(config.cmd[1]) ~= 1 then
 		return
-	end
-
-	-- Inject the shared capabilities, if not already present
-	if not config.capabilities then
-		config.capabilities = capabilities
 	end
 
 	vim.lsp.config(server_name, config)
