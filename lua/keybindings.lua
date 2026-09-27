@@ -32,6 +32,18 @@ wk.add({
 	{ "<leader>fo", builtin.vim_options, desc = "Find Vim options" },
 })
 
+-- !SURROUND (mini.surround; the mappings themselves come from the plugin)
+wk.add({
+	{ "s", group = "Surround...", mode = { "n", "v" } },
+	{ "sa", desc = "Add surrounding", mode = { "n", "v" } },
+	{ "sd", desc = "Delete surrounding" },
+	{ "sr", desc = "Replace surrounding" },
+	{ "sf", desc = "Find surrounding (right)" },
+	{ "sF", desc = "Find surrounding (left)" },
+	{ "sh", desc = "Highlight surrounding" },
+	{ "sn", desc = "Update n_lines" },
+})
+
 -- !GO
 wk.add({
 	{ "<leader>g", group = "Go to...", icon = "🚶" },

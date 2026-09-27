@@ -66,6 +66,11 @@ require("lazy").setup({
     { "chriskempson/vim-tomorrow-theme" },
     { "noahfrederick/vim-noctu" },  -- 16-color terminal theme
 
+	-- !SURROUND
+	-- sa (add), sd (delete), sr (replace), sf / sF (find), sh (highlight); the
+	-- which-key group is in keybindings.lua.
+	{ "nvim-mini/mini.surround", version = "*", opts = {} },
+
 	-- !ICONS
 	{ "nvim-tree/nvim-web-devicons" },
 
