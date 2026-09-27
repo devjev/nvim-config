@@ -461,15 +461,65 @@ require("lazy").setup({
 	-- *openapi*.yml to the right JSON Schema for completion/validation.
 	{ "b0o/schemastore.nvim" },
 
-	-- !LANGUAGE SUPPORT
-	-- Rust
+	-- !FORMATTING
+	-- One format-on-save path for every language. The formatter binaries come
+	-- from the system or the project (on Debian/Ubuntu: apt or the project's
+	-- toolchain); when one is absent the language server formats instead, and
+	-- when neither exists nothing happens and nothing is reported. Saving
+	-- formats only the filetypes in on_save, the ones that formatted on save
+	-- before (rust, zig) plus those whose formatter is the community standard.
+	-- Everything else, and any buffer, formats on demand with <leader>q=.
 	{
-		"rust-lang/rust.vim",
-		ft = "rust",
-		init = function()
-			vim.g.rustfmt_autosave = 1
+		"stevearc/conform.nvim",
+		event = "BufWritePre",
+		cmd = "ConformInfo",
+		keys = {
+			{
+				"<leader>q=",
+				function()
+					require("conform").format({ async = true })
+				end,
+				mode = { "n", "v" },
+				desc = "Format buffer or selection",
+			},
+		},
+		opts = function()
+			local on_save = { lua = true, nix = true, rust = true, zig = true, go = true, ocaml = true, elixir = true, heex = true, terraform = true }
+			return {
+				formatters_by_ft = {
+					lua = { "stylua" },
+					nix = { "nixfmt" },
+					rust = { "rustfmt" },
+					zig = { "zigfmt" },
+					go = { "gofmt" },
+					ocaml = { "ocamlformat" },
+					elixir = { "mix" },
+					heex = { "mix" },
+					terraform = { "terraform_fmt" },
+					python = { "ruff_format" },
+					c = { "clang_format" },
+					javascript = { "prettier" },
+					typescript = { "prettier" },
+					typescriptreact = { "prettier" },
+					css = { "prettier" },
+					html = { "prettier" },
+					json = { "prettier" },
+					yaml = { "prettier" },
+				},
+				default_format_opts = { lsp_format = "fallback" },
+				format_on_save = function(bufnr)
+					if on_save[vim.bo[bufnr].filetype] then
+						return { timeout_ms = 1000 }
+					end
+				end,
+				notify_no_formatters = false,
+			}
 		end,
 	},
+
+	-- !LANGUAGE SUPPORT
+	-- Rust: rustaceanvim (rust.vim's rustfmt-on-save is conform's job now, and
+	-- the syntax comes from the treesitter parser).
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^6",
@@ -490,7 +540,12 @@ require("lazy").setup({
 	},
 
 	-- Zig
-	{ "ziglang/zig.vim" },
+	{
+		"ziglang/zig.vim",
+		init = function()
+			vim.g.zig_fmt_autosave = 0 -- conform formats on save
+		end,
+	},
 
 	-- Jinja / Nunjucks
 	{ "lepture/vim-jinja" },
