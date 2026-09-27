@@ -67,8 +67,11 @@ vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.showtabline = 1
 
--- Make sure that code is folded only when explicitly requested
--- Set up in such a way to work well with UFO
+-- Folds come from the syntax tree (treesitter foldexpr); lspsetup.lua switches
+-- a window to the LSP foldexpr when the server provides folding ranges. Nothing
+-- is folded until asked for (foldlevel 99).
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99

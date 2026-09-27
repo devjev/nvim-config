@@ -42,14 +42,24 @@ cmp.setup({
 	end,
 })
 
--- Capabilities shared by every server: nvim-cmp's, plus the folding range that
--- nvim-ufo's lsp provider needs. It belongs under textDocument, which is where
--- servers read it; Neovim 0.11+ advertises it there by default already.
+-- Capabilities: nvim-cmp's, on top of Neovim's defaults (which already
+-- advertise textDocument.foldingRange, used by the LSP foldexpr below).
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.textDocument.foldingRange = {
-	dynamicRegistration = false,
-	lineFoldingOnly = true,
-}
+
+-- Per attached buffer: prefer the server's folding ranges over the syntax tree
+-- (init.lua sets the treesitter foldexpr as the default) when it has them.
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not client then
+			return
+		end
+		if client:supports_method("textDocument/foldingRange") then
+			local win = vim.api.nvim_get_current_win()
+			vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+		end
+	end,
+})
 
 -- LSP configuration / setup
 local function setup_lsp(server_name, config)

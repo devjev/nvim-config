@@ -155,18 +155,6 @@ require("lazy").setup({
 		},
 	},
 
-    -- !FOLDING
-    {
-        "kevinhwang91/nvim-ufo",
-        dependencies = { "kevinhwang91/promise-async" },
-        event = "BufReadPost", -- Load nicely after the file opens
-        opts = {
-            provider_selector = function()
-                return { "lsp", "indent" }
-            end,
-        },
-    },
-
 	-- !TELESCOPE
 	{
 		"nvim-telescope/telescope.nvim",
