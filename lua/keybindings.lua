@@ -32,6 +32,15 @@ wk.add({
 	{ "<leader>fo", builtin.vim_options, desc = "Find Vim options" },
 })
 
+-- !AI (codecompanion)
+wk.add({
+	{ "<leader>a", group = "AI...", icon = "🤖" },
+	{ "<leader>aa", "<CMD>CodeCompanionChat Toggle<CR>", desc = "Chat", mode = { "n", "v" } },
+	{ "<leader>ac", "<CMD>CodeCompanionActions<CR>", desc = "Actions", mode = { "n", "v" } },
+	{ "<leader>ai", ":CodeCompanion ", desc = "Inline prompt", mode = { "n", "v" } },
+	{ "<leader>ad", "<CMD>CodeCompanionChat Add<CR>", desc = "Add selection to chat", mode = "v" },
+})
+
 -- !SURROUND (mini.surround; the mappings themselves come from the plugin)
 wk.add({
 	{ "s", group = "Surround...", mode = { "n", "v" } },

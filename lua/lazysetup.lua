@@ -63,6 +63,23 @@ require("lazy").setup({
     { "chriskempson/vim-tomorrow-theme" },
     { "noahfrederick/vim-noctu" },  -- 16-color terminal theme
 
+	-- !AI
+	-- Chat, inline edits and the action palette with Claude through the
+	-- anthropic adapter, which reads ANTHROPIC_API_KEY. Loaded by its commands,
+	-- bound under <leader>a in keybindings.lua. To pin a model:
+	-- adapter = { name = "anthropic", model = "<id>" }.
+	{
+		"olimorris/codecompanion.nvim",
+		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
+		opts = {
+			interactions = {
+				chat = { adapter = "anthropic" },
+				inline = { adapter = "anthropic" },
+			},
+		},
+	},
+
 	-- !SURROUND
 	-- sa (add), sd (delete), sr (replace), sf / sF (find), sh (highlight); the
 	-- which-key group is in keybindings.lua.
