@@ -589,9 +589,19 @@ require("lazy").setup({
 		version = "^6",
 		cond = min_nvim("0.11"),
 		lazy = false,
-		["rust-analyzer"] = {
-			cargo = { allFeatures = true },
-		},
+		-- rustaceanvim takes its settings from vim.g.rustaceanvim, read when the
+		-- plugin loads, so set it in init rather than as a spec key.
+		init = function()
+			vim.g.rustaceanvim = {
+				server = {
+					default_settings = {
+						["rust-analyzer"] = {
+							cargo = { allFeatures = true },
+						},
+					},
+				},
+			}
+		end,
 	},
 
 	-- Zig
