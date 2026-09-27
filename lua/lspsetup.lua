@@ -42,8 +42,14 @@ cmp.setup({
 	end,
 })
 
--- Capabilities (for nvim-cmp)
+-- Capabilities shared by every server: nvim-cmp's, plus the folding range that
+-- nvim-ufo's lsp provider needs. It belongs under textDocument, which is where
+-- servers read it; Neovim 0.11+ advertises it there by default already.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
+}
 
 -- LSP configuration / setup
 local function setup_lsp(server_name, config)
@@ -56,13 +62,9 @@ local function setup_lsp(server_name, config)
 		return
 	end
 
-	-- Inject cmp capabilities, if not already present
+	-- Inject the shared capabilities, if not already present
 	if not config.capabilities then
 		config.capabilities = capabilities
-        config.capabilities.foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true
-        }
 	end
 
 	if vim.fn.has("nvim-0.11") == 1 then
