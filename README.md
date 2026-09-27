@@ -15,6 +15,11 @@ Ubuntu 26.04 ships 0.11.6; Debian 13 (0.10.4) and Ubuntu 24.04 (0.9.5) need a
 [release tarball](https://github.com/neovim/neovim/releases) unpacked so that
 `nvim` is in `~/.local/bin`, which the config puts on PATH.
 
+Codecompanion (`<leader>a`) drives the local Claude Code through the ACP bridge
+`claude-agent-acp`, which reuses the `claude` login. On Debian or Ubuntu:
+`npm install -g @agentclientprotocol/claude-agent-acp`, then run `claude` once
+and log in. No API key is needed.
+
 ## Tree-sitter on machines other than NixOS
 
 The NixOS configs put the tree-sitter CLI and a C compiler on PATH, and

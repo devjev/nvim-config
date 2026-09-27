@@ -64,18 +64,20 @@ require("lazy").setup({
     { "noahfrederick/vim-noctu" },  -- 16-color terminal theme
 
 	-- !AI
-	-- Chat, inline edits and the action palette with Claude through the
-	-- anthropic adapter, which reads ANTHROPIC_API_KEY. Loaded by its commands,
-	-- bound under <leader>a in keybindings.lua. To pin a model:
-	-- adapter = { name = "anthropic", model = "<id>" }.
+	-- Chat, inline edits and the action palette through the local Claude Code:
+	-- the claude_code adapter runs the ACP bridge `claude-agent-acp`, which
+	-- reuses the `claude` login (subscription), so no API key is involved. The
+	-- NixOS config installs the bridge; elsewhere:
+	-- npm install -g @agentclientprotocol/claude-agent-acp, then `claude` once to
+	-- log in. Loaded by its commands, bound under <leader>a in keybindings.lua.
 	{
 		"olimorris/codecompanion.nvim",
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
 		opts = {
 			interactions = {
-				chat = { adapter = "anthropic" },
-				inline = { adapter = "anthropic" },
+				chat = { adapter = "claude_code" },
+				inline = { adapter = "claude_code" },
 			},
 		},
 	},
