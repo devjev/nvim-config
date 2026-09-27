@@ -14,7 +14,7 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{ name = "path" },
 		{ name = "buffer" },
 	}),
 	enabled = function()
@@ -35,7 +35,6 @@ cmp.setup({
 			"ocaml",
 			"zig",
 			"go",
-			"gopls",
 			"terraform",
 			"quint",
 		}

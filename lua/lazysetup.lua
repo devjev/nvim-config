@@ -568,7 +568,6 @@ require("lazy").setup({
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-path" },
-	{ "hrsh7th/cmp-cmdline" },
 	-- Schema catalog for yamlls (see lspsetup.lua): maps filenames like
 	-- *openapi*.yml to the right JSON Schema for completion/validation.
 	{ "b0o/schemastore.nvim" },
