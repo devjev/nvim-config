@@ -625,6 +625,10 @@ require("lazy").setup({
 		end,
 	},
 
+	-- !UNDO TREE
+	-- Loaded by the command, from <leader>gu in keybindings.lua.
+	{ "mbbill/undotree", cmd = "UndotreeToggle" },
+
 	-- !FILE MANAGER
 	{
 		"stevearc/oil.nvim",

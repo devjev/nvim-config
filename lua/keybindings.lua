@@ -50,6 +50,7 @@ wk.add({
 	{ "<leader>go", "<CMD>Oil<CR>", desc = "Go to file manager" },
 	{ "<leader>gd", builtin.lsp_definitions, desc = "Go to symbol definition" },
 	{ "<leader>gz", "<CMD>ZenMode<CR>", desc = "Go to zen mode" },
+	{ "<leader>gu", "<CMD>UndotreeToggle<CR>", desc = "Go to undo tree" },
 })
 
 -- !PREVIEW
