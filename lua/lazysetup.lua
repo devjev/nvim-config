@@ -687,8 +687,13 @@ require("lazy").setup({
 
 	-- ! NOTE TAKING
 	{
-		"epwalsh/obsidian.nvim",
+		-- The community fork; the original epwalsh repository stopped in 2026.
+		-- It needs Neovim 0.11, so notes are off on older Neovim. Commands are
+		-- `:Obsidian <subcommand>` since 3.11; the old `:ObsidianXxx` names go
+		-- away in 4.0 and are not used here.
+		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
+		cond = min_nvim("0.11"),
 		lazy = true,
 		ft = "markdown",
 
@@ -697,14 +702,7 @@ require("lazy").setup({
 			"nvim-telescope/telescope.nvim",
 		},
 
-		cmd = {
-            "ObsidianDailies",
-			"ObsidianSearch",
-			"ObsidianNew",
-			"ObsidianQuickSwitch",
-			"ObsidianBacklinks",
-			"ObsidianTags",
-		},
+		cmd = "Obsidian",
 
 		config = function()
 			if vim.g.is_windows then
@@ -720,6 +718,7 @@ require("lazy").setup({
 			vim.fn.mkdir(vim.fn.expand(vim.g.notes_root .. "/main"), "p")
 
 			require("obsidian").setup({
+				legacy_commands = false,
 				workspaces = {
 					{
 						name = "main",
@@ -727,10 +726,8 @@ require("lazy").setup({
 					},
 				},
 
-                completion = {
-                    nvim_cmp = true,
-                    min_chars = 2,
-                },
+				-- Completion of links and tags comes from the fork's own LSP server
+				-- (obsidian-ls); the completion.nvim_cmp option is deprecated.
                 note_id_func = function(title)
                     -- 1. Create the base slug from the title
                     local name = ""

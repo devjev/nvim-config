@@ -58,21 +58,21 @@ wk.add({
 -- !NOTES
 wk.add({
 	{ "<leader>n", group = "Notes...", icon = "🗒️" },
-	{ "<leader>nn", "<CMD>ObsidianDailies -2 2<CR>", icon = "📆", desc = "Daily notes" },
-	{ "<leader>ns", "<CMD>ObsidianQuickSwitch<CR>", icon = "🚦", desc = "Quick switch between notes" },
-	{ "<leader>ng", "<CMD>ObsidianFollowLink<CR>", icon = "🚶", desc = "Follow link" },
-	{ "<leader>nf", "<CMD>ObsidianSearch<CR>", icon = "🔎", desc = "Search" },
+	{ "<leader>nn", "<CMD>Obsidian dailies -2 2<CR>", icon = "📆", desc = "Daily notes" },
+	{ "<leader>ns", "<CMD>Obsidian quick_switch<CR>", icon = "🚦", desc = "Quick switch between notes" },
+	{ "<leader>ng", "<CMD>Obsidian follow_link<CR>", icon = "🚶", desc = "Follow link" },
+	{ "<leader>nf", "<CMD>Obsidian search<CR>", icon = "🔎", desc = "Search" },
 
 	{ "<leader>nl", group = "Link...", icon = "🔗" },
-	{ "<leader>nla", "<CMD>ObsidianLink<CR>", icon = "🖇️", desc = "Add link", mode = { "n", "v" } },
-	{ "<leader>nln", "<CMD>ObsidianLinkNew<CR>", icon = "🆕", desc = "Link to new page", mode = { "n", "v" } },
+	{ "<leader>nla", "<CMD>Obsidian link<CR>", icon = "🖇️", desc = "Add link", mode = { "n", "v" } },
+	{ "<leader>nln", "<CMD>Obsidian link_new<CR>", icon = "🆕", desc = "Link to new page", mode = { "n", "v" } },
 
-	{ "<leader>np", "<CMD>ObsidianPasteImg<CR>", icon = "🖼️", desc = "Paste image from clipboard" },
-	{ "<leader>nz", "<CMD>ObsidianTOC<CR>", icon = "📄", desc = "Table of contents" },
-	{ "<leader>nc", "<CMD>ObsidianToggleCheckbox<CR>", icon = "✅", desc = "Toggle checkbox" },
-	{ "<leader>nb", "<CMD>ObsidianBacklinks<CR>", icon = "🌍", desc = "Backlinks" },
-	{ "<leader>nt", "<CMD>ObsidianTags<CR>", icon = "🏷️", desc = "Tags" },
-	{ "<leader>ne", "<CMD>ObsidianNew<CR>", icon = "✍️", desc = "New note" },
+	{ "<leader>np", "<CMD>Obsidian paste_img<CR>", icon = "🖼️", desc = "Paste image from clipboard" },
+	{ "<leader>nz", "<CMD>Obsidian toc<CR>", icon = "📄", desc = "Table of contents" },
+	{ "<leader>nc", "<CMD>Obsidian toggle_checkbox<CR>", icon = "✅", desc = "Toggle checkbox" },
+	{ "<leader>nb", "<CMD>Obsidian backlinks<CR>", icon = "🌍", desc = "Backlinks" },
+	{ "<leader>nt", "<CMD>Obsidian tags<CR>", icon = "🏷️", desc = "Tags" },
+	{ "<leader>ne", "<CMD>Obsidian new<CR>", icon = "✍️", desc = "New note" },
 })
 
 
