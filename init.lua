@@ -36,12 +36,6 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- Set default terminal to PowerShell 5, if on windows
-if vim.g.windows then
-	vim.opt.shell = "powershell.exe"
-    vim.g.copilot_node_command = "C:\\Program Files\\nodejs\node.exe"
-end
-
 -- For a few particular file types, I want to have hard wrapping
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown", "text" },
@@ -88,6 +82,7 @@ end
 
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
 if vim.g.is_windows then
+	vim.g.copilot_node_command = "C:\\Program Files\\nodejs\\node.exe"
 	vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
 	vim.opt.shellcmdflag =
 		"-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
