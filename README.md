@@ -8,6 +8,13 @@ Features:
 - Careful choice of plugins: Telescope, Whichkey, Oil and Gitsigns
   are main plugins for the user experience of this config.
 
+## Requirements
+
+Neovim 0.11.3 or newer. init.lua stops with one message on anything older.
+Ubuntu 26.04 ships 0.11.6; Debian 13 (0.10.4) and Ubuntu 24.04 (0.9.5) need a
+[release tarball](https://github.com/neovim/neovim/releases) unpacked so that
+`nvim` is in `~/.local/bin`, which the config puts on PATH.
+
 ## Tree-sitter on machines other than NixOS
 
 The NixOS configs put the tree-sitter CLI and a C compiler on PATH, and
@@ -30,8 +37,8 @@ Debian and Ubuntu, with packages from the release itself (checked September 2026
 
 | Release | neovim | tree-sitter-cli | Branch | What to install |
 |---|---|---|---|---|
-| Ubuntu 24.04 | 0.9.5 | 0.20.8 | master | `build-essential curl` |
-| Debian 13 | 0.10.4 | 0.22.6 | master | `build-essential curl` |
+| Ubuntu 24.04 | 0.9.5 | 0.20.8 | below the floor, see Requirements | |
+| Debian 13 | 0.10.4 | 0.22.6 | below the floor, see Requirements | |
 | Ubuntu 26.04 | 0.11.6 | 0.25.9 | master | `build-essential curl` |
 | Debian 14 / sid | 0.12.4 | 0.26.11 | main | `build-essential tree-sitter-cli`, or nothing (prebuilt parsers) |
 

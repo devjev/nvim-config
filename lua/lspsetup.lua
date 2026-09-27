@@ -67,14 +67,8 @@ local function setup_lsp(server_name, config)
 		config.capabilities = capabilities
 	end
 
-	if vim.fn.has("nvim-0.11") == 1 then
-		if next(config) then
-			vim.lsp.config(server_name, config)
-		end
-		vim.lsp.enable(server_name)
-	else
-		require("lspconfig")[server_name].setup(config)
-	end
+	vim.lsp.config(server_name, config)
+	vim.lsp.enable(server_name)
 end
 
 -- !LANGAUGES
@@ -145,8 +139,8 @@ local function start_pylsp()
 	return py
 end
 
--- vim.lsp.enable (and lspconfig's setup below 0.11) also attaches to buffers
--- that are already open, so the buffer that triggers this gets the server.
+-- vim.lsp.enable also attaches to buffers that are already open, so the buffer
+-- that triggers this gets the server.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	once = true,

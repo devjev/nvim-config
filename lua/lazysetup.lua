@@ -1,6 +1,6 @@
 -- Ensure Lazy is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -56,17 +56,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		end)
 	end,
 })
-
--- Graceful degradation on older Neovim. A handful of plugins below require a
--- newer Neovim than 0.9. Gate each with lazy.nvim's `cond` so the plugin stays
--- installed but never loads (no setup, no error) when the running Neovim is too
--- old. `min_nvim("0.10")` is true on 0.10+, false on 0.9. Plugins reached only
--- via an Ex command (Markview, OmniPreview) degrade to a missing command;
--- nothing `require`s the gated plugins at startup, so no keymap or module load
--- breaks on 0.9.
-local function min_nvim(ver)
-	return vim.fn.has("nvim-" .. ver) == 1
-end
 
 require("lazy").setup({
     -- !GITHUB COPILOT
@@ -181,10 +170,6 @@ require("lazy").setup({
 	-- !TELESCOPE
 	{
 		"nvim-telescope/telescope.nvim",
-		-- telescope's master/0.2.x line hard-errors ("requires at least
-		-- nvim-0.11"); the 0.1.x branch supports Neovim 0.7+. Track 0.1.x below
-		-- 0.11 so it loads on 0.9.5; latest on 0.11+.
-		branch = vim.fn.has("nvim-0.11") == 0 and "0.1.x" or nil,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
@@ -210,19 +195,9 @@ require("lazy").setup({
 		},
 	},
 
-	-- Comment.nvim, only below Neovim 0.10, which has the same gc / gcc
-	-- operator built in.
-	{
-		"numToStr/Comment.nvim",
-		cond = not min_nvim("0.10"),
-		opts = {},
-	},
-
 	-- !TYPST
-	-- csvview requires Neovim 0.10; gate the whole preview stack off on 0.9.
 	{
 		"sylvanfranklin/omni-preview.nvim",
-		cond = min_nvim("0.10"),
 		dependencies = {
 			{ "chomosuke/typst-preview.nvim", lazy = true },
 			{ "hat0uma/csvview.nvim", lazy = true },
@@ -320,8 +295,8 @@ require("lazy").setup({
 	-- Neovim 0.12: directive handlers now receive arrays of nodes, so master's
 	-- markdown injection predicate calls :range() on a table and errors out. The
 	-- "main" rewrite requires 0.12+, drops the module system, and drives
-	-- highlighting through core vim.treesitter.start(). Pick the branch by Neovim
-	-- version so this config keeps working on machines with older Neovim too.
+	-- highlighting through core vim.treesitter.start(). This is the one version
+	-- split left above the 0.11.3 floor (init.lua): 0.11 gets master, 0.12 main.
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = vim.fn.has("nvim-0.12") == 1 and "main" or "master",
@@ -491,18 +466,8 @@ require("lazy").setup({
 	-- !LSP
 	{
 		"neovim/nvim-lspconfig",
-		-- On Neovim < 0.11, setup_lsp() (lspsetup.lua) uses the classic
-		-- require("lspconfig")[server].setup() framework. Current lspconfig (v2.x)
-		-- requires Neovim 0.10+ and warns that <0.11 support is deprecated and
-		-- slated for removal in v3.0.0. Pin to v1.8.0 below 0.11 — the last
-		-- release that supports Neovim 0.9 and the framework, with no deprecation
-		-- nag. On 0.11+ track latest and use vim.lsp.config/enable instead.
-		tag = vim.fn.has("nvim-0.11") == 0 and "v1.8.0" or nil,
-		config = function()
-			-- Left blank on purpose - apparently lazy.nvim is trying
-			-- to automatically load up plugins with setup, which conflicts
-			-- with my neovim version-dependent approach.
-		end,
+		-- Only its lsp/*.lua server definitions are used; lspsetup.lua enables
+		-- servers through vim.lsp.config and vim.lsp.enable, so no setup call.
 	},
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "hrsh7th/nvim-cmp" },
@@ -521,12 +486,9 @@ require("lazy").setup({
 			vim.g.rustfmt_autosave = 1
 		end,
 	},
-	-- rustaceanvim ^6 requires Neovim 0.11; off on older Neovim. rust.vim
-	-- (above) still provides syntax + rustfmt-on-save when this is gated out.
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^6",
-		cond = min_nvim("0.11"),
 		lazy = false,
 		-- rustaceanvim takes its settings from vim.g.rustaceanvim, read when the
 		-- plugin loads, so set it in init rather than as a spec key.
@@ -555,7 +517,6 @@ require("lazy").setup({
 	-- Lua support
 	{
 		"folke/lazydev.nvim",
-		cond = min_nvim("0.10"), -- requires Neovim 0.10; lua_ls still works without it
 		ft = "lua", -- only load on lua files
 		opts = {
 			library = {
@@ -688,12 +649,10 @@ require("lazy").setup({
 	-- ! NOTE TAKING
 	{
 		-- The community fork; the original epwalsh repository stopped in 2026.
-		-- It needs Neovim 0.11, so notes are off on older Neovim. Commands are
-		-- `:Obsidian <subcommand>` since 3.11; the old `:ObsidianXxx` names go
-		-- away in 4.0 and are not used here.
+		-- Commands are `:Obsidian <subcommand>` since 3.11; the old
+		-- `:ObsidianXxx` names go away in 4.0 and are not used here.
 		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
-		cond = min_nvim("0.11"),
 		lazy = true,
 		ft = "markdown",
 
@@ -743,7 +702,7 @@ require("lazy").setup({
                     local path = vim.fn.expand(vim.g.notes_root .. "/main/" .. name .. ".md")
 
                     -- 3. Check if the file exists
-                    if vim.loop.fs_stat(path) then
+                    if vim.uv.fs_stat(path) then
                         -- If it exists, prefix with ISO datetime (YYYY-MM-DD-HHMM)
                         return tostring(os.date("%Y-%m-%d-%H%M")) .. "-" .. name
                     else
@@ -763,7 +722,6 @@ require("lazy").setup({
 	-- (bound to <leader>pm).
 	{
 		"OXY2DEV/markview.nvim",
-		cond = min_nvim("0.10.3"), -- requires Neovim 0.10.3; off on 0.9 (raw markdown source)
 		ft = { "markdown" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",

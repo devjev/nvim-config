@@ -1,3 +1,24 @@
+-- Version floor. Everything below assumes Neovim 0.11.3 or newer: vim.lsp.config
+-- and vim.lsp.enable, vim.uv, the diagnostic sign tables, and the plugin
+-- versions pinned in lazysetup.lua. Ubuntu 26.04 ships 0.11.6; Debian 13 and
+-- Ubuntu 24.04 need a release tarball in ~/.local/bin. Stop here with one
+-- message instead of failing piecemeal further down.
+if vim.fn.has("nvim-0.11.3") == 0 then
+	local v = vim.version()
+	vim.api.nvim_echo({
+		{
+			string.format(
+				"This configuration needs Neovim 0.11.3 or newer; this is %d.%d.%d. Nothing was loaded.",
+				v.major,
+				v.minor,
+				v.patch
+			),
+			"ErrorMsg",
+		},
+	}, true, {})
+	return
+end
+
 -- Environment setup
 --
 -- Identify if we are on a Windows machine, since then some things
@@ -66,10 +87,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Sign column
 vim.opt.signcolumn = "yes"
--- The table form of `signs` (text/linehl/numhl keyed by severity) was only
--- added in Neovim 0.10; on 0.9 it errors, so guard it and fall back to the
--- default diagnostic signs there.
-if vim.fn.has("nvim-0.10") == 1 then
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -86,7 +103,6 @@ vim.diagnostic.config({
 		},
 	},
 })
-end
 
 -- Windows specific setting, making sure PowerShell plays nice with Neovim
 if vim.g.is_windows then
