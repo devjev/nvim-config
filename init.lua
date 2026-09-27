@@ -53,15 +53,6 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- For a few particular file types, I want to have hard wrapping
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown", "text" },
-	callback = function()
-		vim.bo.textwidth = 76
-        vim.opt_local.conceallevel = 2
-	end,
-})
-
 -- For emails, though - I want soft wrapping
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "mail" },

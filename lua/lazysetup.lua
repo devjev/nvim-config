@@ -611,9 +611,10 @@ require("lazy").setup({
 	},
 
 	-- Prose wrapping: vim-pencil manages formatoptions so hard-wrapped prose
-	-- (textwidth=76, set per-filetype in init.lua) reflows cleanly on edit and
-	-- `gq`, while navigation still moves by display lines. Scoped to prose
-	-- filetypes; `mail` keeps its own soft-wrap handling from init.lua.
+	-- reflows cleanly on edit and `gq`, while navigation still moves by display
+	-- lines. Scoped to prose filetypes; `mail` keeps its own soft-wrap handling
+	-- in init.lua. The textwidth and conceallevel for these filetypes are set in
+	-- the same autocmd, next to the pencil textwidth they must agree with.
 	{
 		"preservim/vim-pencil",
 		ft = { "markdown", "text" },
@@ -627,6 +628,12 @@ require("lazy").setup({
 				pattern = { "markdown", "text" },
 				callback = function()
 					vim.fn["pencil#init"]()
+					-- After pencil#init, not before: in hard mode pencil sets a zero
+					-- textwidth to pencil#textwidth but resets a non-zero one to the
+					-- global value (0), and FileType fires more than once for a buffer
+					-- whose plugin lazy loads on that event.
+					vim.bo.textwidth = vim.g["pencil#textwidth"]
+					vim.opt_local.conceallevel = 2
 				end,
 			})
 		end,
