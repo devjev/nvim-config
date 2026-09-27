@@ -171,13 +171,11 @@ require("lazy").setup({
         "kevinhwang91/nvim-ufo",
         dependencies = { "kevinhwang91/promise-async" },
         event = "BufReadPost", -- Load nicely after the file opens
-        config = function()
-            require("ufo").setup({
-                provider_selector = function(bufnr, filetype, buftype)
-                    return { "lsp", "indent" }
-                end,
-            })
-        end,
+        opts = {
+            provider_selector = function()
+                return { "lsp", "indent" }
+            end,
+        },
     },
 
 	-- !TELESCOPE
@@ -188,75 +186,28 @@ require("lazy").setup({
 		-- 0.11 so it loads on 0.9.5; latest on 0.11+.
 		branch = vim.fn.has("nvim-0.11") == 0 and "0.1.x" or nil,
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("telescope").setup({})
-		end,
+		opts = {},
 	},
 
 	-- !LUALINE
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("lualine").setup({
-				options = {
-					icons_enabled = true,
-					theme = "auto",
-					-- Remove decorations, because we are not 14
-					-- component_separators = { left = '', right = ''},
-					-- section_separators = { left = '', right = ''},
-					component_separators = { left = "", right = "" },
-					section_separators = { left = "", right = "" },
-					disabled_filetypes = {
-						statusline = {},
-						winbar = {},
-					},
-					ignore_focus = {},
-					always_divide_middle = true,
-					always_show_tabline = true,
-					globalstatus = false,
-					refresh = {
-						statusline = 1000,
-						tabline = 1000,
-						winbar = 1000,
-						refresh_time = 16, -- ~60fps
-						events = {
-							"WinEnter",
-							"BufEnter",
-							"BufWritePost",
-							"SessionLoadPost",
-							"FileChangedShellPost",
-							"VimResized",
-							"Filetype",
-							"CursorMoved",
-							"CursorMovedI",
-							"ModeChanged",
-						},
-					},
-				},
-				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "branch", "diff", "diagnostics" },
-					lualine_c = { "filename" },
-					-- lualine_x = {'encoding', 'fileformat', 'filetype'},
-					lualine_x = { "encoding", "filetype" },
-					lualine_y = { "progress" },
-					lualine_z = { "location" },
-				},
-				inactive_sections = {
-					lualine_a = {},
-					lualine_b = {},
-					lualine_c = { "filename" },
-					lualine_x = { "location" },
-					lualine_y = {},
-					lualine_z = {},
-				},
-				tabline = {},
-				winbar = {},
-				inactive_winbar = {},
-				extensions = {},
-			})
-		end,
+		opts = {
+			options = {
+				-- Remove decorations, because we are not 14
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
+				lualine_x = { "encoding", "filetype" },
+				lualine_y = { "progress" },
+				lualine_z = { "location" },
+			},
+		},
 	},
 
 	-- Comment.nvim, only below Neovim 0.10, which has the same gc / gcc
@@ -627,28 +578,17 @@ require("lazy").setup({
 	-- !FILE MANAGER
 	{
 		"stevearc/oil.nvim",
-		---@module "oil"
-		---@type oil.SetupOpts
-		opts = {},
-		dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
 		lazy = false,
-		config = function()
-			require("oil").setup({
-				default_file_explorer = true,
-			})
-		end,
+		opts = { default_file_explorer = true },
 	},
 
 	-- Which Key - shortcut lookup
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = {},
 		keys = {
 			{
 				"<leader>?",
@@ -661,26 +601,7 @@ require("lazy").setup({
 	},
 
 	-- !GIT
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			if vim.g.is_windows then
-				require("gitsigns").setup({
-					-- ??? Signs do seem to work on Windows...
-					-- signs = {
-					--     add          = { text = "+" },
-					--     change       = { text = "~" },
-					--     delete       = { text = "-" },
-					--     topdelete    = { text = "-" },
-					--     changedelete = { text = "~" },
-					--     untracked    = { text = "?" },
-					-- }
-				})
-			else
-				require("gitsigns").setup({})
-			end
-		end,
-	},
+	{ "lewis6991/gitsigns.nvim", opts = {} },
 	{ "tpope/vim-fugitive" },
 	-- Git diff view (<leader>vc). Standalone since dropping Neogit (lazygit is
 	-- used outside nvim instead); diffview only needs Neovim 0.7.
@@ -860,9 +781,7 @@ require("lazy").setup({
 	{
 		"Kicamon/markdown-table-mode.nvim",
 		ft = "markdown",
-		config = function()
-			require("markdown-table-mode").setup()
-		end,
+		opts = {},
 	},
 
 }, {
