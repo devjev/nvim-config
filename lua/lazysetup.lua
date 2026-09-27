@@ -308,9 +308,6 @@ require("lazy").setup({
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 			"nvim-neotest/nvim-nio",
-			-- mason 2.x requires Neovim 0.10; it's only a passive dep here (never
-			-- configured), so gate it off on 0.9 to keep the dap stack loading.
-			{ "williamboman/mason.nvim", cond = min_nvim("0.10") },
 		},
 		config = function()
 			local ui = require("dapui")
