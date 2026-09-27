@@ -89,9 +89,10 @@ setup_lsp("lua_ls", {}) -- Lua
 -- PATH (covers a flake devshell). Only accept an interpreter that can actually
 -- import pylsp — `python` existing isn't enough, the global one is bare and the
 -- server would die on startup. Returns nil otherwise so pylsp stays a clean
--- no-op. Resolved at startup against the cwd, so launch nvim from the project
--- root — or after changing dir / creating the venv, re-resolve with
--- `:PylspReload` (no nvim restart needed).
+-- no-op. Resolved when the first Python buffer opens, against the cwd: the
+-- probe spawns python, so sessions without Python pay nothing. Launch nvim
+-- from the project root, or after changing dir / creating the venv re-resolve
+-- with `:PylspReload` (no nvim restart needed).
 -- Interpreter path inside a virtualenv root differs by OS: POSIX venvs put it
 -- at `<root>/bin/python`, Windows venvs at `<root>\Scripts\python.exe`.
 local function venv_python(root)
@@ -144,7 +145,15 @@ local function start_pylsp()
 	return py
 end
 
-start_pylsp()
+-- vim.lsp.enable (and lspconfig's setup below 0.11) also attaches to buffers
+-- that are already open, so the buffer that triggers this gets the server.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	once = true,
+	callback = function()
+		start_pylsp()
+	end,
+})
 
 -- Re-resolve the interpreter and restart pylsp without restarting nvim — for
 -- switching venvs mid-session or creating the venv after nvim was opened. Pure
