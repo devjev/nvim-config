@@ -4,6 +4,11 @@
 -- will not work. For example treesitter needs a C/C++ compiler to install.
 vim.g.is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
+-- Leader key. lazy.nvim creates the key triggers from its `keys` specs during
+-- setup, so this must be set before lazysetup runs or those triggers expand
+-- <leader> to the default backslash.
+vim.g.mapleader = " "
+
 -- Neovim setup
 require("lazysetup")
 require("lspsetup")

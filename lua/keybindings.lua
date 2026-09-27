@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 local wk = require("which-key")
 local builtin = require("telescope.builtin")
 local iron_core = require("iron.core") -- REPL
