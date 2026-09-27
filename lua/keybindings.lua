@@ -1,6 +1,5 @@
 local wk = require("which-key")
 local builtin = require("telescope.builtin")
-local iron_core = require("iron.core") -- REPL
 
 -- !TAB
 wk.add({
@@ -77,53 +76,6 @@ wk.add({
 })
 
 
--- Debugging
-wk.add({
-	{ "<F1>", require("dapui").toggle, desc = "Show debugger UI" },
-	{
-		"<F2>",
-		function()
-			require("dapui").float_element("scopes")
-		end,
-		desc = "Show scopes",
-	},
-	{
-		"<F3>",
-		function()
-			require("dapui").float_element("watches")
-		end,
-		desc = "Show watches",
-	},
-	{
-		"<F4>",
-		function()
-			require("dapui").float_element("stacks")
-		end,
-		desc = "Show stacks",
-	},
-
-	{ "<F5>", require("dap").continue, desc = "Run debugger to breakpoint" },
-	{ "<F6>", require("dap").close, desc = "Stop debugger" },
-	{ "<F7>", require("dap").step_into, desc = "Step into" },
-	{ "<F8>", require("dap").step_over, desc = "Step over" },
-
-	{ "<F9>", require("dap").toggle_breakpoint, desc = "Toggle breakpoint" },
-	{
-		"<F10>",
-		function()
-			require("dapui").float_element("breakpoints")
-		end,
-		desc = "Show breakpoints",
-	},
-	{
-		"<F11>",
-		function()
-			require("dapui").float_element("repl")
-		end,
-		desc = "Show REPL",
-	},
-})
-
 -- LSP & Code Actions
 wk.add({
 	{ "<leader>q", group = "Quick actions...", icon = "🧨" },
@@ -133,58 +85,10 @@ wk.add({
 	{ "<leader>qF", builtin.quickfixhistory, desc = "Show quickfix history" },
 	{ "<leader>qW", builtin.diagnostics, desc = "What's wrong? (project)" },
 	{ "<leader>qw", vim.diagnostic.open_float, desc = "What's wrong? (cursor)" },
-
-	-- Duplicate debugger keys to non-function keys
+	-- The debugger (F-keys, <leader>qd*, ]d, ]D) and REPL (<leader>qr) bindings
+	-- are in lazysetup.lua, in the nvim-dap and iron specs, so those plugins
+	-- load on first use. The group is declared here for which-key.
 	{ "<leader>qd", group = "Debugger", icon = "🐞" },
-	{ "<leader>qdd", require("dap").continue, desc = "Run debugger to breakpoint" },
-	{ "<leader>qdv", require("dapui").toggle, desc = "Show debugger UI" },
-	{
-		"<leader>qds",
-		function()
-			require("dapui").float_element("scopes")
-		end,
-		desc = "Show scopes",
-	},
-	{
-		"<leader>qdw",
-		function()
-			require("dapui").float_element("watches")
-		end,
-		desc = "Show watches",
-	},
-	{
-		"<leader>qdS",
-		function()
-			require("dapui").float_element("stacks")
-		end,
-		desc = "Show stacks",
-	},
-	{ "<leader>qdr", "<CMD>DapToggleRepl<CR>", desc = "Show REPL" },
-
-	{ "<leader>qdD", require("dap").close, desc = "Stop debugger" },
-	{ "]D", require("dap").step_into, desc = "Step into" },
-	{ "]d", require("dap").step_over, desc = "Step over" },
-
-	{ "<leader>qdb", require("dap").toggle_breakpoint, desc = "Toggle breakpoint" },
-	{
-		"<leader>qdB",
-		function()
-			require("dapui").float_element("breakpoints")
-		end,
-		desc = "Show breakpoints",
-	},
-
-	-- REPL
-	{ "<leader>qr", "<CMD>IronRepl<CR>", desc = "Show REPL" },
-	{
-		"<leader>qr",
-		function()
-			iron_core.visual_send()
-			vim.cmd([[IronRepl]])
-		end,
-		desc = "Send to REPL",
-		mode = "v",
-	},
 })
 
 -- !GIT

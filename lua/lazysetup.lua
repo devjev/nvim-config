@@ -251,34 +251,67 @@ require("lazy").setup({
 	},
 
 	-- !DEBUGGER
+	-- Loaded on first use through the keys below; dap-python and dap-lldb load
+	-- with nvim-dap as its dependencies. Each row binds one action to a function
+	-- key and to a <leader>qd alternative (the group is declared in
+	-- keybindings.lua); ]d and ]D step without the leader.
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 			"nvim-neotest/nvim-nio",
+			{
+				"mfussenegger/nvim-dap-python",
+				config = function()
+					-- Assume a global installation
+					require("dap-python").setup("python")
+				end,
+			},
+			{
+				"julianolf/nvim-dap-lldb",
+				-- Assume codelldb is in path
+				opts = { codelldb_path = "codelldb" },
+			},
 		},
+		keys = (function()
+			local function dap(fn)
+				return function()
+					require("dap")[fn]()
+				end
+			end
+			local function float(element)
+				return function()
+					require("dapui").float_element(element)
+				end
+			end
+			local rows = {
+				{ "<F1>", "<leader>qdv", function() require("dapui").toggle() end, "Show debugger UI" },
+				{ "<F2>", "<leader>qds", float("scopes"), "Show scopes" },
+				{ "<F3>", "<leader>qdw", float("watches"), "Show watches" },
+				{ "<F4>", "<leader>qdS", float("stacks"), "Show stacks" },
+				{ "<F5>", "<leader>qdd", dap("continue"), "Run debugger to breakpoint" },
+				{ "<F6>", "<leader>qdD", dap("close"), "Stop debugger" },
+				{ "<F7>", "]D", dap("step_into"), "Step into" },
+				{ "<F8>", "]d", dap("step_over"), "Step over" },
+				{ "<F9>", "<leader>qdb", dap("toggle_breakpoint"), "Toggle breakpoint" },
+				{ "<F10>", "<leader>qdB", float("breakpoints"), "Show breakpoints" },
+				{ "<F11>", false, float("repl"), "Show REPL" },
+				{ "<leader>qdr", false, "<CMD>DapToggleRepl<CR>", "Show REPL" },
+			}
+			local keys = {}
+			for _, row in ipairs(rows) do
+				table.insert(keys, { row[1], row[3], desc = row[4] })
+				if row[2] then
+					table.insert(keys, { row[2], row[3], desc = row[4] })
+				end
+			end
+			return keys
+		end)(),
 		config = function()
-			local ui = require("dapui")
-			local vt = require("nvim-dap-virtual-text")
-			ui.setup()
-			vt.setup()
+			require("dapui").setup()
+			require("nvim-dap-virtual-text").setup()
 		end,
-	},
-
-	{
-		"mfussenegger/nvim-dap-python",
-		config = function()
-			-- Assume a global installation
-			require("dap-python").setup("python")
-		end,
-	},
-
-	{
-		"julianolf/nvim-dap-lldb",
-		dependencies = { "mfussenegger/nvim-dap" },
-		-- Assume codelldb is in path
-		opts = { codelldb_path = "codelldb" },
 	},
 
 	-- !TREE SITTER
@@ -539,7 +572,19 @@ require("lazy").setup({
 	-- !REPL
 	{
 		"Vigemus/iron.nvim",
-		event = "VeryLazy",
+		cmd = { "IronRepl", "IronReplHere", "IronRestart", "IronSend", "IronFocus", "IronHide" },
+		keys = {
+			{ "<leader>qr", "<CMD>IronRepl<CR>", desc = "Show REPL" },
+			{
+				"<leader>qr",
+				function()
+					require("iron.core").visual_send()
+					vim.cmd("IronRepl")
+				end,
+				desc = "Send to REPL",
+				mode = "v",
+			},
+		},
 		opts = function()
 			local view = require("iron.view")
 
@@ -587,7 +632,8 @@ require("lazy").setup({
 	-- Which Key - shortcut lookup
 	{
 		"folke/which-key.nvim",
-		event = "VeryLazy",
+		-- keybindings.lua requires it at startup, so it is not lazy.
+		lazy = false,
 		opts = {},
 		keys = {
 			{
